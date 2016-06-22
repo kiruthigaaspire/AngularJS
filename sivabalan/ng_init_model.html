@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<script src="node_modules/angular/angular.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="node_modules/bootstrap/dist/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+<body>
+<div ng-app="myApp" ng-controller="myCtrl">
+<header class="navbar navbar-static-top bs-docs-nav" id="top" role="banner"></header>
+  <div class="container">
+      <div class="row">
+        <div class="input-group input-group-lg">
+          <span class="input-group-addon" id="sizing-addon1">Width</span>
+          <input type="number" ng-model="width"  class="form-control" placeholder="Width" aria-describedby="sizing-addon1">
+        </div>
+        <div><br></div>
+        <div class="input-group input-group-lg">
+          <span class="input-group-addon" id="sizing-addon2">Height</span>
+          <input type="number" ng-model="height" class="form-control" placeholder="Height" aria-describedby="sizing-addon2">
+        </div>
+        <div><br></div>
+        <div style="width:{{width}}px;height:{{height}}px;border:1px solid #000;">
+          test content
+        </div>
+      </div>
+  </div>
+</div>
+
+<script>
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope) {
+    $scope.width= 200;
+    $scope.height= 500;
+});
+</script>
+
+</body>
+</html>
