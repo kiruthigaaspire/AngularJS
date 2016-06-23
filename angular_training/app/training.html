@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Training</title>
+    <script src="bower_components/angular/angular.js"></script>
+  </head>
+  <body ng-app="myApp">
+  
+  
+	<h3>Data binding</h3>
+	<div ng-controller="myCtrl1">
+		Name: <input ng-model="firstname">
+		<br/>
+		<label>The name is {{firstname}}</label>
+		<br/>
+		Using bind - <span ng-bind="firstname"></span>
+	</div>
+	
+	
+	<h3>Price</h3>
+	<div ng-init="quantity=1;price=5">
+		Quantity: <input type="number"	ng-model="quantity">
+		Costs:    <input type="number" ng-model="price">
+
+		Total cost: {{ quantity * price }}
+	</div>
+	
+	<h3>Repeat html elements</h3>
+	<div ng-controller="myCtrl1">
+	  <ul>
+		<li ng-repeat="x in fruits">
+		  {{ x }}
+		</li>
+	  </ul>
+	</div>
+	
+	<script>
+	var app = angular.module('myApp', []);
+	app.controller('myCtrl1', function($scope) {
+		$scope.firstname = "John";
+		$scope.fruits=['Apple','Mango','Orange'];
+		
+	});
+	
+	</script>
+  </body>
+</html>
+
+
+
+
