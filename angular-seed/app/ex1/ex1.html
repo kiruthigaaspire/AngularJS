@@ -1,0 +1,26 @@
+<p>Exercise - 1.1 - Two way data binding</p>
+<div>Enter the width: <input type="text" ng-init="width=100" ng-model="width"></div>
+<div>Enter the height: <input type="text" ng-init="height=100" ng-model="height"></div>
+<div style="padding: 5px;">
+  <table  style="background-color: #1c94c4;width:{{width}}px;height:{{height}}px;border: 1px solid;">
+    <tr>
+      <td>Width</td>
+      <td>{{width}}</td>
+    </tr>
+    <tr>
+      <td>Height</td>
+      <td>{{height}}</td>
+    </tr>
+  </table>
+</div>
+<p>Exercise - 1.2 - ng-repeat directive</p>
+<label>Search Name: <input ng-model="searchName"></label>
+<div ng-init="trainees=[{name:'Anish'}, {name:'Arun'}, {name:'Elango'}, {name:'Gopi'}, {name:'Karthi'},
+          {name:'Kiruthiga'}, {name:'Sivabalan'}, {name:'Thenarasi'}]" ng-model="trainees">
+</div>
+<div ng-repeat="trainee in trainees | filter:searchName">
+  <ul>
+    <li>{{trainee.name }}</li>
+  </ul>
+</div>
+
