@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>AngularJS - Exercises2</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.min.js"></script>
+</head>
+<body>
+	<div ng-app class="main_content" ng-init="names=[{language:'PHP',members:50},{language:'Mobility',members:20},{language:'Ruby',members:10}]">
+        <ul>
+            <li ng-repeat="myObject in names">{{myObject.language}} - {{myObject.members}}</li>
+        </ul>
+    </div>
+
+</body>
+</html>
