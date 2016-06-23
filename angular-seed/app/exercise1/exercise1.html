@@ -1,0 +1,22 @@
+<p>Exercise - 1- Two way Binding</p>
+<div>Enter the width: <input type="text" ng-init="width=100" ng-model="width"></div>
+<div>Enter the height: <input type="text" ng-init="height=100" ng-model="height"></div>
+<div>
+<table style="width:{{width}}%; heigth:{{height}}%; border:1px solid;">
+<tr>
+<td><h1>Height : {{height}}</h1></td>
+</tr>
+<tr>
+<td><h1>width : {{width}}</h1></td>
+</tr>
+</table>
+</div>
+<p>Exercise -2 - ng model & directive directive</p>
+<div>Search Error Code: <input ng-model="searchCode"></div>
+<div ng-init="errorCodes=[{code:'101'}, {code:'102'},{code:'103'},{code:'104'},{code:'105'}]" ng-model="errorCodes">
+</div>
+<div ng-repeat="error in errorCodes | filter:searchCode">
+  <ul>
+    <li>{{error .code }}</li>
+  </ul>
+</div>
