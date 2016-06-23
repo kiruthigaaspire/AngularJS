@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>AngularJS - Exercises3</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.min.js"></script>
+</head>
+<body>
+	<div ng-app="designApp" class="main_content" ng-controller="DesignController">
+		<div class="heading_section">
+			<h1> AngularJS - Controller Samples</h1>
+		</div>
+		<div class="input_section">
+			<div> <h3>ng-repeat example with controller - scope</h3>
+			<ul>
+            	<li ng-repeat="myObject in names">{{myObject.language}} - {{myObject.members}}</li>
+        	</ul>
+        	</div>
+        	<div> <h3>ng-model example with controller - scope</h3>
+			Width: <input type="text" ng-model="width" /> 
+			Height: <input type="text" ng-model="height" /> </div>
+		</div>
+		<div class="output_section">
+			<div style="width:{{ width }}px; height:{{ height }}px; border: 1px solid black;">
+				<span>This box will adjust to given width and height</span>
+			</div> 
+		</div>
+	</div>
+</body>
+<script>
+
+var myApp = angular.module('designApp',[]);
+
+myApp.controller('DesignController', ['$scope', function($scope) {
+  $scope.width = 123;
+  $scope.height = 112;
+  $scope.names = [
+             {language:'PHP',members:50},
+             {language:'Mobility',members:20},
+             {language:'Ruby',members:10}
+          ];
+}]);
+
+</script>
+</html>
+

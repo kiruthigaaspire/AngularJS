@@ -7,6 +7,9 @@
 </head>
 <body>
 	<div ng-app class="main_content" ng-init="names=[{language:'PHP',members:50},{language:'Mobility',members:20},{language:'Ruby',members:10}]">
+		<div class="heading_section">
+			<h2> AngularJS - Directives example2 </h2>
+		</div>
         <ul>
             <li ng-repeat="myObject in names">{{myObject.language}} - {{myObject.members}}</li>
         </ul>
