@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Excersise 1</title>
+    <script src="bower_components/angular/angular.js"></script>
+  </head>
+  <body ng-app="myApp">
+  
+  
+	<h3>Display category and subcategory of books using ng-repeat</h3>
+
+	<div ng-controller="myCtrl1">
+
+		
+		<div ng-repeat="category in model.categories"> <span> Category: {{ category.name }} </span>
+
+			<p ng-repeat="subCategory in getSubCategories(category.Id)">{{ subCategory.name }}</p>
+		</div>
+
+
+	</div>
+	
+	<script>
+	var app = angular.module('myApp', []);
+	app.controller('myCtrl1', function($scope) {
+		$scope.model = {
+        categories: [{
+            "Id": 1,
+            name: 'Cat 1'
+        }, {
+            "Id": 2,
+            name: 'Cat 2'
+        }],
+        subCategories: [{
+            "parentId": 1,
+            name: 'aubcat 1'
+        }, {
+            "parentId": 1,
+            name: 'subcat 2'
+        },
+                       {
+            "parentId": 2,
+            name: 'subcat 3'
+        }]
+    }
+    $scope.getSubCategories = function(parentId){
+        var result = [];
+        for(var i = 0 ; i < $scope.model.subCategories.length ; i++){
+            if(parentId === $scope.model.subCategories[i].parentId){
+                result.push($scope.model.subCategories[i]);               
+            }
+        }
+        console.log(parentId)
+        return result;
+    }
+	});
+	
+	</script>
+  </body>
+</html>
+
+
+
+
