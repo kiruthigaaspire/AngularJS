@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>AngularJS - Exercises3</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.29/angular.min.js"></script>
+<script src="app.js"></script>
+</head>
+<body>
+	<div ng-app="formApp" class="main_content" ng-controller="FormController">
+		<div class="heading_section">
+			<h1> AngularJS - Form Samples</h1>
+		</div>
+		<div class="input_section">
+			<form ng-submit="update()">
+    				Name: <input type="text" ng-model="user.name" required/><br />
+    				E-mail: <input type="text" ng-model="user.email" email/><br />
+    				Gender: <input type="radio" ng-model="user.gender" value="male" />male
+    					<input type="radio" ng-model="user.gender" value="female" />female<br />
+				Interest: <select ng-model="user.interest" ng-options="option.name for option in interestOptions track by option.id"></select>
+    				<input type="submit" value="Save" />
+  			</form>
+		</div>
+		<div class="output_section">
+  			<pre>user = {{data | json}}</pre>
+		</div>
+	</div>
+</body>
+</html>
+
