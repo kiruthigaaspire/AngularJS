@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Excersise 2</title>
+    <script src="bower_components/angular/angular.js"></script>
+  </head>
+  <body ng-app="myApp">
+  
+  
+	<h3>Input the width and height based on value create box  </h3>
+
+	<div ng-controller="myCtrl1">
+
+		Enter width: <input type="text" ng-model=mywidth></input><br/>
+		Enter height: <input type="text" ng-model=myheight></input><br/>
+		
+		<div style="border: 1px solid red;" ng-style="{width: mywidth + 'px', height: myheight + 'px' }"></div>
+         
+    </div>
+
+	<script>
+	var app = angular.module('myApp', []);
+	app.controller('myCtrl1', function($scope) {
+		$scope.mywidth = 10;
+		$scope.myheight = 10;
+	});
+	
+	</script>
+  </body>
+</html>
+
+
+
+
