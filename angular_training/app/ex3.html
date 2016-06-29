@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Excersise 3</title>
+    <script src="bower_components/angular/angular.js"></script>
+  </head>
+  <body ng-app="myApp">
+  
+  
+	<h3>Create two new text box and apply watch an display the count of character</h3>
+
+	<div ng-controller="myCtrl1">
+
+		Enter text: <input type="text" ng-model=mystring></input><br/>
+		Count of characters: <input type="text" ng-model=charcount></input><br/>
+		
+    </div>
+
+	<script>
+	var app = angular.module('myApp', []);
+	app.controller('myCtrl1', function($scope) {
+		$scope.mystring = "";
+		$scope.charcount = 0;
+		$scope.$watch('mystring', function(newValue) {
+			$scope.charcount = newValue.length;
+		});
+	});
+	
+	</script>
+  </body>
+</html>
+
+
+
+
