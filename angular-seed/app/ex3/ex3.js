@@ -8,11 +8,10 @@ angular.module('myApp.ex3', ['ngRoute'])
     controller: 'Ex3Ctrl'
   });
 }])
-.directive("directiveTest", function() {
+.directive("classDirectiveTest", function() {
     return {
-        restrict : "M",
-        replace  : true,
-        template : "<h1>My directive!</h1>"
+        restrict : "C",
+        template : "<h1>My class directive!</h1>"
     };
 })
 .controller('Ex3Ctrl', function() {    

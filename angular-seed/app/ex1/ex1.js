@@ -8,7 +8,6 @@ angular.module('myApp.ex1', ['ngRoute'])
     controller: 'Ex1Ctrl'
   });
 }])
-
 .controller('Ex1Ctrl', [function() {
 
 }]);
