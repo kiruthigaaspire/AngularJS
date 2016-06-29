@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<script src="node_modules/angular/angular.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="node_modules/bootstrap/dist/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+<body>
+<div ng-app="myApp" ng-controller="myCtrl">
+<header class="navbar navbar-static-top bs-docs-nav" id="top" role="banner"></header>
+  <div class="container">
+      <div class="row">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">List of Categories</h3>
+          </div>
+          <div class="panel-body">
+            <ul class="list-group">
+              <category-list ng-repeat="index in category" category-data="index" >
+                {{index.name}} ({{index.code}})
+              </category-list>
+            </ul>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+
+<script>
+angular.module('myApp', [])
+    .controller('myCtrl', ['$scope', function($scope) {
+        $scope.category = [
+            {name: 'PHP', code: "php"},
+            {name: 'Ruby on Rails', code: "ror"},
+            {name: 'ReactJs', code: "react"},
+            {name: 'AngularJs', code: "angular"}
+        ];
+    }])
+    .directive('categoryList', function() {
+        return {
+            restrict: 'E',
+            replace: true,
+            //transclude: true,
+            scope: { category: '=categoryData' }, //isolated scope
+            template: '<li class="list-group-item">{{category.name}} ({{category.code}})</li>'
+    };
+});
+</script>
+
+</body>
+</html>
