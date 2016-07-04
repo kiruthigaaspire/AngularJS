@@ -3,7 +3,7 @@
 <head>
 <title>AngularJS - Exercises4</title>
 <script
-	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.min.js"></script>
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.29/angular.min.js"></script>
 </head>
 <body>
 	<div ng-app="scopeApp" class="main_content">
@@ -12,8 +12,8 @@
 		</div>
 		<div class="Content_section" ng-controller="scopeController">
 			<textarea ng-model="name" rows="3" cols="30"></textarea>
-            <p>(Watching text area)Counter 1 : {{counter}}</p>
-            <p>(Watching counter)Counter 2 : {{counter1}}</p>
+            <p>(Watching text area content length)Counter 1 : {{counter.length}}</p>
+            <p>(Watching changes in text area)Counter 2 : {{counter1}}</p>
             <input type="hidden" ng-model="counter1"/>
             <p ng-if="counter1 >= 6">{{message}}</p>
 		</div>
@@ -23,13 +23,11 @@
 <script>
     var myapp = angular.module("scopeApp", []);
     var myController = myapp.controller("scopeController", function ($scope) {
-        $scope.name = 'Number of changes to this text will reflect on the counter';
+        $scope.name = 'T';
         $scope.counter = $scope.counter1 = 0;
         $scope.message = 'Counter 1 and 2 reached the maximum';
         $scope.$watch('name', function (newValue, oldValue) {
-            $scope.counter = $scope.counter + 1;
-        });
-        $scope.$watch('counter', function (newValue, oldValue) {
+            $scope.counter = newValue;
             $scope.counter1 = $scope.counter1 + 1;
         });
     });

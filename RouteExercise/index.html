@@ -1,0 +1,35 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>AngularJS - Exercises5</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.29/angular.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.29/angular-route.min.js"></script>
+<script src="app.js"></script>
+</head>
+<body>
+	<div ng-app="mainApp" class="main_content">
+		<div class="heading_section">
+			<h1>AngularJS - Applying partials to previous exercises</h1>
+		</div>
+		<div class="input_section">
+			<ul>
+				<li><a href="#home">Home</a></li>
+				<li><a href="#twoWayBindingSample">Two way binding</a></li>
+				<li><a href="#ngControllerSamples"> Controllers and its scope</a></li>
+				<li><a href="#ngRepeatSamples"> ng-repeat directive</a></li>
+				<li><a href="#scopeSamples"> Scope - watch </a></li>
+			</ul>
+		</div>
+		<div id="content_section">
+			<div ng-view></div>
+		</div>
+		<div ng-controller="directiveController">
+			<!-- directive: copy-right -->
+		</div>
+	</div>
+</body>
+<script src="app.js"></script>
+</html>

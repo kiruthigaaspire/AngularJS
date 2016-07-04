@@ -1,0 +1,16 @@
+
+<div class="heading_section">
+	<h2>List categories and subcategories of books using
+		ng-repeat</h2>
+</div>
+<div class="input_section">
+	<ul>
+		<li ng-repeat="bookCategories in bookNames">{{
+			bookCategories.Category }}
+			<ul>
+				<li ng-repeat="books in bookCategories.books">{{books.name}} -
+					{{books.author}}</li>
+			</ul>
+		</li>
+	</ul>
+</div>

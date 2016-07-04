@@ -3,17 +3,65 @@
 <head>
 <title>AngularJS - Exercises2</title>
 <script
-	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.min.js"></script>
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.js"></script>
 </head>
-<body>
-	<div ng-app class="main_content" ng-init="names=[{language:'PHP',members:50},{language:'Mobility',members:20},{language:'Ruby',members:10}]">
+<body ng-app="scopeApp">
+	<div class="main_content" ng-controller="scopeController">
 		<div class="heading_section">
-			<h2> AngularJS - Directives example2 </h2>
+			<h2>AngularJS - Directives example2</h2>
 		</div>
-        <ul>
-            <li ng-repeat="myObject in names">{{myObject.language}} - {{myObject.members}}</li>
-        </ul>
-    </div>
+		<ul>
+			<li ng-repeat="bookCategories in bookNames">{{
+				bookCategories.Category }}
+				<ul>
+					<li ng-repeat="books in bookCategories.books">{{books.name}} -
+						{{books.author}}</li>
+				</ul>
+			</li>
+		</ul>
+	</div>
 
 </body>
+<script>
+    var myapp = angular.module("scopeApp", []);
+    var myController = myapp.controller("scopeController", function ($scope) {
+        $scope.bookNames  = [
+		{
+			"Category":"Fiction",
+			"books" : [
+				{
+					"name":"Harry Potter and the Order of the Phoenix (Harry Potter, #5)",
+					"author":"J.K. Rowling"
+				},
+				{
+					"name":"The Hunger Games (The Hunger Games, #1)",
+					"author":"Suzanne Collins"
+				}
+			]
+		},
+		{
+			"Category":"Autobiography",
+			"books" : [
+				{
+					"name":"Autobiography",
+					"author":"Jawaharlal Nehru"
+				}
+			]
+		},
+		{
+			"Category":"Others",
+			"books" : [
+				{
+					"name":"A Passage to India",
+					"author":"E. M. Foster"
+				},
+				{
+					"name":"A week with Gandhi",
+					"author":"L. Fischer"
+				}
+			]
+		}
+	];
+    });
+</script>
 </html>

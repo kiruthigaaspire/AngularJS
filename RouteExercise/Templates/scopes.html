@@ -1,0 +1,13 @@
+
+<div class="heading_section">
+	<h2>Watch the text box to display the count of
+		character</h2>
+</div>
+<div class="content_section" ng-controller="scopeController">
+	<textarea ng-model="name" rows="3" cols="30"></textarea>
+	<p>(Watching text area content length)Counter 1 :
+		{{counter.length}}</p>
+	<p>(Watching changes in text area)Counter 2 : {{counter1}}</p>
+	<input type="hidden" ng-model="counter1" />
+	<p ng-if="counter1 >= 6">{{message}}</p>
+</div>
