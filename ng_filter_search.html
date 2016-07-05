@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<script src="node_modules/angular/angular.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="node_modules/bootstrap/dist/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+<body>
+<div ng-app="myApp" ng-controller="myCtrl">
+<header class="navbar navbar-static-top bs-docs-nav" id="top" role="banner"></header>
+  <div class="container">
+      <div class="row col-xs-12 col-sm-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Book Details</h3>
+          </div>
+          <div class="panel-body">
+          
+            <form name="myForm" novalidate>
+
+            <p>Name:<br>
+              <input type="text" name="name" ng-model="formValue.name" required>
+              <span style="color:red" ng-show="myForm.name.$dirty && myForm.name.$invalid">
+              <span ng-show="myForm.name.$error.required">Name is required.</span>
+              </span>
+            </p>
+
+            <p>Author:<br>
+              <input type="text" name="author" ng-model="formValue.author" required>
+              <span style="color:red" ng-show="myForm.author.$dirty && myForm.author.$invalid">
+              <span ng-show="myForm.author.$error.required">Author is required.</span>
+              </span>
+            </p>
+            
+            <p>Roll Number:<br>
+              <input type="number" name="roll" ng-model="formValue.roll" required>
+              <span style="color:red" ng-show="myForm.roll.$dirty && myForm.roll.$invalid">
+              <span ng-show="myForm.roll.$error.required">Roll number is required.</span>
+              <span ng-show="myForm.roll.$error.number">Invalid roll number.</span>
+              </span>
+            </p>
+
+            <p>Quantity:<br>
+              <input type="number" name="qty" ng-model="formValue.qty" required>
+              <span style="color:red" ng-show="myForm.qty.$dirty && myForm.qty.$invalid">
+              <span ng-show="myForm.qty.$error.required">Quantity is required.</span>
+              <span ng-show="myForm.qty.$error.number">Invalid quantity number.</span>
+              </span>
+            </p>
+            
+            <p>Status:<br>
+               <input type="radio" ng-model="formValue.status" value="available"> Available
+               <input type="radio" ng-model="formValue.status" value="not_available"> Not Available
+            </p>            
+            
+            <p>
+              <input value="Submit" type="button" ng-click="save();" ng-disabled="myForm.name.$dirty && myForm.name.$invalid || myForm.author.$dirty && myForm.author.$invalid || myForm.roll.$dirty && myForm.roll.$invalid || myForm.qty.$dirty && myForm.qty.$invalid">
+            </p>
+            
+            </form>
+
+          </div>
+        </div>
+      </div>
+      <div class="row col-xs-12 col-sm-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Books</h3>
+          </div>
+          <div class="panel-body">
+            <div class="input-group input-group-sm">
+                <span class="input-group-addon" id="sizing-addon1">Filter by name</span>
+                <input type="text" class="form-control" ng-model="search_by_name" placeholder="Book Name" aria-describedby="sizing-addon1">
+            </div>
+            <div class="col-xs-12 col-sm-12">
+                <div class="input-group input-group-sm" ng-show="checked">
+                    <span class="input-group-addon" id="sizing-addon1">Filter by Author</span>
+                    <select class="form-control" ng-model="search_by_author" ng-model="ddl.selected" ng-options="book.author as book.author group by book.author for book in books"></select>
+                </div>
+            </div>
+            <div>Advanced Filter : <input type="checkbox" ng-model="checked"></div>
+            <table class="table">
+                <thead>
+                    <th>Name</th>
+                    <th>Author</th>
+                    <th>Roll Number</th>
+                    <th>Quantity</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="book in books | filter:search_by_name | filter:search_by_author:true">
+                        <td>{{book.name}}</td>
+                        <td>{{book.author}}</td>
+                        <td>{{book.roll}}</td>
+                        <td>{{book.qty}}</td>
+                        <td>{{book.status}}</td>
+                        <td>
+                        <a href="#" ng-click="edit(book);">
+                            <span class="glyphicon glyphicon-edit"></span>
+                        </a>
+                        <a href="#" ng-click="delete(book);">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+
+<script>
+var app = angular.module("myApp", []);
+app.factory('bookService', [function () {
+    return {
+        edit: function(scope, item) {
+            scope.formValue = item;
+        },
+        save: function(scope){
+            if(scope.index){
+                scope.books[scope.index] = scope.formValue;
+                scope.formValue = scope.defaultArray;
+            } else {
+                scope.books.push(scope.formValue);
+                scope.formValue = scope.defaultArray;
+            }
+        },
+        delete: function(scope, item){
+            scope.books.splice(scope.books.indexOf(item),1);
+        }
+    };
+}]);
+app.controller('myCtrl', ['$scope','bookService', function ($scope, bookService) {
+  $scope.index = "";
+  $scope.edit = function (item) {
+    bookService.edit($scope, item);
+  };
+  $scope.save = function () {
+    bookService.save($scope);
+  };
+  $scope.delete = function (item) {
+    if(confirm("Are you sure want to delete this record?")){
+        bookService.delete($scope, item);
+    }
+  };
+  $scope.advancedFilter = function () {
+    
+  };
+  $scope.defaultArray = {
+    name:"", author:"", roll:"", qty:"", status:"available"
+  };
+  $scope.formValue = {
+    name:"", author:"", roll:"", qty:"", status:"available"
+  };
+  $scope.books = [
+    {name:"PHP", author:"Author", roll:12312, qty:5, status:"available"},
+    {name:"Ruby", author:"Author1", roll:3456, qty:15, status:"not_available"},
+    {name:"MySql", author:"Author", roll:5678, qty:12, status:"available"},
+    {name:"Rails", author:"Author2", roll:78901, qty:90, status:"not_available"},
+    {name:"Angular", author:"Author", roll:2342, qty:78, status:"available"}
+  ];  
+}]);
+</script>
+</body>
+</html>

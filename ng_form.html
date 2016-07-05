@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<script src="node_modules/angular/angular.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="node_modules/bootstrap/dist/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+<body>
+<div ng-app="myApp" ng-controller="myCtrl">
+<header class="navbar navbar-static-top bs-docs-nav" id="top" role="banner"></header>
+  <div class="container">
+      <div class="row">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Form Details</h3>
+          </div>
+          <div class="panel-body">
+          
+            <form name="myForm" novalidate>
+
+            <p>Username:<br>
+              <input type="text" name="user" ng-model="user" required>
+              <span style="color:red" ng-show="myForm.user.$dirty && myForm.user.$invalid">
+              <span ng-show="myForm.user.$error.required">Username is required.</span>
+              </span>
+            </p>
+
+            <p>Email:<br>
+              <input type="email" name="email" ng-model="email" required>
+              <span style="color:red" ng-show="myForm.email.$dirty && myForm.email.$invalid">
+              <span ng-show="myForm.email.$error.required">Email is required.</span>
+              <span ng-show="myForm.email.$error.email">Invalid email address.</span>
+              </span>
+            </p>
+            
+            <p>Mobile:<br>
+              <input type="number" name="mobile" ng-model="mobile" required>
+              <span style="color:red" ng-show="myForm.mobile.$dirty && myForm.mobile.$invalid">
+              <span ng-show="myForm.mobile.$error.required">Mobile number is required.</span>
+              <span ng-show="myForm.mobile.$error.number">Invalid mobile number.</span>
+              </span>
+            </p>
+
+            <p>
+              <input type="submit" ng-disabled="myForm.user.$dirty && myForm.user.$invalid || myForm.email.$dirty && myForm.email.$invalid || myForm.mobile.$dirty && myForm.mobile.$invalid">
+            </p>
+            
+            </form>
+
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+
+<script>
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope) {
+    $scope.user = 'Siva';
+    $scope.email = 'test@gmail.com';
+});
+</script>
+
+</body>
+</html>
