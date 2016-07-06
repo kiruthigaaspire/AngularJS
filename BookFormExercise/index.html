@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>AngularJS - Exercises3</title>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.29/angular.js"></script>
+<script src="app.js"></script>
+</head>
+<body>
+    <div ng-app="bookApp" class="main_content" ng-controller="bookController">
+        <div class="heading_section">
+            <h1>AngularJS - Form Samples</h1>
+        </div>
+        <div class="input_section">
+            <form novalidate ng-submit="create(bookForm)" name="bookForm">
+                Book Name: 
+                    <input type="text" ng-model="book.book_name" name="book_name" required />
+                
+                    <span ng-show="submitted && bookForm.book_name.$error.required">Book Name is required</span>
+                    
+                    <br/>
+                    
+                Author Name : 
+                    <input type="text" ng-model="book.author_name" name="author_name" required/>
+                    
+                    <span ng-show="submitted && bookForm.author_name.$error.required">Author Name is required</span>
+                    
+                    <br/>
+                
+                Roll number : 
+                    <input type="number" min="1" ng-model="book.roll_no" name="roll_no"/>
+                
+                    <span ng-show="submitted && bookForm.roll_no.$error.number">Roll number is invalid</span>
+                    
+                    <br/>
+                Status : 
+                    <input type="radio" name="status" ng-model="book.status" value="unavailable"/>Not Available
+                    
+                    <input type="radio" name="status" ng-model="book.status" value="available" />Available
+                    
+                    <br />
+                Quantity: 
+                    <input type="number" name="quantity" ng-model="book.quantity" min="0" max="120" step="1" value="0"/>
+                
+                    <span ng-show="submitted && bookForm.quantity.$error.number">Quantity is invalid</span>
+                    
+                    <br/>
+                    
+                    
+                <input type="submit" ng-click="submitted=true" value="Save" />
+            </form>
+        </div>
+        <div class="output_section">
+            <pre>user = {{data}}</pre>
+        </div>
+    </div>
+</body>
+</html>
+
