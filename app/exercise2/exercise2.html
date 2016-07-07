@@ -1,0 +1,21 @@
+<h3>Exercise Topics</h3>
+<ol ng-init="topics = [
+						'Input the width and height based on value create box',
+						'Create two new text box and apply watch an display the count of character',
+						'Create two new pages on previous exercise and apply partials(Naviagate between exercises)'
+						]">
+	<li ng-repeat="topic in topics">{{topic}}</li>
+</ol>
+<hr>
+<p>Height: <input type="text" ng-model="boxHeight"></p>
+<p>Width: <input type="text" ng-model="boxWidth"></p>
+
+<div>
+	<p>Box Height: {{boxHeight}}px</p>
+	<p>Box Width: {{boxWidth}}px</p>	
+</div>
+
+<div ng-style="{'height':boxHeight+'px', 'width': boxWidth+'px', 'background-color':'red'}"></div>
+<div>
+	<p>Length Box Height: {{result}}</p>
+</div>

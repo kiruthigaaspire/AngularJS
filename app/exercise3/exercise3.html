@@ -1,0 +1,55 @@
+<h3>Exercise Topics</h3>
+<ol ng-init="topics = [
+						'Create custom directive to display copyright information of page',
+						'Create book form in which user can add book name,author name,roll number,quantity,status(Avalilable,Not Available) default selected as available', 
+						'Define own html custom tag and create custom directive to handle the those tags'
+						]">
+	<li ng-repeat="topic in topics">{{topic}}</li>
+</ol>
+<hr>
+<style type="text/css">
+	label{
+		float: left;
+		width: 120px;
+		font-weight: bold;
+	}
+	input[type=text], input[type=number]{
+		width: 180px;
+		margin-bottom: 5px;
+	}
+	input[type=submit]{
+		margin-left: 120px;
+		margin-top: 5px;
+		width: 90px;
+	}	
+</style>
+<div>
+  <form>
+    <div>
+      <label>Title </label>
+      <input type="text" ng-model="book.title" value="{{book.title}}" required />
+    </div>
+    <div>
+      <label>Author</label>
+      <input type="text" ng-model="book.author" value="{{book.author}}" required/>
+    </div>
+    <div>
+      <label>Roll No</label>
+      <input type="text" pattern="\d*" ng-model="book.rollNumber" value="{{book.rollNumber}}" required/>
+    </div>
+    <div>
+      <label>Quantity</label>
+      <input type="number" ng-model="book.quantity" value="{{book.quantity}}" required />
+    </div>    
+    <div ng-init="book.status=1">
+      <label for="terms">Status</label>
+      <input type="radio" ng-model="book.status" value="1" />Available
+      <input type="radio" ng-model="book.status" value="0" />Not Available
+    </div>
+    <div>
+      <input type="submit" ng-click="" value="Submit" />
+    </div>
+  </form>
+</div>
+<hr>
+<copy-rights></copy-rights>
