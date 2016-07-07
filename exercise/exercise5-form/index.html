@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Exercise5 - Single form</title>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+  <script type="text/javascript" src="app.js"></script>
+</head>
+<body ng-app="formExample">
+  <div ng-controller="formController">
+  <form name="bookForm">
+    Book Name: <input name="bookName" type="text" ng-model="book.name" ng-minlength="3" ng-maxlength="8" required /><br /><p ng-show="bookForm.bookName.$error.minlength">book Name is too short.</p>
+    Author Name: <input name="authorName" type="text" ng-model="book.author" /><br />
+    Quantity : <input type="text" ng-model="book.quantity" /><br />
+    Status: <input name="status" type="radio" ng-model="book.status" value="1" checked="checked" />Available
+    <input name="status" type="radio" ng-model="book.status" value="0" />Not Available<br />
+    <input type="submit" ng-click="update(book)" value="Save" />
+  </form>
+  <pre>books = {{book | json}}</pre>
+  <pre>Save Book = {{master | json}}</pre>
+</div>
+</body>
+</html>

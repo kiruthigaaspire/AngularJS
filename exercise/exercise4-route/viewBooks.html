@@ -1,0 +1,12 @@
+<div class="container">
+    <h2> View and Search for Books </h2>
+    Search:
+    <br/>
+        <input type="text" ng-model="name" />
+    <br/>
+    <ul>
+        <li ng-repeat="book in books | filter:name">{{book.name}} , by: {{book.author}}</li>
+    </ul>
+ 
+    <a href="#/home"> Back</a>
+</div>

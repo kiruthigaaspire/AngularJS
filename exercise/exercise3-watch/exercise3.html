@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>AngularJS - Exercise3 - watch</title>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+</head>
+<body>
+	<div ng-app="scopeApp">
+		<div ng-controller="scopeController">
+			User: <input type="text" ng-model="user" name="userName"><br></br>
+			Password: <input type="password" ng-model="pass" name="password">
+            <p>{{userMessage}}</p>
+			<p>{{passMessage}}</p>
+		</div>
+    </div>
+
+</body>
+<script>
+    var myapp = angular.module("scopeApp", []);
+    var myController = myapp.controller("scopeController", function ($scope) {
+		$scope.$watch('user', function(newUser){
+			if(newUser.length === 10){
+					$scope.userMessage = 'UserName reached its maximum characters.';
+			}
+		});
+		
+		$scope.$watch('pass', function(newValue){
+			if(newValue.length === 8){
+					$scope.passMessage = 'Password reached its maximum characters';
+			}
+		});
+    });
+	
+</script>
+</html>

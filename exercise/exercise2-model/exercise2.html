@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>AngularJS - Exercise 2 - ( ng-model ) - Height / Width  </title>
+ <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+ </head>
+<body
+<div ng-app="modelApp" ng-controller='ModelCtrl'>
+<p>Exercise - 2- Two way Binding</p>
+<div>Enter the width: <input type="text" ng-init="width=100" ng-model="width"></div>
+<div>Enter the height: <input type="text" ng-init="height=100" ng-model="height"></div>
+<div style="padding: 10px;">
+<table style="background-color: #1c9499; width:{{width}}px; heigth:{{height}}px; border:1px solid;">
+<tr>
+<td><h1>Height : {{height}}</h1></td>
+</tr>
+<tr>
+<td><h1>width : {{width}}</h1></td>
+</tr>
+</table>
+</div>
+</div>
+</body>
+<script>
+var modelapp = angular.module('modelApp', []);
+modelapp.controller('ModelCtrl', function () {
+});
+</script>
+
+</html>
+

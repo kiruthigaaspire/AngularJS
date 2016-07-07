@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>AngularJS - Exercise 1 - ng-repeat ( Book with cateqory / sub-categories )</title>
+ <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+ </head>
+<body>
+
+<div ng-app="bookApp" ng-controller='BookCtrl'>
+    <script type="text/ng-template" id="categoryTree">
+        {{ category.title }}
+        <ul ng-if="category.bookCategory">
+            <li ng-repeat="category in category.bookCategory" ng-include="'categoryTree'">           
+            </li>
+        </ul>
+    </script>
+    <ul>
+        <li ng-repeat="category in bookCategory" ng-include="'categoryTree'"></li>
+    </ul>    
+</div>
+</body>
+<script>
+var bookapp = angular.module('bookApp', []);
+bookapp.controller('BookCtrl', function ($scope) {
+$scope.bookCategory = [
+  { 
+    title: 'Books',
+    bookCategory: [
+      {
+        title: 'Computers',
+        bookCategory: [
+          {
+            title: 'Computer Basics and C Programming',
+          },
+          {
+            title: 'Computer Fundamentals & Programming in C'  
+          }
+        ]
+      },
+	  {
+        title: 'Electronics',
+        bookCategory: [
+          {
+            title: 'Objective Electrical Technology',
+          },
+          {
+            title: 'A Handbook for Electrical Engineering'            
+          }
+        ]
+      },
+    ]
+  }
+];
+});
+</script>
+</html>
+
