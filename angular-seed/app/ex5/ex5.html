@@ -1,0 +1,73 @@
+<p>Exercise - 4.2 - List books</p>
+<div ng-show="divShow == 'div1'">
+  Search: <input type="text" ng-model="searchKeyword">
+  <button ng-click="show('div2')">Advanced Search</button>
+</div>
+<div ng-show="divShow == 'div2'">
+  <table>
+    <tr>
+      <td>General Search:</td>
+      <td><input type="text" ng-model="searchKeyword.$"></td>
+    </tr>
+    <tr>
+      <td> Search by Title:</td>
+      <td><input type="text" ng-model="searchKeyword.title"></td>
+    </tr>
+    <tr>
+      <td> Search by Roll Number</td>
+      <td><input type="text" ng-model="searchKeyword.rollNumber"></td>
+    </tr>
+    <tr>
+      <td> Search by Author</td>
+      <td>
+        <select ng-model="searchKeyword.author" ng-options="book.author as book.author for book in books | unique:'author'">
+          <option value="">-- Choose Author --</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td> Search by Status</td>
+      <td>
+        <select ng-model="searchKeyword.status">
+          <option value="">-- Choose Status --</option>
+          <option value="0">Not available</option>
+          <option value="1">Available</option>
+        </select>
+      </td>
+    </tr>
+  </table>
+  <p><button ng-click="show('div1')">Basic Search</button></p>
+</div>
+<div>
+  <table>
+    <thead>
+      <tr>
+        <th>S.No</th>
+        <th>Books title</th>
+        <th>Author</th>
+        <th>RollNumber</th>
+        <th>Quantity</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr></thead>
+    <tbody>
+      <tr ng-repeat="book in books| filter: searchKeyword" >
+        <td>{{$index + 1}}</td>
+        <td>{{book.title}}</td>
+        <td>{{book.author}}</td>
+        <td>{{book.rollNumber}}</td>
+        <td>{{book.quantity}}</td>
+        <td>{{book.status==1?'Available':'Not Available'}}</td>
+        <td>
+          <a href="#!/ex4/{{book.id}}" >Edit</a>|
+          <a href="javascript:void(0);" ng-click="deleteBook(book, books)">Delete</a>
+        </td>
+      </tr>
+      <tr ng-show="(books| filter: searchKeyword).length == 0" >
+        <td colspan='5'>
+          No result found.                
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

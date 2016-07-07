@@ -1,0 +1,62 @@
+<p>Exercise - 4.1 - Forms</p>
+<style type="text/css">
+
+  label{
+    float: left;
+    width: 120px;
+    font-weight: bold;
+  }
+
+  input["text"], textarea{
+    width: 180px;
+    margin-bottom: 5px;
+  }
+
+  textarea{
+    width: 250px;
+    height: 150px;
+  }
+
+  .boxes{
+    width: 1em;
+  }
+
+  #submitbutton{
+    margin-left: 120px;
+    margin-top: 5px;
+    width: 90px;
+  }
+
+  br{
+    clear: left;
+  }
+
+</style>
+<div>
+  <form name="bookForm">
+    <div>
+      <label for="title">Book's Title </label>
+      <input type="text" ng-model="book.title" value="{{book.title}}" required />
+    </div>
+    <div>
+      <label for="author">Author</label>
+      <input type="text" ng-model="book.author" value="" required/>
+    </div>
+    <div>
+      <label for="rollnumber">Roll NUmber</label>
+      <input type="text" ng-model="book.rollNumber" value="" required/>
+    </div>
+    <div>
+      <label for="quantity">Quantity</label>
+      <input type="text" ng-model="book.quantity" value="" required />
+    </div>    
+    <div ng-init="book.status=1">
+      <label for="terms">Status</label>
+      <input type="radio" ng-model="book.status" value="1" />Available
+      <input type="radio" ng-model="book.status" value="0" />Not Available
+    </div>
+    <div>
+      <input type="submit"  name="submitbutton" ng-disabled="bookForm.$invalid" id="submitbutton" class="save" ng-click="addBook();" value="Submit" />
+    </div>
+  </form>
+</div>

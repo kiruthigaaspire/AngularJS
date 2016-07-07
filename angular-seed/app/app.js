@@ -8,7 +8,10 @@ angular.module('myApp', [
   'myApp.ex1',
   'myApp.ex2',
   'myApp.ex3',
-  'myApp.version'
+  'myApp.ex4',
+  'myApp.ex5',
+  'myApp.version',
+  'angular.filter',
 ]).
 config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
   $locationProvider.hashPrefix('!');
@@ -19,7 +22,7 @@ config(['$locationProvider', '$routeProvider', function($locationProvider, $rout
     return {
         restrict : "M",
         replace  : true,
-        template : "<div style='align=middle'><h5>@Copy right 2016</h1></div>"
+        template : "<div style='align=middle'><h5>@Copy right 2016</h5></div>"
     };
 })
 ;

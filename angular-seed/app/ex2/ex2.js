@@ -13,7 +13,7 @@ angular.module('myApp.ex2', ['ngRoute'])
   $scope.text1 = '';
   $scope.text2 = '';
   $scope.result = 0;
-     $scope.$watchCollection('[text1, text2]', function(inputs) {
-      $scope.result = inputs[0].length + inputs[1].length;
-    }, true);
+    $scope.$watchCollection('[text1, text2]', function(inputs) {
+        $scope.result = inputs[0].length + inputs[1].length;
+    });
 });
