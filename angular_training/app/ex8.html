@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Excersise 8</title>
+    <script src="bower_components/angular/angular.js"></script>
+	<script src="bower_components/angular-route/angular-route.js"></script>
+  </head>
+  <body ng-app="myApp">
+  
+	<h3>List the book details</h3>
+
+	<div ng-controller="myCtrl">
+	
+    <ul>
+		<li ng-repeat="book in bookList">
+		Book Name: <strong>{{book.bookname}}</strong><br/>
+		Author Name: {{book.authorname}}<br/>
+		Roll Number: {{book.rollnumber}}<br/>
+		Quantity: {{book.quantity}}<br/>
+		Status:  {{book.status}}
+		</li>
+    </ul>
+		
+    </div>
+	
+	<script>
+		var app = angular.module("myApp", []);
+		app.controller('myCtrl', function($scope) {
+			$scope.bookList = [
+				{
+					bookname : 'Book 1',
+					authorname: 'Author 1',
+					rollnumber: '1001',
+					quantity: '10',
+					status: "Available"
+				},
+				{
+					bookname : 'Book 2',
+					authorname: 'Author 2',
+					rollnumber: '1002',
+					quantity: '10',
+					status: "Available"
+				},
+				{
+					bookname : 'Book 3',
+					authorname: 'Author 3',
+					rollnumber: '1003',
+					quantity: '0',
+					status: "Not Available"
+				},
+				{
+					bookname : 'Book 4',
+					authorname: 'Author 4',
+					rollnumber: '1004',
+					quantity: '10',
+					status: "Available"
+				},
+				{
+					bookname : 'Book 5',
+					authorname: 'Author 5',
+					rollnumber: '1005',
+					quantity: '0',
+					status: "Not Available"
+				}
+			];
+		});
+		
+	</script>
+
+  </body>
+</html>
+
+
+
+

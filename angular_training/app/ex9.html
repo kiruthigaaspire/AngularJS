@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Excersise 8</title>
+    <script src="bower_components/angular/angular.js"></script>
+	<style>
+	    .list_data { margin-bottom: 2rem }
+	    table, th, td { border: 1px solid #AAA }
+	    th { cursor: pointer }
+    </style>
+  </head>
+  <body ng-app="myApp"  ng-controller="myCtrl">
+
+	<div class="list_data">
+        <h1>List of Books</h1>
+        <table>
+            <tr>
+                <th ng-click="type = 'include'; reverse = !reverse">Book Name</th>
+                <th ng-click="type = 'state'; reverse = !reverse">Author Name</th>
+                <th ng-click="type = 'price'; reverse = !reverse">Roll Number</th>
+                <th ng-click="type = 'tax'; reverse = !reverse">Quantity</th>
+				<th ng-click="type = 'tax'; reverse = !reverse">Status</th>
+                <th>Action</th>
+            </tr>
+            <tr ng-repeat="book in bookList | orderBy:type:reverse">
+                <td>{{book.bookname}}</td>
+                <td>{{book.authorname}}</td>
+                <td>{{book.rollnumber}}</td>
+                <td>{{book.quantity}}</td>
+				<td>{{book.status}}</td>
+                <td><button ng-click="Delete($index)">Delete</button></td>
+            </tr>
+        </table>
+        <button ng-show="history.length > 0" ng-click="Undo()">Undo Delete</button>
+    </div>
+  
+    <div class="add_data">
+        <h1>Add Book</h1>
+        <form ng-submit="Add()">
+            <div class="field">
+                <label for="bookname">Book Name: </label>
+                <input id="bookname" type="text" ng-model="bookname">
+            </div>
+			<div class="field">
+                <label for="authorname">Author Name: </label>
+                <input id="authorname" type="text" ng-model="authorname">
+            </div>
+			<div class="field">
+                <label for="rollnumber">Roll Number: </label>
+                <input id="rollnumber" type="text" ng-model="rollnumber">
+            </div>
+			<div class="field">
+                <label for="quantity">Quantity: </label>
+                <input id="quantity" type="text" ng-model="quantity">
+            </div>
+			<div class="field">
+                <label for="status">Status: </label>
+                <select id="status" ng-model="status">
+					<option ng-repeat="x in statusOptions">{{x}}</option>
+				</select>
+            </div>
+
+            <div class="action">
+                <button type="submit">Add</button>
+                <button ng-click="Reset()">Reset</button>
+            </div>
+        </form>
+    </div>
+
+
+	<script>
+	
+	
+	var app = angular.module("myApp", []);
+		app.controller('myCtrl', function($scope) {
+			// Historical data
+        	$scope.history = [];
+			
+			$scope.bookname = "";
+			$scope.authorname = "";
+			$scope.rollnumber = "";
+			$scope.quantity = "";
+			$scope.status = "Available";
+			$scope.statusOptions = ["Available", "Not Available"];
+			
+			// Default data (can be loaded from a database)
+			$scope.bookList = [
+				{
+					bookname : 'Book 1',
+					authorname: 'Author 1',
+					rollnumber: '1001',
+					quantity: '10',
+					status: "Available"
+				},
+				{
+					bookname : 'Book 2',
+					authorname: 'Author 2',
+					rollnumber: '1002',
+					quantity: '10',
+					status: "Available"
+				},
+				{
+					bookname : 'Book 3',
+					authorname: 'Author 3',
+					rollnumber: '1003',
+					quantity: '0',
+					status: "Not Available"
+				},
+				{
+					bookname : 'Book 4',
+					authorname: 'Author 4',
+					rollnumber: '1004',
+					quantity: '10',
+					status: "Available"
+				},
+				{
+					bookname : 'Book 5',
+					authorname: 'Author 5',
+					rollnumber: '1005',
+					quantity: '0',
+					status: "Not Available"
+				}
+			];
+			
+		// Delete data
+        $scope.Delete = function (index) {
+            // Remove first / oldest element from history if it reaches maximum capacity of 10 records
+            if ($scope.history.length === 10)
+                $scope.history.shift();
+            // Add deleted record to historical records
+            $scope.history.push($scope.bookList[index]);
+            // Remove from main records (using index)
+            $scope.bookList.splice(index, 1);
+        };
+		
+        // Reset new data model
+        $scope.Reset = function () {
+            $scope.bookname = '';
+            $scope.authorname = '';
+			$scope.rollnumber = '';
+			$scope.quantity = '';
+			$scope.status = 'Available';
+        }
+		
+        $scope.Reset();
+        // Add new data
+        $scope.Add = function () {
+            // Do nothing if no state is entered (blank)
+            if (!$scope.bookname)
+                return;
+            // Add to main records
+            $scope.bookList.push({
+                bookname: $scope.bookname,
+                authorname: $scope.authorname,
+                rollnumber: $scope.rollnumber,
+				quantity: $scope.quantity,
+				status: $scope.status
+            });
+            // See $Scope.Reset...
+            $scope.Reset();
+        }
+        // Undo action (delete)
+        $scope.Undo = function () {
+            // Add last / most recent historical record to the main records
+            $scope.bookList.push($scope.history[ $scope.history.length - 1 ]);
+            // Remove last / most recent historical record
+            $scope.history.pop();
+        }
+		
+		});
+	
+	</script>
+</body>
+</html>
+
