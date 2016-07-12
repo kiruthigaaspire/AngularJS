@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Excersise 7</title>
+    <script src="bower_components/angular/angular.js"></script>
+	<script src="bower_components/angular-route/angular-route.js"></script>
+  </head>
+  <body ng-app="myApp">
+  
+	<h3>Define own html custom tag and create custom directive to handle the those tags</h3>
+
+	<div ng-controller="myCtrl">
+	
+    <ul >
+		<list-name ng-repeat="name in names" name="{{name}}">
+		</list-name>
+    </ul>
+		
+    </div>
+	
+	<script>
+		var app = angular.module("myApp", []);
+		app.controller('myCtrl', function($scope) {
+			$scope.names = ['John', 'Alex', 'Dennis', 'Kate'];
+		});
+		
+		app.directive('listName', function() {
+		  return {
+			restrict: 'E',
+			transclude: 'true',
+			link: function(scope, element, attr){
+				  element.append("<li>"+attr.name+"</li>");
+			}
+		  };
+		});
+		
+	</script>
+
+  </body>
+</html>
+
+
+
+

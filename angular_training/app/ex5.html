@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Excersise 5</title>
+    <script src="bower_components/angular/angular.js"></script>
+	<script src="bower_components/angular-route/angular-route.js"></script>
+  </head>
+  <body ng-app="myApp">
+  
+	<h3>Create custom directive to display copyright information of page</h3>
+
+	<div>
+		<copyrightdirective></copyrightdirective>
+    </div>
+	
+	<script>
+		var app = angular.module("myApp", []);
+		app.directive("copyrightdirective", function() {
+			return {
+				template : "<p>Copyright information - Text content</p>"
+			};
+		});
+	</script>
+
+  </body>
+</html>
+
+
+
+

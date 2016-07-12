@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Excersise 6</title>
+    <script src="bower_components/angular/angular.js"></script>
+	<script src="bower_components/angular-route/angular-route.js"></script>
+  </head>
+  <body ng-app="myApp">
+  
+	<h3>Create book form in which user can add book name,author name,roll number,quantity,status(Avalilable,Not Available) default selected as available</h3>
+
+	<div ng-controller="formCtrl">
+	
+	<form>
+		Book Name: <input type="text" ng-model="bookname"><br/>
+		Author Name: <input type="text" ng-model="authorname"><br/>
+		Roll Number: <input type="text" ng-model="rollnumber"><br/>
+		Quantity: <input type="text" ng-model="quantity"><br/>
+		Status:  <select ng-model="status">
+					<option ng-repeat="x in statusOptions">{{x}}</option>
+				</select><br/>
+		<input type="submit" value="Submit" />
+	</form>
+		
+    </div>
+	
+	<script>
+		var app = angular.module("myApp", []);
+		app.controller('formCtrl', function($scope) {
+			$scope.bookname = "";
+			$scope.authorname = "";
+			$scope.rollnumber = "";
+			$scope.quantity = "";
+			$scope.status = "Available";
+			$scope.statusOptions = ["Available", "Not Available"];
+		});
+		
+	</script>
+
+  </body>
+</html>
+
+
+
+
