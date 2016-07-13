@@ -8,6 +8,7 @@
 	    .list_data { margin-bottom: 2rem }
 	    table, th, td { border: 1px solid #AAA }
 	    th { cursor: pointer }
+
     </style>
   </head>
   <body ng-app="myApp"  ng-controller="myCtrl">
@@ -26,7 +27,7 @@
 		
 			<label>Author Name: </label> <select ng-model="searchAuthorName" 
 			ng-options="book.authorname as book.authorname for book in bookList">
-			<option value=""></option>
+			<option value="">--All--</option>
 		</select>
 		</div>
 
@@ -42,37 +43,37 @@
             </tr>
             <tr ng-repeat="book in bookList | orderBy:type:reverse |
 					filter: searchBasicText |
-					filter:{'bookname': searchBookName, 'authorname': searchAuthorName}
+					filter:{'bookname': searchBookName, 'authorname': searchAuthorName ||undefined}
 					">
                 <td>{{book.bookname}}</td>
                 <td>{{book.authorname}}</td>
                 <td>{{book.rollnumber}}</td>
                 <td>{{book.quantity}}</td>
 				<td>{{book.status}}</td>
-                <td><button ng-click="Edit($index)">Edit</button><button ng-click="Delete($index)">Delete</button></td>
+                <td><button ng-click="editBook($index)">Edit</button><button ng-click="deleteBook($index)">Delete</button></td>
             </tr>
         </table>
-        <button ng-show="history.length > 0" ng-click="Undo()">Undo Delete</button>
+        <button ng-show="history.length > 0" ng-click="undoDelete()">Undo Delete</button>
     </div>
   
     <div class="add_data" ng-show="showForm == 'add'">
         <h1>Add Book</h1>
-        <form ng-submit="Add()">
+        <form name="addbookform" ng-submit="addBook(addbookform.$valid)">
             <div class="field">
                 <label for="bookname">Book Name: </label>
-                <input id="bookname" type="text" ng-model="bookname">
+                <input id="bookname" type="text" ng-model="bookname" required>
             </div>
 			<div class="field">
                 <label for="authorname">Author Name: </label>
-                <input id="authorname" type="text" ng-model="authorname">
+                <input id="authorname" type="text" ng-model="authorname" required>
             </div>
 			<div class="field">
                 <label for="rollnumber">Roll Number: </label>
-                <input id="rollnumber" type="text" ng-model="rollnumber">
+                <input id="rollnumber" type="number" ng-model="rollnumber" required ng-minlength="3" ng-maxlength="6"> (Min length: 3 , Max length: 6)
             </div>
 			<div class="field">
                 <label for="quantity">Quantity: </label>
-                <input id="quantity" type="text" ng-model="quantity">
+                <input id="quantity" type="number" ng-model="quantity" required>
             </div>
 			<div class="field">
                 <label for="status">Status: </label>
@@ -89,22 +90,22 @@
 
 	<div class="add_data" ng-show="showForm == 'edit'">
         <h1>Edit Book</h1>
-        <form ng-submit="Update(updateIndex)">
+        <form name="editbookform" ng-submit="updateBook(updateIndex, editbookform.$valid)">
             <div class="field">
                 <label for="bookname">Book Name: </label>
-                <input id="bookname" type="text" ng-model="bookname">
+                <input id="bookname" type="text" ng-model="bookname" required>
             </div>
 			<div class="field">
                 <label for="authorname">Author Name: </label>
-                <input id="authorname" type="text" ng-model="authorname">
+                <input id="authorname" type="text" ng-model="authorname" required>
             </div>
 			<div class="field">
                 <label for="rollnumber">Roll Number: </label>
-                <input id="rollnumber" type="text" ng-model="rollnumber">
+                <input id="rollnumber" type="number" ng-model="rollnumber" required ng-minlength="3" ng-maxlength="6"> (Min length: 3 , Max length: 6)
             </div>
 			<div class="field">
                 <label for="quantity">Quantity: </label>
-                <input id="quantity" type="text" ng-model="quantity">
+                <input id="quantity" type="number" ng-model="quantity" required>
             </div>
 			<div class="field">
                 <label for="status">Status: </label>
@@ -118,12 +119,12 @@
         </form>
     </div>
 
-	<button ng-click="Reset()">Clear form</button>
+	<button ng-click="resetData()">Clear form</button>
 	
 	<script>
 	
-	
-	var app = angular.module("myApp", []);
+		var app = angular.module("myApp", []);
+		
 		app.controller('myCtrl', function($scope) {
 			// Historical data
         	$scope.history = [];
@@ -183,74 +184,78 @@
 					status: "Not Available"
 				}
 			];
+				
+			// Delete data
+			$scope.deleteBook = function (index) {
+				// Remove first / oldest element from history if it reaches maximum capacity of 10 records
+				if ($scope.history.length === 10)
+					$scope.history.shift();
+				// Add deleted record to historical records
+				$scope.history.push($scope.bookList[index]);
+				// Remove from main records (using index)
+				$scope.bookList.splice(index, 1);
+			};
 			
-		// Delete data
-        $scope.Delete = function (index) {
-            // Remove first / oldest element from history if it reaches maximum capacity of 10 records
-            if ($scope.history.length === 10)
-                $scope.history.shift();
-            // Add deleted record to historical records
-            $scope.history.push($scope.bookList[index]);
-            // Remove from main records (using index)
-            $scope.bookList.splice(index, 1);
-        };
-		
-		// Edit 
-        $scope.Edit = function (index) {
-            $scope.bookname = $scope.bookList[index].bookname;
-            $scope.authorname = $scope.bookList[index].authorname;
-			$scope.rollnumber = $scope.bookList[index].rollnumber;
-			$scope.quantity = $scope.bookList[index].quantity;
-			$scope.status = $scope.bookList[index].status;
-			$scope.updateIndex = index;
-			$scope.showForm = 'edit';
-        }
-		
-		// Update 
-        $scope.Update = function (index) {
-            $scope.bookList[index].bookname = $scope.bookname;
-            $scope.bookList[index].authorname = $scope.authorname;
-			$scope.bookList[index].rollnumber = $scope.rollnumber;
-			$scope.bookList[index].quantity = $scope.quantity;
-			$scope.bookList[index].status = $scope.status;
-			$scope.Reset();
-        }
-		
-        // Reset new data model
-        $scope.Reset = function () {
-            $scope.bookname = '';
-            $scope.authorname = '';
-			$scope.rollnumber = '';
-			$scope.quantity = '';
-			$scope.status = 'Available';
-			$scope.updateIndex = '';
-			$scope.showForm = 'add';
-        }
-		
-        $scope.Reset();
-        // Add new data
-        $scope.Add = function () {
-            // Do nothing if no state is entered (blank)
-            if (!$scope.bookname)
-                return;
-            // Add to main records
-            $scope.bookList.push({
-                bookname: $scope.bookname,
-                authorname: $scope.authorname,
-                rollnumber: $scope.rollnumber,
-				quantity: $scope.quantity,
-				status: $scope.status
-            });
-            // See $Scope.Reset...
-            $scope.Reset();
-        }
-        // Undo action (delete)
-        $scope.Undo = function () {
-            // Add last / most recent historical record to the main records
-            $scope.bookList.push($scope.history[ $scope.history.length - 1 ]);
-            // Remove last / most recent historical record
-            $scope.history.pop();
-        }
+			// Edit 
+			$scope.editBook = function (index) {
+				$scope.bookname = $scope.bookList[index].bookname;
+				$scope.authorname = $scope.bookList[index].authorname;
+				$scope.rollnumber = $scope.bookList[index].rollnumber;
+				$scope.quantity = $scope.bookList[index].quantity;
+				$scope.status = $scope.bookList[index].status;
+				$scope.updateIndex = index;
+				$scope.showForm = 'edit';
+			}
+			
+			// Update 
+			$scope.updateBook = function (index, isValid) {
+				if (isValid) {
+					$scope.bookList[index].bookname = $scope.bookname;
+					$scope.bookList[index].authorname = $scope.authorname;
+					$scope.bookList[index].rollnumber = $scope.rollnumber;
+					$scope.bookList[index].quantity = $scope.quantity;
+					$scope.bookList[index].status = $scope.status;
+					$scope.resetData();
+				} else {
+					alert("Validation failed");
+				}
+			}
+			
+			// Reset new data model
+			$scope.resetData = function () {
+				$scope.bookname = '';
+				$scope.authorname = '';
+				$scope.rollnumber = '';
+				$scope.quantity = '';
+				$scope.status = 'Available';
+				$scope.updateIndex = '';
+				$scope.showForm = 'add';
+			}
+			
+			$scope.resetData();
+			// Add new data
+			$scope.addBook = function (isValid) {
+				if (isValid) {
+					$scope.bookList.push({
+						bookname: $scope.bookname,
+						authorname: $scope.authorname,
+						rollnumber: $scope.rollnumber,
+						quantity: $scope.quantity,
+						status: $scope.status
+					});
+					
+					$scope.resetData();
+				} else {
+					alert("Validation failed");
+				}
+			}
+			// Undo action (delete)
+			$scope.undoDelete = function () {
+				// Add last / most recent historical record to the main records
+				$scope.bookList.push($scope.history[ $scope.history.length - 1 ]);
+				// Remove last / most recent historical record
+				$scope.history.pop();
+			}
 		
 		});
 	
