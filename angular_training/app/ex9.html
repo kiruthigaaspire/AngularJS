@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Excersise 8</title>
+    <title>Exercise 9</title>
     <script src="bower_components/angular/angular.js"></script>
 	<style>
 	    .list_data { margin-bottom: 2rem }
@@ -14,28 +14,48 @@
 
 	<div class="list_data">
         <h1>List of Books</h1>
-        <table>
+		<a href="" ng-click="searchType='basic'">Basic search</a>
+		<a href="" ng-click="searchType='advanced'">Advanced search</a>
+		
+		<div ng-show="searchType == 'basic'">
+			<label>Basic search: </label> <input type="text" ng-model="searchBasicText">
+		</div>
+		
+		<div ng-show="searchType == 'advanced'">
+			<label>Book Name: </label> <input type="text" ng-model="searchBookName">
+		
+			<label>Author Name: </label> <select ng-model="searchAuthorName" 
+			ng-options="book.authorname as book.authorname for book in bookList">
+			<option value=""></option>
+		</select>
+		</div>
+
+		
+		<table>
             <tr>
-                <th ng-click="type = 'include'; reverse = !reverse">Book Name</th>
-                <th ng-click="type = 'state'; reverse = !reverse">Author Name</th>
-                <th ng-click="type = 'price'; reverse = !reverse">Roll Number</th>
-                <th ng-click="type = 'tax'; reverse = !reverse">Quantity</th>
-				<th ng-click="type = 'tax'; reverse = !reverse">Status</th>
+                <th ng-click="type = 'bookname'; reverse = !reverse">Book Name</th>
+                <th ng-click="type = 'authorname'; reverse = !reverse">Author Name</th>
+                <th ng-click="type = 'rollnumber'; reverse = !reverse">Roll Number</th>
+                <th ng-click="type = 'quantity'; reverse = !reverse">Quantity</th>
+				<th ng-click="type = 'status'; reverse = !reverse">Status</th>
                 <th>Action</th>
             </tr>
-            <tr ng-repeat="book in bookList | orderBy:type:reverse">
+            <tr ng-repeat="book in bookList | orderBy:type:reverse |
+					filter: searchBasicText |
+					filter:{'bookname': searchBookName, 'authorname': searchAuthorName}
+					">
                 <td>{{book.bookname}}</td>
                 <td>{{book.authorname}}</td>
                 <td>{{book.rollnumber}}</td>
                 <td>{{book.quantity}}</td>
 				<td>{{book.status}}</td>
-                <td><button ng-click="Delete($index)">Delete</button></td>
+                <td><button ng-click="Edit($index)">Edit</button><button ng-click="Delete($index)">Delete</button></td>
             </tr>
         </table>
         <button ng-show="history.length > 0" ng-click="Undo()">Undo Delete</button>
     </div>
   
-    <div class="add_data">
+    <div class="add_data" ng-show="showForm == 'add'">
         <h1>Add Book</h1>
         <form ng-submit="Add()">
             <div class="field">
@@ -63,12 +83,43 @@
 
             <div class="action">
                 <button type="submit">Add</button>
-                <button ng-click="Reset()">Reset</button>
             </div>
         </form>
     </div>
 
+	<div class="add_data" ng-show="showForm == 'edit'">
+        <h1>Edit Book</h1>
+        <form ng-submit="Update(updateIndex)">
+            <div class="field">
+                <label for="bookname">Book Name: </label>
+                <input id="bookname" type="text" ng-model="bookname">
+            </div>
+			<div class="field">
+                <label for="authorname">Author Name: </label>
+                <input id="authorname" type="text" ng-model="authorname">
+            </div>
+			<div class="field">
+                <label for="rollnumber">Roll Number: </label>
+                <input id="rollnumber" type="text" ng-model="rollnumber">
+            </div>
+			<div class="field">
+                <label for="quantity">Quantity: </label>
+                <input id="quantity" type="text" ng-model="quantity">
+            </div>
+			<div class="field">
+                <label for="status">Status: </label>
+                <select id="status" ng-model="status">
+					<option ng-repeat="x in statusOptions">{{x}}</option>
+				</select>
+            </div>
+            <div class="action">
+                <button type="submit">Update</button>
+            </div>
+        </form>
+    </div>
 
+	<button ng-click="Reset()">Clear form</button>
+	
 	<script>
 	
 	
@@ -77,12 +128,22 @@
 			// Historical data
         	$scope.history = [];
 			
-			$scope.bookname = "";
-			$scope.authorname = "";
-			$scope.rollnumber = "";
-			$scope.quantity = "";
-			$scope.status = "Available";
-			$scope.statusOptions = ["Available", "Not Available"];
+			$scope.bookname = '';
+			$scope.authorname = '';
+			$scope.rollnumber = '';
+			$scope.quantity = '';
+			$scope.status = 'Available';
+			$scope.statusOptions = ['Available', 'Not Available'];
+			
+			$scope.updateIndex = '';
+			$scope.showForm = 'add';
+			
+			//Filtering
+			$scope.searchType = 'basic';
+			$scope.searchBasicText = '';
+			$scope.searchBookName = '';
+			$scope.searchAuthorName = '';
+			
 			
 			// Default data (can be loaded from a database)
 			$scope.bookList = [
@@ -134,6 +195,27 @@
             $scope.bookList.splice(index, 1);
         };
 		
+		// Edit 
+        $scope.Edit = function (index) {
+            $scope.bookname = $scope.bookList[index].bookname;
+            $scope.authorname = $scope.bookList[index].authorname;
+			$scope.rollnumber = $scope.bookList[index].rollnumber;
+			$scope.quantity = $scope.bookList[index].quantity;
+			$scope.status = $scope.bookList[index].status;
+			$scope.updateIndex = index;
+			$scope.showForm = 'edit';
+        }
+		
+		// Update 
+        $scope.Update = function (index) {
+            $scope.bookList[index].bookname = $scope.bookname;
+            $scope.bookList[index].authorname = $scope.authorname;
+			$scope.bookList[index].rollnumber = $scope.rollnumber;
+			$scope.bookList[index].quantity = $scope.quantity;
+			$scope.bookList[index].status = $scope.status;
+			$scope.Reset();
+        }
+		
         // Reset new data model
         $scope.Reset = function () {
             $scope.bookname = '';
@@ -141,6 +223,8 @@
 			$scope.rollnumber = '';
 			$scope.quantity = '';
 			$scope.status = 'Available';
+			$scope.updateIndex = '';
+			$scope.showForm = 'add';
         }
 		
         $scope.Reset();
