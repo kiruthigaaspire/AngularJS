@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>AngularJS - Exercises</title>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.29/angular.js"></script>
+<script src="app.js"></script>
+<style>
+table {
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+</style>
+</head>
+<body>
+    <div ng-app="bookApp" class="main_content" ng-controller="listController">
+        <div class="heading_section">
+            <h1>AngularJS - Filters Samples</h1>
+        </div>
+        <div class="input_section">
+		    <div class="filterSection">
+			    <input type="text" ng-model="searchKey.$">
+			    <input type="text" ng-model="searchKey.name">
+			    <select ng-model="searchKey.author" ng-options="book.author as book.author for book in bookList">
+			      <option value="">Choose Author</option>
+			    </select>
+			    <select ng-model="searchKey.status">
+			      <option value="">Choose Status</option>
+			      <option value="unavailable">Not available</option>
+			      <option value="available">Available</option>
+			    </select>
+			    <input type="checkbox" ng-model="exactMatch"> Exact Match
+		    </div>
+		    <br/>
+		    <div class="tableSection">    
+		        <table id="bookTable">
+			        <thead>
+				        <tr>
+					        <th>Roll Number</th>
+					        <th>Book title</th>
+					        <th>Author Name</th>
+					        <th>Quantity</th>
+					        <th>Status</th>
+				        </tr>
+			        </thead>
+			        <tbody>
+				        <tr ng-repeat="book in bookList | filter:searchKey:exactMatch" >
+					        <td >{{book.book_id}}</td>
+					        <td >{{book.name | uppercase}}</td>
+					        <td >{{book.author}}</td>
+					        <td >{{book.quantity}}</td>
+					        <td >{{book.status}}</td>
+					        </td>
+				        </tr>
+			        </tbody>
+		        </table>
+		    </div>
+        </div>
+        <div class="output_section">
+        </div>
+    </div>
+</body>
+</html>
