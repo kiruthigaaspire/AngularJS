@@ -29,7 +29,16 @@
 			ng-options="book.authorname as book.authorname for book in bookList">
 			<option value="">--All--</option>
 		</select>
+			<label>Category (API)</label> <select ng-model="category" ng-options="cat as cat for cat in categoryList">
+			
+			</select>
+
+		
 		</div>
+		
+
+			
+			
 
 		
 		<table>
@@ -69,11 +78,11 @@
             </div>
 			<div class="field">
                 <label for="rollnumber">Roll Number: </label>
-                <input id="rollnumber" type="number" ng-model="rollnumber" required ng-minlength="3" ng-maxlength="6"> (Min length: 3 , Max length: 6)
+                <input id="rollnumber" type="text" ng-model="rollnumber" required ng-minlength="3" ng-maxlength="6"> (Min length: 3 , Max length: 6)
             </div>
 			<div class="field">
                 <label for="quantity">Quantity: </label>
-                <input id="quantity" type="number" ng-model="quantity" required>
+                <input id="quantity" type="text" ng-model="quantity" required>
             </div>
 			<div class="field">
                 <label for="status">Status: </label>
@@ -101,11 +110,11 @@
             </div>
 			<div class="field">
                 <label for="rollnumber">Roll Number: </label>
-                <input id="rollnumber" type="number" ng-model="rollnumber" required ng-minlength="3" ng-maxlength="6"> (Min length: 3 , Max length: 6)
+                <input id="rollnumber" type="text" ng-model="rollnumber" required ng-minlength="3" ng-maxlength="6"> (Min length: 3 , Max length: 6)
             </div>
 			<div class="field">
                 <label for="quantity">Quantity: </label>
-                <input id="quantity" type="number" ng-model="quantity" required>
+                <input id="quantity" type="text" ng-model="quantity" required>
             </div>
 			<div class="field">
                 <label for="status">Status: </label>
@@ -125,7 +134,7 @@
 	
 		var app = angular.module("myApp", []);
 		
-		app.controller('myCtrl', function($scope) {
+		app.controller('myCtrl', function($scope, ApiCall) {
 			// Historical data
         	$scope.history = [];
 			
@@ -144,6 +153,15 @@
 			$scope.searchBasicText = '';
 			$scope.searchBookName = '';
 			$scope.searchAuthorName = '';
+			
+			$scope.category = '';
+			//$scope.categoryList = ["Cat1","Cat2","Cat3","Cat4","Cat5","Cat6","Cat7"];
+			
+			var promise = ApiCall.getCategory();
+			promise.then(
+			  function(payload) { 
+				  $scope.categoryList = payload.data;
+			  });
 			
 			
 			// Default data (can be loaded from a database)
@@ -257,6 +275,12 @@
 				$scope.history.pop();
 			}
 		
+		});
+		
+		app.service('ApiCall', function($http) {
+			this.getCategory = function () {
+				return $http.get('http://localhost:8000/data/category_data.json');
+			}
 		});
 	
 	</script>
