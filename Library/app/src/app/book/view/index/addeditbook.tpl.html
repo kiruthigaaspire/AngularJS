@@ -1,0 +1,74 @@
+<section class="content pickuppoint">
+	<div class="gama-form">
+        <div ng-class="{'error': errors, 'success': !error}" class="message" ng-show="messages != null" 
+            ng-repeat="message in messages">
+        {{ message }}
+    </div>
+    <div class="pick-up">
+        <form class="">
+            <table class="pickup-table">
+                <tbody>
+									  <tr>
+												<input ng-init="book.id = (book.id) ? book.id : ''" type="hidden" ng-value="book.id" value="book.id" />
+                        <td>Book Code: </td>
+                        <td>
+	                        <input ng-init="book.book_code = (book.book_code) ? book.book_code : ''" ng-readonly="book.book_code" type="text" ng-model="book.book_code" ng-value="book.book_code" value="book.book_code" placeholder="Book code" />
+                        </td>
+										</tr>
+                    <tr>
+                        <td>Book Name: </td>
+												<td>
+	                        <input ng-init="book.book_name = (book.book_name) ? book.book_name : ''"  type="text" ng-model=book.book_name ng-value="book.book_name" value="book.book_name" placeholder="Book Name" />
+                        </td>
+										</tr>
+										<tr>
+                        <td>Book Author: </td>
+                        <td>
+	                        <input ng-init="book.author = (book.author) ? book.author : ''" type="text" ng-model=book.author ng-value="book.author" value="book.author" placeholder="Author of the Book" />
+                         </td>
+                    </tr>
+                    <tr>
+                        <td>
+													Published Date: </td>
+													<td>
+													<input ng-init="book.published_date = (book.published_date) ? book.published_date : ''" type="date" ng-model=book.published_date ng-value="book.published_date" value="book.published_date" placeholder="Published Date" />
+													</td>
+                    </tr>
+                    <tr>
+                        <td>
+													Published: </td>
+													<td>
+													<input ng-init="book.published = (book.published) ? book.published : ''" type="checkbox" ng-model=book.published ng-value="book.published" value="book.published" placeholder="Published" />
+													</td>
+                    </tr>
+                    <tr>
+                        <td>Rack No: </td>
+                        <td>
+	                        <input ng-init="book.rack_no = (book.rack_no) ? book.rack_no : ''" type="text" ng-model=book.rack_no ng-value="book.rack_no" value="book.rack_no" placeholder="Rack No" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Price: </td>
+                        <td>
+	                        <input ng-init="book.price = (book.price) ? book.price : ''" type="text" ng-model=book.price ng-value="book.price" value="book.price" placeholder="Rack No" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Content: </td>
+                        <td>
+	                        <textarea ng-init="book.description = (book.description) ? book.description : ''" placeholder="Book Contents/Description" ng-model=book.description ng-value="book.description" /></textarea>
+												</td>
+                    </tr>
+                    <tr>
+                    	<td colspan=2>
+                    		 <a ng-if="book.id == '' " class="btn-yellow" ng-click="saveBook()" href="javascript:void(0);">Save</a>
+                     		 <a ng-if="book.id" class="btn-yellow" ng-click="updateBook(book)" href="javascript:void(0);">Save</a>
+                    		 <a class="btn-yellow" ng-click="cancelBook()" href="javascript:void(0);">cancel</a>
+                    	</td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+
+    </section>

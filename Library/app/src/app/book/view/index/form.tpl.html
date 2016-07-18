@@ -1,0 +1,46 @@
+<section class="content">
+    <form class="search-form" name="form">
+      <label>Books Library</label><br/>
+      <a ng-if="isAdmin" class="addbook" ng-click="addBook()" title="Edit" href="javascript:void(0);">Add Book</a>
+      
+      <input type="text" ng-model="bookname" ng-keypress="setPickupListDisplay(true)"
+                   placeholder="Search your book"/>
+      <input type="submit" value="&#xf002;" />
+      <div class="">
+        
+					<table class="pickup-table">
+                <thead>
+                    <tr>
+                        <th>Book Name</th>
+                        <th>Author</th>
+                        <th>Published Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr dir-paginate="book in booksList|orderBy:sortKey:reverse|filter:bookname|itemsPerPage:5">
+                        <td>{{book.book_name}}</td>
+                        <td> {{book.author}}</td>
+                        <td> {{book.published_date | date:'EEEE d' + todaysuffix + ' MMM, yyyy' }}</td>
+                        <td>
+													<a ng-if="isAdmin" ng-click="editbook(book)" title="Edit" href="javascript:void(0);">Edit</a>
+													
+	                        <a ng-click="getbook(book)" title="Details" href="javascript:void(0);">view</a>
+	                        &nbsp;&nbsp;
+	                        <a ng-if="book.lend != 1" ng-show="ismember" ng-click="lendbook(book)" title="Details" href="javascript:void(0);">Lend</a>
+	                        <span ng-if="book.lend == 1">Lended By Other Member</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+						<dir-pagination-controls
+					max-size="5"
+					direction-links="true"
+					boundary-links="true" >
+				</dir-pagination-controls>
+          <span ng-show="filtered.length=='0'">No Book Found</span>
+        
+      </div>
+    </form>
+  </section>
+<div id="loading" ng-show="loading"></div>

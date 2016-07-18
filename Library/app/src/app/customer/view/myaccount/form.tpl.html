@@ -1,0 +1,39 @@
+<section class="accordion-top-offset">
+    <div class="gama-form">
+        <div ng-class="{'error': errors, 'success': !error}" class="message" ng-show="messages != null" ng-repeat="message in messages">
+        {{ message }}
+        </div> <!--{{ showtest }} -->
+
+        <div class="message success" ng-show="linktoredirect">Name Successfully Updated </div>
+
+        <form ng-show="showMyAccountForm">
+            <input type="hidden" ng-init="updateuser.id=customerId" ng-value="customerId" />
+            <div ng-init="updateuser.email=customerEmail">
+                <input type="text" ng-model="updateuser.email" placeholder="Email" readonly>
+            </div>
+
+            <div ng-init="updateuser.mobile=customerMobile">
+                <input type="text" ng-model="updateuser.mobile" placeholder="Mobile Number" readonly>
+            </div>  
+            <div ng-init="updateuser.username=loginUser">
+                <input type="text" ng-model="updateuser.username" placeholder="User name">
+            </div>
+            
+            <div ng-init="updateuser.address=customeraddress">
+                <textarea ng-model="updateuser.address" placeholder="Address" width="100%">
+								</textarea>
+            </div>
+                      
+                          
+            <div class="buttons">
+                <input type="submit" value="Save" ng-click="updateUserName()">
+            </div>
+            <div class="buttons">
+                <input type="submit" value="Change Password" ng-click="changePasswordLocation()">
+            </div>
+
+        </form> <!--
+        <div class="message success" ng-show="linktoredirect">Successfully Updated <a href="#/myaccount"> Click Here</a></div> -->
+    </div>
+</section>
+<div id="loading" ng-show="loading"></div>

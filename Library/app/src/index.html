@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html ng-controller="AppCtrl">
+<head>
+<title ng-bind="pageTitle"></title>
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport"
+    content="width=100%; initial-scale=1; maximum-scale=1; minimum-scale=1; user-scalable=no;" />
+
+<!-- compiled CSS -->
+<% styles.forEach( function ( file ) { %>
+<link rel="stylesheet" type="text/css" href="<%= file %>" />
+<% }); %>
+
+<!-- compiled JavaScript -->
+<% scripts.forEach( function ( file ) { %>
+<script type="text/javascript" src="<%= file %>"></script>
+<% }); %>
+<link rel="stylesheet" type="text/css" href="vendor/sweetalert/dist/sweetalert.css" />
+
+<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,600,300,600italic,400italic,300italic" rel="stylesheet" type="text/css" />
+
+</head>
+<body>
+  <header >
+    <h1 ng-if="currentState ==='pickup-select'"><a href="#" title="Library">Library</a></h1>
+    <nav>
+      <div>
+          <div style="float:left;" >
+              <h2 class="title"  > 
+                    <span class="bredcrum-menu" ng-show="showBreadCrumb">
+                        <a href="#{{breadCrumbLink}}" title="Back"></a>
+                    </span>                  
+                    <span ng-bind="pageCaption"></span>
+                     </h2>
+          </div>
+      <div style="float:right;">
+                    <a  href="javascript:void(0);" id="menu_parent_elem" class="{{menuclasses}}" title="Menu" ng-click="vis = !vis; menuClickEvent()">
+                        <span class="lines" id="menu_parent_elem"></span>
+                    </a>                   
+                    <a ng-if="showCart" ng-show="showCart" class="cart" title="Cart"
+                        href="javascript:void(0);" ng-click="cart()">
+                        <i class="fa fa-shopping-cart"></i>
+                        <span >{{cartItemsCount}}</span>
+                    </a>
+                </div>
+                <div style="clear:both;"></div>
+      </div> 
+      <ul class="menu-list menupanel" ng-show="vis" outside-click="vis=false; menuClickEvent('close')">
+                    <li class="profile-name" ><a title="Hi John" href="#">Hi {{loginUser}} ! </a></li>
+                    <li class="menus" ng-click="vis = !vis; menuClickEvent()"><a ng-if="showBreadCrumb" href="#/books-list" title="Books"><i class="fa fa-book"></i>Books List</a></li>
+                    <li ng-show="isAdmin" class="pick-up-point" ng-click="vis = !vis; menuClickEvent()"> <a href="#/manageusers" title="Users Management"><i class="fa fa-map-marker"></i>Manage Users</a></li>
+                    <li ng-show="isAdmin" class="pick-up-point" ng-click="vis = !vis; menuClickEvent()"> <a href="#/lendrequests" title="Lend Requests for Books"><i class="fa fa-map-marker"></i>Lend Requests</a></li>
+                   
+                    <li class="contact-us" ng-click="vis = !vis; menuClickEvent()"><a href="#" title="Contact Us"><i class="fa fa-mobile"></i>Contact Us</a></li>
+                    <li class="about-us" ng-click="vis = !vis; menuClickEvent()"><a href="#" title="About Us"><i class="fa fa-info-circle"></i>About Us</a></li>
+                    <li class="sign-out" ng-if="showLogin" ng-click="vis = !vis; menuClickEvent()"><a href="#/login" title="login">Login</a></li>
+                    <li class="sign-out" ng-if="showLogout" ng-click="vis = !vis; menuClickEvent()"><a href="#/logout" title="Logout">Logout</a></li> 
+                    <li class="sign-out" ng-if="showLogout" ng-click="vis = !vis; menuClickEvent()"><a href="#/myaccount" title="My Account">My Account</a></li>                     
+            </ul>
+    </nav>
+  </header>
+  <section class="content " ui-view="main"></section>
+  <footer ng-if="currentState ==='menu'" style="background: #7f3374;">
+    <ul class="social-links">
+      <li class="facebook"><a href="#"><span><i class="fa fa-facebook-square"></i></span>1500 Likes</a></li>
+      <li class="twitter"><a href="#"><span><i class="fa fa-twitter-square"></i></span>1500 Likes</a></li>
+      <li class="gplus"><a href="#"><span><i class="fa fa-google-plus-square"></i></span>1500 Likes</a></li>
+    </ul>
+    <!--<div class="ad-footer">
+       <img src="assets/images/ad-footer.jpg" alt="Footer Ad" />
+    </div> -->
+</footer>
+</body>
+</html>

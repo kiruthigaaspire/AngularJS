@@ -1,0 +1,45 @@
+<section class="content" ng-init="getLendRequestDtls();">
+    <form class="search-form" name="form">
+      <label>Books Library</label><br/>
+      <input type="text" ng-model="bookname" ng-keypress="setPickupListDisplay(true)"
+                   placeholder="Search your book"/>
+      <input type="submit" value="&#xf002;" />
+      <div class="">
+        <ul>
+					<table class="pickup-table">
+                <thead>
+                    <tr>
+											  <th>Book Code</th>
+                        <th>Book Name</th>
+                        <th>Author</th>
+                        <th>User Name</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr dir-paginate="lend in lendList|orderBy:sortKey:reverse|filter:bookname|itemsPerPage:2">
+												<td>{{lend.book_code}}</td>
+	                      <td>{{lend.book_name}}</td>
+                        <td> {{lend.author}}</td>
+                        <td> {{lend.fname}}</td>
+                        <td>
+	                        <a ng-if="lend.approved	== 0" ng-click="approveLend(lend)" title="Details" href="javascript:void(0);">Approve</a>
+	                        
+	                        <a ng-if="lend.approved	== 0" ng-click="rejectLend(lend)" title="Details" href="javascript:void(0);">Reject</a>
+	                        <span ng-if="lend.approved == 1" >Approved</span>
+	                        <span ng-if="lend.approved == -1" >Rejected</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <dir-pagination-controls
+					max-size="5"
+					direction-links="true"
+					boundary-links="true" >
+				</dir-pagination-controls>
+          <li ng-show="lendList.length=='0'">No Requests Found</li>
+        </ul>
+      </div>
+    </form>
+  </section>
+<div id="loading" ng-show="loading"></div>

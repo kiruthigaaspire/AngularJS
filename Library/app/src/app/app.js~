@@ -1,0 +1,114 @@
+var app = angular.module( 'gamaMobileApp', [
+  'templates-app',
+  'templates-common',
+  'gamaMobileApp.customer',  
+  'gamaMobileApp.login',
+  'gamaMobileApp.pickup',
+  'gamaMobileApp.menu',
+  'gamaMobileApp.payment',
+  'gamaMobileApp.order',  
+  'ui.router',
+  'ui.bootstrap',
+  'ngAnimate'
+])
+
+.constant('domain','http://172.24.144.144/gama')
+
+.config( function gamaMobileAppConfig ( $stateProvider, $urlRouterProvider ) {
+  $urlRouterProvider.otherwise( '/pickup' );
+})
+
+ .run( function run ($rootScope, $state, $stateParams ) {
+        loginStatus = readCookie('loginStatus');
+        loginStatus = loginStatus.toString();
+        if (loginStatus === 'true') {
+          loginStatus = true;
+          $rootScope.loginUser = readCookie('loginUser');
+          $rootScope.showLogin        = false;
+          $rootScope.showLogout       = true;
+        }
+        else {
+          loginStatus = false;
+          $rootScope.loginUser = 'Guest';
+          $rootScope.showLogin        = true;
+          $rootScope.showLogout       = false;
+        }
+        $rootScope.cartItemsCount   = 0;   
+        $rootScope.$state           = $state;
+        $rootScope.$stateParams     = $stateParams;
+        $rootScope.loginStatus      = loginStatus;
+        $rootScope.customerId       =  readCookie('customerId');
+        
+})
+
+
+.controller( 'AppCtrl', function AppCtrl ( $scope, $location, $rootScope) {
+  $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
+     $rootScope.currentState = toState.name;  
+    if ( angular.isDefined( toState.data.pageTitle ) ) {
+        if($rootScope.parentCategory && toState.data.pageTitle==='SubMenu') {
+            $scope.pageTitle = $rootScope.parentCategory;
+        }
+        else {
+            $scope.pageTitle = toState.data.pageTitle;
+        }
+        $scope.pageTitle =  'Gama | ' + $scope.pageTitle  ;
+    }
+    if ( angular.isDefined( toState.data.pageCaption ) ) {
+        if(sessionStorage.getItem('parentCategoryName') && toState.data.pageCaption==='SubMenu') {
+            $scope.pageCaption = sessionStorage.getItem('parentCategoryName');
+        }
+        else {
+            $scope.pageCaption = toState.data.pageCaption;
+        }
+    } 
+    if ( angular.isDefined( toState.data.showBreadCrumb ) ) {
+     $rootScope.showBreadCrumb =  toState.data.showBreadCrumb;
+    }
+    
+    if ( angular.isDefined( toState.data.breadCrumbLink ) ) {
+      $scope.breadCrumbLink =  toState.data.breadCrumbLink ;
+    }
+    
+    if ( angular.isDefined( toState.data.showCart ) ) {
+      $rootScope.showCart =  toState.data.showCart ;
+    }
+       
+  });
+}).directive("outsideClick", ['$document','$parse', function( $document, $parse ){
+    return {
+        link: function( $scope, $element, $attributes ){
+            var scopeExpression = $attributes.outsideClick,
+                onDocumentClick = function(event){
+                    if( event.target.id != 'menu_parent_elem') {
+                      var isChild = $element.find(event.target).length > 0;
+
+                      if(!isChild) {
+                          $scope.$apply(scopeExpression);
+                      }
+                    }
+                };
+
+            $document.on("click", onDocumentClick);
+
+            $element.on('$destroy', function() {
+                $document.off("click", onDocumentClick);
+            });
+        }
+    };
+}]);
+
+function readCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0;i < ca.length;i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') {
+         c = c.substring(1,c.length);
+       }
+        if (c.indexOf(nameEQ) === 0) { 
+          return c.substring(nameEQ.length,c.length);
+        }
+    }
+    return false;
+}

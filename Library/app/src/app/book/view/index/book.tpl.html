@@ -1,0 +1,35 @@
+<section class="content pickuppoint">
+    <div class="pick-up">
+        <form class="search-form">
+            <table class="pickup-table">
+                <tbody>
+									  <tr>
+                        <td><span style="font-weight:bold;">Book Code:</span> {{book.book_code}}</td>
+										</tr>
+                    <tr>
+                        <td><span style="font-weight:bold;">Book Name:</span> {{book.book_name}}</td>
+										</tr>
+										<tr>
+                        <td><span style="font-weight:bold;"> Book Author  :</span> {{book.author}} </td>
+                    </tr>
+                    <tr>
+                        <td> <span style="font-weight:bold;">Published Date :</span> {{book.published_date | date:'EEEE d' + todaysuffix + ' MMM, yyyy' }} </td>
+                    </tr>
+                    <tr>
+                        <td> <span style="font-weight:bold;">Rack No :</span> {{book.rack_no }} </td>
+                    </tr>
+                    <tr>
+                        <td> <span ng-init="lend = ( book.lend == 1 ) ? 'Yes' :' No'" style="font-weight:bold;">Available for Lend :</span> {{lend}} </td>
+                    </tr>
+                    <tr>
+                        <td> <span style="font-weight:bold;">Content :</span> <br/><br/> <p>{{book.description}} </p></td>
+                    </tr>
+                </tbody> 
+            </table>
+           <!-- <div class="ad-footer">
+                <img src="assets/images/ad-footer.jpg" alt="Footer Ad" />
+            </div> -->
+        </form>
+    </div>
+
+    </section>

@@ -1,0 +1,21 @@
+<section class="accordion-top-offset">
+    <div class="gama-form">
+        <div ng-class="{'error': errors, 'success': !error}" class="message" ng-show="messages != null" ng-repeat="message in messages">
+        {{ message }}
+        </div>
+        <form ng-show="showForgotPasswordForm">            
+            <div>
+                <input type="text" ng-model="forgotemail" placeholder="Email">
+            </div>
+                          
+            <div class="buttons">
+                <input type="submit" value="Submit" ng-click="forgotPassword()">
+            </div>
+
+        </form>
+        <div class="message success" ng-show="linktologin">New passwored send to your email, please check it.
+            <a href="#/login"> Click Here</a> to Login
+        </div>
+    </div>
+</section>
+<div id="loading" ng-show="loading"></div>

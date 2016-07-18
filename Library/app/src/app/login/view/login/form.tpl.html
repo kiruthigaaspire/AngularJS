@@ -1,0 +1,29 @@
+<section class="accordion-top-offset">
+    <div class="gama-form">
+        <div ng-class="{'error': errors, 'success': !error}" class="message" ng-show="messages != null" 
+            ng-repeat="message in messages">
+        {{ message }}
+    </div>
+    <form ng-show="showLoginForm">
+        <div>
+            <input type="text" ng-model="username" placeholder="Email Id/Phone Number">
+        </div>
+        
+        <div>
+            <input type="password" ng-model="password" placeholder="Password">
+        </div>
+
+            <div class="buttons">
+                <input type="submit" value="Login" ng-click="login()">
+            </div>
+            <div class="buttons">
+                <input type="submit" value="Forgot Password" ng-click="forgot_password()">
+            </div>
+            <div class="buttons">
+                <input type="submit" value="Register" ng-click="register()">
+            </div>
+        </form>
+    </div>
+</section>
+<div id="loading" ng-show="loading"></div>
+
