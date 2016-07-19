@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html ng-app="app" ng-controller="appController">
+<head>
+<title ng-bind="pageTitle"></title>
+
+<!-- compiled CSS -->
+<% styles.forEach( function ( file ) { %>
+<link rel="stylesheet" type="text/css" href="<%= file %>" />
+<% }); %>
+
+<!-- compiled JavaScript -->
+<% scripts.forEach( function ( file ) { %>
+<script type="text/javascript" src="<%= file %>"></script>
+<% }); %>
+
+</head>
+<body>
+    <div class="view-container">
+      <div ui-view="main"></div>
+    </div>
+    <footer class="container-fluid">
+      <p>Footer Text</p>
+    </footer>
+</body>
+</html>
