@@ -1,0 +1,65 @@
+body {
+  padding: 20px;
+}
+
+h1 {
+  border-bottom: 1px solid gray;
+  margin-top: 0;
+}
+
+.specs {
+  clear: both;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.specs dt {
+  font-weight: bold;
+}
+
+.specs > li {
+  display: inline-block;
+  vertical-align: top;
+  width: 200px;
+}
+
+.specs > li > span {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+/* View: Book list */
+
+.row.content {height: 1500px}
+
+.sidenav {
+  background-color: #f1f1f1;
+  height: 100%;
+}
+
+footer {
+  background-color: #f1f1f1;
+  color: black;
+  padding: 15px;
+  margin : 1em;
+}
+
+@media screen and (max-width: 767px) {
+  .sidenav {
+    height: auto;
+    padding: 15px;
+  }
+  .row.content {height: auto;}
+}
+
+/* View: login */
+
+.wrapper {
+  margin-top: 80px;
+  margin-bottom: 80px;
+  max-width: 711px;
+  padding: 15px 35px 45px;
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
