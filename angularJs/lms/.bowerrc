@@ -1,0 +1,8 @@
+{
+  "directory": "vendor",
+  "json": "bower.json",
+  "proxy": "http://proxy.aspiresys.com:3128/",
+  "https-proxy": "http://proxy.aspiresys.com:3128/",
+  "strict-ssl": false
+}
+
