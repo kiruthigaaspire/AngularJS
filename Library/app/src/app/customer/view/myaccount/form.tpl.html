@@ -1,6 +1,6 @@
 <section class="accordion-top-offset">
     <div class="gama-form">
-        <div ng-class="{'error': errors, 'success': !error}" class="message" ng-show="messages != null" ng-repeat="message in messages">
+        <div ng-class="{'error': errors, 'success': !error}" class="message" ng-show="message != null">
         {{ message }}
         </div> <!--{{ showtest }} -->
 
@@ -20,7 +20,8 @@
             </div>
             
             <div ng-init="updateuser.address=customeraddress">
-                <textarea ng-model="updateuser.address" placeholder="Address" width="100%">
+                <textarea ng-model="updateuser.address" placeholder="Address" style="width: 98%">
+									{{customeraddress}}
 								</textarea>
             </div>
                       

@@ -11,11 +11,16 @@ $obj = new Library();
 switch($method) {
 	case 'GET': 
 			$id = explode("user/", $_SERVER['REQUEST_URI']);
-		  if (isset($id[1])) {
-				
+		  if (isset($id[1])) { 
+				if( $id[1] == 'logout' ) { 
+					session_unset();
+					session_destroy();
+					unset($_SESSION); 
+					echo true;
+				}
 		  }
       else {
-	   	 
+	   	 	echo $result = $obj->get_users();
       }
       break;
   case 'POST':
@@ -29,6 +34,12 @@ switch($method) {
 				}
 				else if( $id[1] == 'update' ) {
 					echo $result = $obj->updateUser($data);
+				}
+				else if( $id[1] == 'updatepwd' ) {
+					echo $result = $obj->updatepwd($data);
+				}
+				else if( $id[1] == 'approvereject' ) {
+					echo $result = $obj->approverejectUser($data);
 				}
 				else {
 					

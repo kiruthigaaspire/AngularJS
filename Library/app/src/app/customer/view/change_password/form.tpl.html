@@ -1,6 +1,6 @@
 <section class="accordion-top-offset">
     <div class="gama-form">
-        <div ng-class="{'error': errors, 'success': !error}" class="message" ng-show="messages != null" ng-repeat="message in messages">
+        <div ng-class="{'error': errors, 'success': !error}" class="message" ng-show="message != null" >
         {{ message }}
         </div> {{ showtest }}
         <form ng-show="showMyAccountForm">

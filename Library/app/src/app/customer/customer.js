@@ -51,6 +51,20 @@ angular.module( 'gamaMobileApp.customer', [
     },
     data:{ pageTitle: 'My Profile', pageCaption:'My Profile', showBreadCrumb:true, breadCrumbLink:'books-list' }
   });
+  
+  
+   $stateProvider.state( 'manageusers', {
+    url: '/manageusers',
+    views: {
+      "main": {
+        controller: 'RegisterController',
+        templateUrl: 'customer/view/myaccount/users.tpl.html'
+      }
+    },
+    data:{ pageTitle: 'Manage Users', pageCaption:'Manage Users', showBreadCrumb:true, breadCrumbLink:'books-list' }
+  });
+  
+  
 
 });
 

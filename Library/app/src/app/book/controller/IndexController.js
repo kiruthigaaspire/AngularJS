@@ -10,20 +10,20 @@ angular
         
         $scope.mobileRegx = /^[0-9]+$/;
                  
-         if (sessionStorage.getItem('booksList')) {
+        /* if (sessionStorage.getItem('booksList')) {
             $rootScope.booksList = JSON.parse(sessionStorage.getItem('booksList'));
             sessionStorage.removeItem('booksList');
-         } else {
+         } else {*/
             $rootScope.loading = true; 
             $http.get(domain+'/book_library/BookController.php/books').success(
                 function(data, status, headers, config) {
                     $rootScope.booksList = data;
-                    sessionStorage.setItem('booksList', JSON.stringify(data));                 
+                   // sessionStorage.setItem('booksList', JSON.stringify(data));                 
             }).finally(function () {
                   //Hide loading spinner whether our call succeeded or failed.
                   $rootScope.loading = false;                     
             });
-         }
+        // }
           $scope.getPickupListDisplay = function() {
             return $scope.displayPickupList;
           };
@@ -58,7 +58,6 @@ angular
             $http.get(domain+'/book_library/BookController.php/book/lendrequests').success(
                 function(data, status, headers, config) {
                     $rootScope.lendList = data;
-                    sessionStorage.setItem('lendList', JSON.stringify(data));                 
             }).finally(function () {
                   //Hide loading spinner whether our call succeeded or failed.
                   $rootScope.loading = false;                     
@@ -76,6 +75,32 @@ angular
 									$rootScope.loading = false;
 								});
 								 $state.reload();
+					};
+					
+					$scope.rejectLend = function(book) {
+						$rootScope.loading = true;
+						 $http.post(domain+'/book_library/BookController.php/book/rejectlend', book)
+								.success(function(data, status, headers, config) {
+									alert('Rejected Lend Request successfully');
+								}).error(function(data, status, headers, config) {
+									alert('Failed due server problem, please try again later.');
+								}).finally(function () {
+									$rootScope.loading = false;
+								});
+								 $state.reload();
+					};
+					
+					$scope.returnLend = function(book) {
+						$rootScope.loading = true;
+						$http.post(domain+'/book_library/BookController.php/book/returnlend', book)
+							.success(function(data, status, headers, config) {
+								alert('Returned Lended Book successfully');
+							}).error(function(data, status, headers, config) {
+								alert('Failed due to server problem, please try again later.');
+							}).finally(function () {
+								$rootScope.loading = false;
+							});
+						 $state.reload();
 					};
            
            $scope.hide_block=function()
@@ -158,6 +183,22 @@ angular
 								$rootScope.loading = false;
 							});
         		}
+					};
+					
+					$scope.getMembrtLendRequest = function() {
+						$rootScope.loading = true; 
+						$rootScope.currentPage = 1;
+            $http.post(domain+'/book_library/BookController.php/book/memberlendrequests', {
+							
+            		customer_id: $rootScope.customerId,
+              
+					  }).success(
+                function(data, status, headers, config) {
+                    $rootScope.lendList = data;
+            }).finally(function () {
+                  //Hide loading spinner whether our call succeeded or failed.
+                  $rootScope.loading = false;                     
+            });
 					};
 
 });

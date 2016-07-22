@@ -52,6 +52,8 @@ angular.module('gamaMobileApp.login')
             document.cookie="customerEmail="+customerEmail+";";
             document.cookie="customerMobile="+customerMobile+";";
             document.cookie="customerRole="+role_id+";";
+            document.cookie="customeraddress="+customeraddress+";";
+            
             
             $rootScope.showLogin        = false;  
             $scope.errors               = false;  
@@ -105,11 +107,12 @@ angular.module('gamaMobileApp.login')
             document.cookie="customerId=null;";
             document.cookie="customerEmail=null;";
             document.cookie="customerMobile=null;"; 
+            document.cookie="customeraddress=null;"; 
             $rootScope.cartItemsCount = 0;
             sessionStorage.removeItem('cartItems');
             sessionStorage.removeItem('cartItemsCount');
             sessionStorage.removeItem('selectedPickUpPointId');
-            $location.path('pickup');       
+            $location.path('/books-list');       
           });
         
       };

@@ -59,6 +59,7 @@ var app = angular.module( 'gamaMobileApp', [
         $rootScope.$stateParams     = $stateParams;
         $rootScope.loginStatus      = loginStatus;
         $rootScope.customerId       =  readCookie('customerId');
+        $rootScope.customeraddress       =  readCookie('customeraddress');
         $rootScope.menuclasses = 'lines-button x nav-menu menuhide';        
 })
 

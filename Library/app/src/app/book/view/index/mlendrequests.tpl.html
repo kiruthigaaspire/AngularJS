@@ -1,4 +1,4 @@
-<section class="content" ng-init="getLendRequestDtls();">
+<section class="content" ng-init="getMembrtLendRequest();">
     <form class="search-form" name="form">
       <label>Books Library</label><br/>
       <input type="text" ng-model="bookname" ng-keypress="setPickupListDisplay(true)"
@@ -11,25 +11,19 @@
                     <tr>
 											  <th>Book Code</th>
                         <th>Book Name</th>
-                        <th>Author</th>
-                        <th>User Name</th>
+                        <th>Author</th>                        
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr dir-paginate="lend in lendList|orderBy:sortKey:reverse|filter:bookname|itemsPerPage:2">
+                    <tr dir-paginate="lend in lendList|orderBy:sortKey:reverse|filter:bookname|itemsPerPage:5">
 												<td>{{lend.book_code}}</td>
 	                      <td>{{lend.book_name}}</td>
                         <td> {{lend.author}}</td>
-                        <td> {{lend.fname}}</td>
                         <td>
-	                        <a ng-if="lend.approved	== 0" ng-click="approveLend(lend)" title="Details" href="javascript:void(0);">Approve</a>
-	                        
-	                        <a ng-if="lend.approved	== 0" ng-click="rejectLend(lend)" title="Details" href="javascript:void(0);">Reject</a>
+													<span ng-if="lend.approved == 0" >Requested for Lend</span>
 	                        <span ng-if="lend.approved == 1" >Approved</span>
-	                        <a ng-if="lend.approved == 1 && lend.returned	== 0" ng-click="returnLend(lend)" title="Details" href="javascript:void(0);">Return</a>
 	                        <span ng-if="lend.returned == 1" >Returned</span>
-	                        
 	                        <span ng-if="lend.approved == -1" >Rejected</span>
                         </td>
                     </tr>

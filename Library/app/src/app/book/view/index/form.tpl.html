@@ -28,7 +28,8 @@
 	                        <a ng-click="getbook(book)" title="Details" href="javascript:void(0);">view</a>
 	                        &nbsp;&nbsp;
 	                        <a ng-if="book.lend != 1" ng-show="ismember" ng-click="lendbook(book)" title="Details" href="javascript:void(0);">Lend</a>
-	                        <span ng-if="book.lend == 1">Lended By Other Member</span>
+	                        <span ng-if="book.lend == 1 && book.user_id == customerId">Lended By You</span>
+	                        <span ng-if="book.lend == 1 && book.user_id != customerId">Lended By Other Member</span>
                         </td>
                     </tr>
                 </tbody>

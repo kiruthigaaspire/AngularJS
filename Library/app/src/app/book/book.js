@@ -47,6 +47,16 @@ angular.module( 'gamaMobileApp.book', [
       }
     },
     data:{ pageTitle: 'Add/Edit Book', pageCaption:'Add/Edit Book', showBreadCrumb:true, breadCrumbLink:'books-list' }
+  })
+  .state( 'memberlendrequests', {
+    url: '/memberlendrequests',
+    views: {
+      "main": {
+        controller: 'BookIndexController',
+        templateUrl: 'book/view/index/mlendrequests.tpl.html'
+      }
+    },
+    data:{ pageTitle: 'Member Lend Request Details', pageCaption:'Member Lend Request Details', showBreadCrumb:true, breadCrumbLink:'books-list' }
   });
   
   

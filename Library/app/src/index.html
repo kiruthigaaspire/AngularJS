@@ -52,6 +52,8 @@
                     <li class="menus" ng-click="vis = !vis; menuClickEvent()"><a ng-if="showBreadCrumb" href="#/books-list" title="Books"><i class="fa fa-book"></i>Books List</a></li>
                     <li ng-show="isAdmin" class="pick-up-point" ng-click="vis = !vis; menuClickEvent()"> <a href="#/manageusers" title="Users Management"><i class="fa fa-map-marker"></i>Manage Users</a></li>
                     <li ng-show="isAdmin" class="pick-up-point" ng-click="vis = !vis; menuClickEvent()"> <a href="#/lendrequests" title="Lend Requests for Books"><i class="fa fa-map-marker"></i>Lend Requests</a></li>
+                    
+                    <li ng-show="ismember" class="pick-up-point" ng-click="vis = !vis; menuClickEvent()"> <a href="#/memberlendrequests" title="Member Lend Requests for Books"><i class="fa fa-map-marker"></i>Your Lend Requests</a></li>
                    
                     <li class="contact-us" ng-click="vis = !vis; menuClickEvent()"><a href="#" title="Contact Us"><i class="fa fa-mobile"></i>Contact Us</a></li>
                     <li class="about-us" ng-click="vis = !vis; menuClickEvent()"><a href="#" title="About Us"><i class="fa fa-info-circle"></i>About Us</a></li>

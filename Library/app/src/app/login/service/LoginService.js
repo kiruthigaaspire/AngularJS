@@ -5,7 +5,7 @@ angular.module('gamaMobileApp.login')
       return {
         //to logout from the application
         clearCredentials: function () {
-          var logoutUser = $http.get(domain+'/shop/api/rest/customer/logout');
+          var logoutUser = $http.get(domain+'/book_library/UserController.php/user/logout');
           logoutUser.success(function (data, status, headers, config) { 
             if (status === 200) {
               $http.defaults.headers.common.Authorization = '';  

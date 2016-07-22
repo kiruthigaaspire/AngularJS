@@ -1,0 +1,50 @@
+<section class="content" ng-init="getAllUsers();">
+    <form class="search-form" name="form">
+      <label>Books Library</label><br/>
+      <!--
+      <a ng-if="isAdmin" class="addbook" ng-click="addBook()" title="Edit" href="javascript:void(0);">Add User</a>
+      -->
+      <input type="text" ng-model="uname" ng-keypress="setPickupListDisplay(true)"
+                   placeholder="Search User"/>
+      <input type="submit" value="&#xf002;" />
+      <div class="">
+        
+					<table class="pickup-table">
+                <thead>
+                    <tr>
+                        <th>User Name</th>
+                        <th>User Email</th>
+                        <th>User Mobile</th>
+                        <th>User Address</th>
+                        <th>Membership Expiration Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr dir-paginate="user in usersList|orderBy:sortKey:reverse|filter:uname|itemsPerPage:5">
+                        <td>{{user.fname}}</td>
+                        <td> {{user.email}}</td>
+                        <td> {{user.mobile}}</td>
+                        <td> {{user.address}}</td>
+                        <td> {{user.expiry_date}}</td>
+                        <td>
+													<span ng-show="user.approved==1">Approved</span>
+													<span ng-show="user.approved==-1">Rejected</span>
+													
+													<a ng-show="user.approved==0" ng-click="approverejectUser(user, 1)" title="Approve" href="javascript:void(0);">Approve</a>
+	                        <a ng-if="user.approved==0" ng-click="approverejectUser(user, -1)"  title="Reject" href="javascript:void(0);" ng-confirm-click="Are you sure, you want to reject this user?">Reject</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+						<dir-pagination-controls
+					max-size="5"
+					direction-links="true"
+					boundary-links="true" >
+				</dir-pagination-controls>
+          <span ng-show="filtered.length=='0'">No Book Found</span>
+        
+      </div>
+    </form>
+  </section>
+<div id="loading" ng-show="loading"></div>

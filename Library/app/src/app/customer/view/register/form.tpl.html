@@ -1,6 +1,6 @@
 <section class="accordion-top-offset">
     <div class="gama-form">
-        <div ng-class="{'error': errors, 'success': !error}" class="message" ng-show="messages != null" ng-repeat="message in messages">
+        <div ng-class="{'error': errors, 'success': !error}" class="message" ng-show="message != null" >
     	{{ message }}
         </div>
         <form ng-show="showRegisterForm">
@@ -13,6 +13,10 @@
 
             <div ng-init="user.mobile=''">
                 <input type="text" ng-model="user.mobile" placeholder="Mobile Number">
+            </div>  
+            <div ng-init="user.address=''">
+                <textarea ng-model="user.address" placeholder="Address" style="width: 98%">
+								</textarea>
             </div>  
             
             <div ng-init="user.password=''">

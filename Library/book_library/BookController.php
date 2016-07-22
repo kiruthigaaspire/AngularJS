@@ -29,8 +29,17 @@ switch($method) {
 				if ( $id[1] == 'approvelend' ) {
 					echo $result = $obj->approvelend($data);
 				}
+				if( $id[1] == 'rejectlend') {
+					echo $result = $obj->rejectlend($data);
+				}
 				if( $id[1] == 'update' ) {
 					echo $result = $obj->updatebook($data);
+				}
+				if( $id[1] == 'returnlend' ) {
+					echo $result = $obj->returnlend($data);
+				}
+				if( $id[1] == 'memberlendrequests' ) {
+					echo $result = $obj->memberlendrequests($data);
 				}
 			}
 			else {
