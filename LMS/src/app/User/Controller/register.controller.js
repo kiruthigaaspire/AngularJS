@@ -1,9 +1,11 @@
 angular.module('app.user').
-controller( 'registerController', function RegisterController($stateParams, $scope, $state, User) {
+controller( 'registerController', function RegisterController($scope, $state, User) {
+    $scope.isNotNew = false;
     $scope.update = function() {
-        console.log($scope.user);
-        User.register($scope.user);
-//        $state.go('login');
+        if ($scope.userForm.$valid) {
+            User.register($scope.user);
+            $state.go('login');
+        }
     }; 
   }
 );

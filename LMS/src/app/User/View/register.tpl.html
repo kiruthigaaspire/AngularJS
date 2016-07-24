@@ -1,20 +1,21 @@
-<form class="form-horizontal" role="form" name="userForm" novalidate>
+<form class="form-horizontal" role="form" name="userForm">
   <div class="form-group">
     <label class="control-label col-sm-2" for="user_name">User Name:</label>
     <div class="col-sm-5">
-      <input type="text" class="form-control" name="user_name" ng-model="user.user_name" required>
-      <div ng-show="userForm.$submitted || userForm.user_name.$touched">
-        <div ng-show="userForm.user_name.$error.required">User name is required</div>
+      <input type="text" class="form-control" name="user_name" ng-model="user.user_name" required unique>
+      <div ng-class="userForm.$submitted">
+        <span ng-show="userForm.user_name.$error.required" class="help-block">User name is required</span>
+        <span ng-show="userForm.user_name.$error.unique" class="help-block">User name is already in use.</span>
       </div>
     </div>
   </div>
   <div class="form-group">
     <label class="control-label col-sm-2" for="password">Password</label>
     <div class="col-sm-5">
-      <input type="password" class="form-control" name="password" ng-model="user.password" required>
-      <div ng-show="userForm.$submitted || userForm.password.$touched">
-        <span ng-show="userForm.password.$error.required">Tell us your email.</span>
-        <span ng-show="userForm.password.$error.email">This is not a valid email.</span>
+      <input type="password" class="form-control" name="password" ng-model="user.password" required password>
+      <div ng-class="userForm.$submitted">
+        <span ng-show="userForm.password.$error.required" class="help-block">Password is required.</span>
+        <span ng-show="userForm.password.$error.password" class="help-block">Should contain atleast one small, caps, spl character and numbers.</span>
       </div>
     </div>
   </div>
@@ -22,36 +23,39 @@
     <label class="control-label col-sm-2" for="email_id">Email ID: </label>
     <div class="col-sm-5">
       <input type="email" class="form-control" name="email_id" ng-model="user.email_id" required>
-      <div ng-show="userForm.$submitted || userForm.email_id.$touched">
-        <span ng-show="userForm.email_id.$error.required">Tell us your email.</span>
-        <span ng-show="userForm.email_id.$error.email">This is not a valid email.</span>
+      <div ng-class="userForm.$submitted">
+        <span ng-show="userForm.email_id.$error.required" class="help-block">Tell us your email.</span>
+        <span ng-show="userForm.email_id.$error.email" class="help-block">This is not a valid email.</span>
       </div>
     </div>
   </div>
   <div class="form-group">
     <label class="control-label col-sm-2" for="mobile_no">Mobile</label>
     <div class="col-sm-5">
-      <input type="text" class="form-control" ng-model="user.mobile_no" name="mobile_no" >
+      <input type="text" class="form-control" ng-model="user.mobile_no" name="mobile_no" mobile>
+      <div ng-class="userForm.$submitted">
+        <span ng-show="userForm.mobile_no.$error.mobile" class="help-block">This is not a valid mobile number. Please enter 10 digit.</span>
+      </div>
     </div>
   </div>
-<!--   <div class="form-group">
+  <div class="form-group" ng-show="isNotNew">
    <label class="control-label col-sm-2" for="status">Status</label>
     <div class="col-sm-5">
-      <input type="hidden" class="form-control" ng-model="user.membership_status" name="status" >
+      <input type="text" class="form-control" ng-readonly="true" ng-model="user.membership_status" name="status" >
     </div>
   </div>
-  <div class="form-group">
+  <div class="form-group" ng-show="isNotNew">
     <label class="control-label col-sm-2" for="date_of_issue">issue Date</label>
     <div class="col-sm-5">
-      <input type="hidden" class="form-control" name="date_of_issue" ng-model="user.membership_issue_date" required>
+      <input type="text" class="form-control" name="date_of_issue" ng-readonly="true" ng-model="user.membership_issue_date">
     </div>
   </div>
-    <div class="form-group">
+    <div class="form-group" ng-show="isNotNew">
     <label class="control-label col-sm-2" for="date_of_expiry">Expiry Date</label>
     <div class="col-sm-5">
-      <input type="text" class="form-control" name="date_of_expiry" ng-model="user.membership_expiry_date" required>
+      <input type="text" class="form-control" name="date_of_expiry" ng-readonly="true" ng-model="user.membership_expiry_date">
     </div>
-  </div> -->
+  </div>
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-5">
       <button type="submit" ng-click="update()" class="btn btn-default">Save</button>
