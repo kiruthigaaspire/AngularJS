@@ -26,6 +26,24 @@ angular.module('app.user', [
       data: {
           pageTitle: 'Register'
       }
-    });
+    })
+    .state( 'userManage', {
+        url: '/user/manage',
+        views: {
+          "mainContent": {
+            controller: 'userListController',
+            templateUrl: 'User/View/list.tpl.html'
+          }
+        },  
+      })
+      .state( 'changeStatus', {
+        url: '/user/changeStatus/:id',
+        views: {
+            "mainContent": {
+              controller: 'changeStatusController',
+              template: ' '
+            }
+          }, 
+      });
   }
 );

@@ -28,6 +28,12 @@ angular.module('app.user').
                   action: "uniqueCheck"
               },
               isArray: true
+          },
+          changeStatus: {
+              method: 'POST',
+              params: {
+                  action: 'changeStatus'
+              }
           }
       });
     }

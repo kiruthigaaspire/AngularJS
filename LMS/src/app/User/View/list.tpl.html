@@ -1,0 +1,25 @@
+<h2>User List</h2>
+
+<table id="userTable" class="table table-striped">
+    <thead>
+        <tr>
+            <th>User Id</th>
+            <th>User Name</th>
+            <th>Mobile number</th>
+            <th>Emain Id</th>
+            <th>Status</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="user in userList">
+            <td>{{user.user_id}}</td>
+            <td>{{user.user_name}}</td>
+            <td>{{user.mobile_no}}</td>
+            <td>{{user.email_id}}</td>
+            <td>{{user.membership_status}}</td>
+            <td><a ui-sref="userConfirm({id : user.user_id})">Confirm</a>
+            | <a ui-sref="userActivity({id : user.user_id})">Activities</a></td>
+        </tr>
+    </tbody>
+</table>

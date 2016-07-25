@@ -7,7 +7,8 @@ controller( 'loginController', function LoginController($scope, $state, User) {
                 $scope.error = true;
                 $scope.error_message = 'User name or password is incorrect';
             } else {
-                if(user['is_admin']) {
+                console.log(user);
+                if(user[0].is_admin) {
                  // Authentication
                     $state.go('home');
                 } else {
