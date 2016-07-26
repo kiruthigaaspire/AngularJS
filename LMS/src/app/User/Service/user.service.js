@@ -34,6 +34,13 @@ angular.module('app.user').
               params: {
                   action: 'changeStatus'
               }
+          },
+          getActivities: {
+        	  method: 'GET',
+        	  params: {
+        		  action: 'getActivities'
+        	  },
+        	  isArray: true
           }
       });
     }

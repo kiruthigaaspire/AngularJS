@@ -1,0 +1,18 @@
+<h2>User List</h2>
+
+<table id="userActivityTable" class="table table-striped">
+    <thead>
+        <tr>
+            <th>Book Name</th>
+			<th>Lending Status</th>
+			<th>Fine paid, if any</th>            
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="userActivity in userActivities">
+            <td>{{userActivity.book_name}}</td>
+            <td>{{userActivity.user_name}}</td>
+            <td>{{userActivity.fine_paid}}</td>
+        </tr>
+    </tbody>
+</table>

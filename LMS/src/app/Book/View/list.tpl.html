@@ -19,30 +19,36 @@
 	        </select>
 	        <input type="checkbox" ng-model="exactMatch"> Exact Match
     </div>
+    <div class="row">
+    	<table id="bookTable" class="table table-striped">
+		    <thead>
+		        <tr>
+		            <th>Roll Number</th>
+		            <th>Book title</th>
+		            <th>Author Name</th>
+		            <th>Quantity</th>
+		            <th>Status</th>
+		            <th></th>
+		        </tr>
+		    </thead>
+		    <tbody>
+		        <tr ng-repeat="book in bookList|filter:searchKey:exactMatch">
+		            <td>{{book.book_id}}</td>
+		            <td>{{book.book_name}}</td>
+		            <td>{{book.author_name}}</td>
+		            <td>{{book.quantity}}</td>
+		            <td>{{(book.status == 1) ? 'available' : 'unavailable'}}</td>
+		            <td><a ui-sref="bookUpdate({id : book.book_id})">Edit</a> | <a
+		                ui-sref="bookDelete({id : book.book_id})">Delete</a>
+		            </td>
+		        </tr>
+		    </tbody>
+		</table>
+    </div>
+    <div class="row">
+    	<div class="col-offset-sm-3 col-sm-3">
+    		<a ui-sref="bookAdd">Add New Book</a>
+   		</div>
+    </div>
 </div>
 <br/>
-
-<table id="bookTable" class="table table-striped">
-    <thead>
-        <tr>
-            <th>Roll Number</th>
-            <th>Book title</th>
-            <th>Author Name</th>
-            <th>Quantity</th>
-            <th>Status</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr ng-repeat="book in bookList|filter:searchKey:exactMatch">
-            <td>{{book.book_id}}</td>
-            <td>{{book.book_name}}</td>
-            <td>{{book.author_name}}</td>
-            <td>{{book.quantity}}</td>
-            <td>{{(book.status == 1) ? 'available' : 'unavailable'}}</td>
-            <td><a ui-sref="bookUpdate({id : book.book_id})">Edit</a> | <a
-                ui-sref="bookDelete({id : book.book_id})">Delete</a>
-            </td>
-        </tr>
-    </tbody>
-</table>
