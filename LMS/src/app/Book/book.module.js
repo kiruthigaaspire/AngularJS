@@ -12,9 +12,14 @@ angular.module('app.book', [
 	  },  
     })
     .state( 'bookManage', {
-        url: '/book/manage',
+        url: '/manage',
+        parent: 'book',
         views: {
-          "mainContent": {
+          "main@": {
+            controller: 'bookMainController',
+            templateUrl: 'Book/View/book.tpl.html'
+          },
+          "bookContent@bookManage": {
             controller: 'bookListController',
             templateUrl: 'Book/View/list.tpl.html'
           }

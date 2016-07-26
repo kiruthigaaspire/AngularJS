@@ -30,18 +30,39 @@ angular.module('app.user', [
     .state( 'userManage', {
         url: '/user/manage',
         views: {
-          "mainContent": {
+          "main@": {
+            controller: 'userMainController',
+            templateUrl: 'Index/View/home.tpl.html'
+          },
+          "mainContent@userManage": {
             controller: 'userListController',
             templateUrl: 'User/View/list.tpl.html'
           }
         },  
       })
-      .state( 'changeStatus', {
+      .state( 'userConfirm', {
         url: '/user/changeStatus/:id',
         views: {
-            "mainContent": {
+            "main@": {
+                controller: 'userMainController',
+                templateUrl: 'Index/View/home.tpl.html'
+              },
+            "mainContent@changeStatus": {
               controller: 'changeStatusController',
               template: ' '
+            }
+          }, 
+      })
+      .state( 'userActivity', {
+        url: '/user/activities/:id',
+        views: {
+            "main@": {
+                controller: 'userMainController',
+                templateUrl: 'Index/View/home.tpl.html'
+              },
+            "mainContent@userActivity": {
+              controller: 'userActivitiesController',
+              template: 'User/View/activity.tpl.html'
             }
           }, 
       });

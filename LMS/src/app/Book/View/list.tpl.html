@@ -1,5 +1,27 @@
 <h2>Book List</h2>
 
+<div class="container-fluid">
+    <div class="row">
+       <input type="text" ng-model="searchKey.$" placeholder="Search...">
+       <input type="checkbox" ng-model="advanceSearch"> Advanced Search
+    </div>
+    <div class="row" ng-show="advanceSearch">
+            <select ng-model="searchKey.book_name" ng-options="book.book_name as book.book_name for book in bookList">
+                <option value="">Choose Book</option>
+            </select>
+	        <select ng-model="searchKey.author_name" ng-options="book.author_name as book.author_name for book in bookList | unique: 'author_name'">
+	            <option value="">Choose Author</option>
+	        </select>
+	        <select ng-model="searchKey.status">
+	            <option value="">Choose Status</option>
+	            <option value="unavailable">Not available</option>
+	            <option value="available">Available</option>
+	        </select>
+	        <input type="checkbox" ng-model="exactMatch"> Exact Match
+    </div>
+</div>
+<br/>
+
 <table id="bookTable" class="table table-striped">
     <thead>
         <tr>
@@ -12,7 +34,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="book in bookList">
+        <tr ng-repeat="book in bookList|filter:searchKey:exactMatch">
             <td>{{book.book_id}}</td>
             <td>{{book.book_name}}</td>
             <td>{{book.author_name}}</td>

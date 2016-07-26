@@ -1,4 +1,4 @@
-angular.module('app.book', [
+angular.module('app.home', [
   'ui.router',
   'ui.bootstrap'
 ]).config(
