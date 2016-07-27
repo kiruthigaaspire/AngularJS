@@ -62,7 +62,7 @@ angular.module('app.user', [
               },
             "mainContent@userActivity": {
               controller: 'userActivitiesController',
-              template: 'User/View/activity.tpl.html'
+              templateUrl: 'User/View/activity.tpl.html'
             }
           }, 
       });

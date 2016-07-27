@@ -3,6 +3,7 @@
 <table id="userActivityTable" class="table table-striped">
     <thead>
         <tr>
+            <th>Book Code</th>
             <th>Book Name</th>
 			<th>Lending Status</th>
 			<th>Fine paid, if any</th>            
@@ -10,6 +11,7 @@
     </thead>
     <tbody>
         <tr ng-repeat="userActivity in userActivities">
+            <td>{{userActivity.book_id}}</td>
             <td>{{userActivity.book_name}}</td>
             <td>{{userActivity.user_name}}</td>
             <td>{{userActivity.fine_paid}}</td>
