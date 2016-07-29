@@ -30,9 +30,9 @@ angular.module('app.user').
               isArray: true
           },
           changeStatus: {
-              method: 'POST',
+              method: 'PUT',
               params: {
-                  action: 'changeStatus'
+                  action: 'changestatus'
               }
           },
           getActivities: {

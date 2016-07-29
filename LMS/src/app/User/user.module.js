@@ -41,13 +41,13 @@ angular.module('app.user', [
         },  
       })
       .state( 'userConfirm', {
-        url: '/user/changeStatus/:id',
+        url: '/user/changestatus/:id',
         views: {
             "main@": {
                 controller: 'userMainController',
                 templateUrl: 'Index/View/home.tpl.html'
               },
-            "mainContent@changeStatus": {
+            "mainContent@userConfirm": {
               controller: 'changeStatusController',
               template: ' '
             }

@@ -18,7 +18,7 @@
             <td>{{user.mobile_no}}</td>
             <td>{{user.email_id}}</td>
             <td>{{user.membership_status}}</td>
-            <td><a ui-sref="userConfirm({id : user.user_id})">Confirm</a>
+            <td><a ng-show="user.membership_status == 'New'" ui-sref="userConfirm({id : user.user_id})">Confirm</a>
             | <a ui-sref="userActivity({id : user.user_id})">Activities</a></td>
         </tr>
     </tbody>

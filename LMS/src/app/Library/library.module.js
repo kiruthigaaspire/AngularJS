@@ -16,9 +16,8 @@ angular.module('app.library', [
             }
           }, 
       })
-      .state( 'bookManage', {
-        url: '/manage',
-        parent: 'book',
+      .state( 'lendingBook', {
+        url: '/lending/:book_id',
         views: {
           "main@": {
             controller: 'bookMainController',
@@ -30,9 +29,8 @@ angular.module('app.library', [
           }
         },  
       })
-      .state( 'bookUpdate', {
-        url: '/edit/:id',
-        parent: 'book',
+      .state( 'lendingApproval', {
+        url: '/lending/approve/:id',
         views: {
           "main@": {
             controller: 'bookMainController',
@@ -44,9 +42,8 @@ angular.module('app.library', [
           }
         },  
       })
-      .state( 'bookAdd', {
-        url: '/add',
-        parent: 'book',
+      .state( 'returnBook', {
+        url: '/return/:book_id',
         views: {
           "main@": {
             controller: 'bookMainController',
@@ -57,20 +54,6 @@ angular.module('app.library', [
             templateUrl: 'Book/View/new.tpl.html'
           }
         },  
-      })
-      .state( 'bookDelete', {
-        url: '/delete/:id',
-        parent: 'book',
-        views: {
-            "main@": {
-                controller: 'bookMainController',
-                templateUrl: 'Book/View/book.tpl.html'
-              },            
-            "bookContent@bookDelete": {
-              controller: 'bookDeleteController',
-              template: ' '
-            }
-          }, 
       });
   }
 );

@@ -26,7 +26,7 @@
 		            <th>Roll Number</th>
 		            <th>Book title</th>
 		            <th>Author Name</th>
-		            <th>Quantity</th>
+		            <th ng-show="admin" >Quantity</th>
 		            <th>Status</th>
 		            <th></th>
 		        </tr>
@@ -36,10 +36,11 @@
 		            <td>{{book.book_id}}</td>
 		            <td>{{book.book_name}}</td>
 		            <td>{{book.author_name}}</td>
-		            <td>{{book.quantity}}</td>
+		            <td ng-show="admin">{{book.quantity}}</td>
 		            <td>{{(book.status == 1) ? 'available' : 'unavailable'}}</td>
-		            <td><a ui-sref="bookUpdate({id : book.book_id})">Edit</a> | <a
-		                ui-sref="bookDelete({id : book.book_id})">Delete</a>
+		            <td><a ng-show="admin" ui-sref="bookUpdate({id : book.book_id})">Edit</a> | <a
+		                ng-show="admin" ng-show="admin"ui-sref="bookDelete({id : book.book_id})">Delete</a> | 
+		                <a ng-show="admin" ui-sref="lendingBook({book_id: book_book_id})">Lend</a>
 		            </td>
 		        </tr>
 		    </tbody>
