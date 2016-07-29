@@ -16,10 +16,9 @@ angular.module('app.book', [
         parent: 'book',
         views: {
           "main@": {
-            controller: 'bookMainController',
-            templateUrl: 'Book/View/book.tpl.html'
+            templateUrl: 'Index/View/home.tpl.html'
           },
-          "bookContent@bookManage": {
+          "mainContent@bookManage": {
             controller: 'bookListController',
             templateUrl: 'Book/View/list.tpl.html'
           }
@@ -30,10 +29,9 @@ angular.module('app.book', [
         parent: 'book',
         views: {
           "main@": {
-            controller: 'bookMainController',
-            templateUrl: 'Book/View/book.tpl.html'
+            templateUrl: 'Index/View/home.tpl.html'
           },
-          "bookContent@bookUpdate": {
+          "mainContent@bookUpdate": {
             controller: 'bookEditController',
             templateUrl: 'Book/View/new.tpl.html'
           }
@@ -44,10 +42,9 @@ angular.module('app.book', [
         parent: 'book',
         views: {
           "main@": {
-            controller: 'bookMainController',
-            templateUrl: 'Book/View/book.tpl.html'
+            templateUrl: 'Index/View/home.tpl.html'
           },
-          "bookContent@bookAdd": {
+          "mainContent@bookAdd": {
             controller: 'bookAddController',
             templateUrl: 'Book/View/new.tpl.html'
           }
@@ -58,14 +55,37 @@ angular.module('app.book', [
         parent: 'book',
         views: {
             "main@": {
-                controller: 'bookMainController',
-                templateUrl: 'Book/View/book.tpl.html'
+                templateUrl: 'Index/View/home.tpl.html'
               },            
-            "bookContent@bookDelete": {
+            "mainContent@bookDelete": {
               controller: 'bookDeleteController',
               template: ' '
             }
           }, 
+      })
+      .state( 'lendingBook', {
+        url: '/lending/:book_id',
+        views: {
+          "main@": {
+            templateUrl: 'Index/View/home.tpl.html'
+          },
+          "mainContent@lendingBook": {
+            controller: 'bookLendingController',
+            template: ' '
+          }
+        },  
+      })
+      .state( 'returnBook', {
+        url: '/return/:book_id',
+        views: {
+          "main@": {
+            templateUrl: 'Index/View/home.tpl.html'
+          },
+          "mainContent@returnBook": {
+            controller: 'returnBookController',
+            template: ' '
+          }
+        },  
       });
   }
 );

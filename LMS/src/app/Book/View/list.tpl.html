@@ -40,7 +40,7 @@
 		            <td>{{(book.status == 1) ? 'available' : 'unavailable'}}</td>
 		            <td><a ng-show="admin" ui-sref="bookUpdate({id : book.book_id})">Edit</a> | <a
 		                ng-show="admin" ng-show="admin"ui-sref="bookDelete({id : book.book_id})">Delete</a> | 
-		                <a ng-show="admin" ui-sref="lendingBook({book_id: book_book_id})">Lend</a>
+		                <a ng-show="! admin" ui-sref="lendingBook({book_id: book_book_id})">Lend</a>
 		            </td>
 		        </tr>
 		    </tbody>
@@ -48,7 +48,7 @@
     </div>
     <div class="row">
     	<div class="col-md-offset-3 col-md-3">
-    		<a ui-sref="bookAdd">Add New Book</a>
+    		<a ng-show="admin" ui-sref="bookAdd">Add New Book</a>
    		</div>
     </div>
 </div>

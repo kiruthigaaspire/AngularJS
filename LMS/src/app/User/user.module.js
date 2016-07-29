@@ -31,7 +31,6 @@ angular.module('app.user', [
         url: '/user/manage',
         views: {
           "main@": {
-            controller: 'userMainController',
             templateUrl: 'Index/View/home.tpl.html'
           },
           "mainContent@userManage": {
@@ -44,7 +43,6 @@ angular.module('app.user', [
         url: '/user/changestatus/:id',
         views: {
             "main@": {
-                controller: 'userMainController',
                 templateUrl: 'Index/View/home.tpl.html'
               },
             "mainContent@userConfirm": {
@@ -57,9 +55,8 @@ angular.module('app.user', [
         url: '/user/activities/:id',
         views: {
             "main@": {
-                controller: 'userMainController',
-                templateUrl: 'Index/View/home.tpl.html'
-              },
+               templateUrl: 'Index/View/home.tpl.html'
+             },
             "mainContent@userActivity": {
               controller: 'userActivitiesController',
               templateUrl: 'User/View/activity.tpl.html'
