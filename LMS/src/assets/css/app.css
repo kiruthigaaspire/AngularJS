@@ -29,6 +29,10 @@ h1 {
   font-weight: bold;
 }
 
+.backColor {
+	background-color: white;
+}
+
 /* View: Book list */
 
 .row.content {height: 1500px}

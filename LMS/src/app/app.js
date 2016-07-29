@@ -5,11 +5,22 @@ angular.module('app', [
   'app.book',
   'app.user',
   'app.home'
-]).controller('appController', function appController($scope, $location) {
-	$scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
+]).run(function($rootScope) {
+	$rootScope.globals = {};
+})
+.controller('appController', function appController($scope, $location, UserAuth, $state) {
+	$scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
 		if (angular.isDefined(toState.data) && angular.isDefined(toState.data.pageTitle)) {
 			$scope.pageTitle = toState.data.pageTitle;
 	    }
+	});
+	
+	$scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+		if (UserAuth.isAuthenticated()) {
+            $state.go(toState, toParams);
+            return;
+          }
+          $state.go("login");
 	});
 });
 

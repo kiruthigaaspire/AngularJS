@@ -20,6 +20,10 @@ angular.module('app.user')
             $rootScope.globals = {};
             $http.defaults.headers.common.Authorization = 'Basic ';
         };
+        
+        service.isAuthenticated = function() {
+        	return $rootScope.globals.currentUser !== undefined;
+        };
  
         return service;
     }])

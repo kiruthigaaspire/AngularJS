@@ -22,7 +22,10 @@ angular.module('app.book', [
             controller: 'bookListController',
             templateUrl: 'Book/View/list.tpl.html'
           }
-        },  
+        },
+        data: {
+            pageTitle: 'Book Manage'
+        }  
       })
       .state( 'bookUpdate', {
         url: '/edit/:id',
@@ -35,7 +38,10 @@ angular.module('app.book', [
             controller: 'bookEditController',
             templateUrl: 'Book/View/new.tpl.html'
           }
-        },  
+        },
+        data: {
+            pageTitle: 'Book - Update'
+        }  
       })
       .state( 'bookAdd', {
         url: '/add',
@@ -48,7 +54,10 @@ angular.module('app.book', [
             controller: 'bookAddController',
             templateUrl: 'Book/View/new.tpl.html'
           }
-        },  
+        },
+        data: {
+            pageTitle: 'Book - Add'
+        }  
       })
       .state( 'bookDelete', {
         url: '/delete/:id',
@@ -61,7 +70,10 @@ angular.module('app.book', [
               controller: 'bookDeleteController',
               template: ' '
             }
-          }, 
+          },
+          data: {
+              pageTitle: 'Book - Delete'
+          } 
       })
       .state( 'lendingBook', {
         url: '/lending/:book_id',
@@ -73,7 +85,10 @@ angular.module('app.book', [
             controller: 'bookLendingController',
             template: ' '
           }
-        },  
+        },
+        data: {
+            pageTitle: 'Lending Book'
+        }  
       })
       .state( 'returnBook', {
         url: '/return/:book_id',
@@ -85,7 +100,10 @@ angular.module('app.book', [
             controller: 'returnBookController',
             template: ' '
           }
-        },  
+        },
+        data: {
+            pageTitle: 'Return Book'
+        }  
       });
   }
 );

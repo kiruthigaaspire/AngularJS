@@ -37,7 +37,10 @@ angular.module('app.user', [
             controller: 'userListController',
             templateUrl: 'User/View/list.tpl.html'
           }
-        },  
+        },
+        data: {
+            pageTitle: 'User Manage'
+        }  
       })
       .state( 'userConfirm', {
         url: '/user/changestatus/:id',
@@ -49,7 +52,10 @@ angular.module('app.user', [
               controller: 'changeStatusController',
               template: ' '
             }
-          }, 
+          },
+          data: {
+              pageTitle: 'User Status - Confirm'
+          } 
       })
       .state( 'userActivity', {
         url: '/user/activities/:id',
@@ -61,7 +67,18 @@ angular.module('app.user', [
               controller: 'userActivitiesController',
               templateUrl: 'User/View/activity.tpl.html'
             }
-          }, 
-      });
+          },
+          data: {
+              pageTitle: 'User - Activities'
+          } 
+      }).state( 'logout', {
+    	  url: '/logout',
+    	  views: {
+    	    "main": {
+    	      controller: 'logoutController',
+    	      template: ' '
+    	    }
+    	  }
+        });
   }
 );
