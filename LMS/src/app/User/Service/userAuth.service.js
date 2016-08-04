@@ -4,12 +4,13 @@ angular.module('app.user')
     function (Base64, $http, $rootScope) {
         var service = {};
 
-        service.SetCredentials = function (username, password) {
-            var authdata = Base64.encode(username + ':' + password);
+        service.SetCredentials = function (username, userid, password) {
+            var authdata = Base64.encode(username + ':' + password + '/' + userid);
  
             $rootScope.globals = {
                 currentUser: {
                     username: username,
+                    userid: userid,
                     authdata: authdata
                 }
             };
@@ -22,7 +23,7 @@ angular.module('app.user')
         };
         
         service.isAuthenticated = function() {
-        	return $rootScope.globals.currentUser !== undefined;
+        	return ($rootScope.globals.currentUser !== undefined && $http.defaults.headers.common.Authorization == 'Basic ' + $rootScope.globals.currentUser.authdata);
         };
  
         return service;

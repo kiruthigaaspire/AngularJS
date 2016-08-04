@@ -8,7 +8,7 @@ angular.module('app', [
 ]).run(function($rootScope) {
 	$rootScope.globals = {};
 })
-.controller('appController', function appController($scope, $location, UserAuth, $state) {
+.controller('appController', function appController($scope, $rootScope, $location, UserAuth, $state) {
 	$scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
 		if (angular.isDefined(toState.data) && angular.isDefined(toState.data.pageTitle)) {
 			$scope.pageTitle = toState.data.pageTitle;
@@ -16,11 +16,23 @@ angular.module('app', [
 	});
 	
 	$scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
-		if (UserAuth.isAuthenticated()) {
-            $state.go(toState, toParams);
-            return;
-          }
-          $state.go("login");
+	    if (angular.isDefined(toState.data) && angular.isDefined(toState.data.authenticatedUser)) {
+	        if (toState.data.authenticatedUser) {
+	            if (UserAuth.isAuthenticated()) {
+	                if ((toState.data.userRole == 'admin' && $rootScope.globals.currentUser.username == 'admin') || toState.data.userRole == 'user') {
+	                    $state.go(toState, toParams);
+	                    return;
+	                } else {
+	                    event.preventDefault();
+	                }
+	            } else {
+	                $state.go('login');
+	            }
+	        } else {
+	            $state.go(toState, toParams);
+                return;
+	        }
+	    }
 	});
 });
 

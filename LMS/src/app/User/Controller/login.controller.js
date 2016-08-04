@@ -12,7 +12,7 @@ controller( 'loginController', function LoginController($scope, $rootScope, $sta
                 } else {
                     $rootScope.admin = false;
                 }
-                UserAuth.SetCredentials(user[0].user_name, user[0].password);
+                UserAuth.SetCredentials(user[0].user_name, user[0].user_id, user[0].password);
                 $state.go('home');
             } else {
             	$scope.error = true;

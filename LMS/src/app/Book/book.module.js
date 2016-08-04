@@ -9,11 +9,14 @@ angular.module('app.book', [
 	    "main@": {
 	      templateUrl: 'Book/View/book.tpl.html'
 	    }
-	  },  
+	  },
+	  data: {
+	      pageTitle: 'Welcome',
+	      authenticatedUser: false
+	  }
     })
     .state( 'bookManage', {
-        url: '/manage',
-        parent: 'book',
+        url: '/book/manage',
         views: {
           "main@": {
             templateUrl: 'Index/View/home.tpl.html'
@@ -24,12 +27,12 @@ angular.module('app.book', [
           }
         },
         data: {
-            pageTitle: 'Book Manage'
+            pageTitle: 'Book Manage',
+            authenticatedUser: false
         }  
       })
       .state( 'bookUpdate', {
-        url: '/edit/:id',
-        parent: 'book',
+        url: '/book/edit/:id',
         views: {
           "main@": {
             templateUrl: 'Index/View/home.tpl.html'
@@ -40,12 +43,13 @@ angular.module('app.book', [
           }
         },
         data: {
-            pageTitle: 'Book - Update'
+            pageTitle: 'Book - Update',
+            authenticatedUser: true,
+            userRole: 'admin'
         }  
       })
       .state( 'bookAdd', {
-        url: '/add',
-        parent: 'book',
+        url: '/book/add',
         views: {
           "main@": {
             templateUrl: 'Index/View/home.tpl.html'
@@ -56,12 +60,13 @@ angular.module('app.book', [
           }
         },
         data: {
-            pageTitle: 'Book - Add'
+            pageTitle: 'Book - Add',
+            authenticatedUser: true,
+            userRole: 'admin'
         }  
       })
       .state( 'bookDelete', {
-        url: '/delete/:id',
-        parent: 'book',
+        url: '/book/delete/:id',
         views: {
             "main@": {
                 templateUrl: 'Index/View/home.tpl.html'
@@ -72,7 +77,9 @@ angular.module('app.book', [
             }
           },
           data: {
-              pageTitle: 'Book - Delete'
+              pageTitle: 'Book - Delete',
+              authenticatedUser: true,
+              userRole: 'admin'
           } 
       })
       .state( 'lendingBook', {
@@ -87,7 +94,9 @@ angular.module('app.book', [
           }
         },
         data: {
-            pageTitle: 'Lending Book'
+            pageTitle: 'Lending Book',
+            authenticatedUser: true,
+            userRole: 'user'
         }  
       })
       .state( 'returnBook', {
@@ -102,7 +111,9 @@ angular.module('app.book', [
           }
         },
         data: {
-            pageTitle: 'Return Book'
+            pageTitle: 'Return Book',
+            authenticatedUser: true,
+            userRole: 'user'
         }  
       });
   }
