@@ -24,9 +24,11 @@ angular.module('app', [
 	                    return;
 	                } else {
 	                    $state.go('login');
+	                    return;
 	                }
 	            } else {
 	                $state.go('login');
+	                return;
 	            }
 	        } else {
 	            $state.go(toState, toParams);
@@ -34,6 +36,7 @@ angular.module('app', [
 	        }
 	    }
 	    $state.go(toState, toParams);
+	    return;
 	});
 });
 
