@@ -18,10 +18,7 @@ angular.module('app.book').
               action: 'updatebook'
           }
         },
-        delete: {
-          method: 'DELETE'
-        },
-        issue: {
+        issueBook: {
           method: 'POST',
           params: {
               action: 'issuebook'
@@ -32,6 +29,9 @@ angular.module('app.book').
           params: {
               action: 'return'
           }
+        },
+        deleteBook: {
+          method: 'DELETE'
         }
       });
     }

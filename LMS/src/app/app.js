@@ -23,7 +23,7 @@ angular.module('app', [
 	                    $state.go(toState, toParams);
 	                    return;
 	                } else {
-	                    event.preventDefault();
+	                    $state.go('login');
 	                }
 	            } else {
 	                $state.go('login');
@@ -33,6 +33,7 @@ angular.module('app', [
                 return;
 	        }
 	    }
+	    $state.go(toState, toParams);
 	});
 });
 

@@ -83,7 +83,7 @@ angular.module('app.book', [
           } 
       })
       .state( 'lendingBook', {
-        url: '/lending/:book_id',
+        url: '/book/lending/:book_id',
         views: {
           "main@": {
             templateUrl: 'Index/View/home.tpl.html'
@@ -100,7 +100,7 @@ angular.module('app.book', [
         }  
       })
       .state( 'returnBook', {
-        url: '/return/:book_id',
+        url: '/book/return/:book_id',
         views: {
           "main@": {
             templateUrl: 'Index/View/home.tpl.html'
