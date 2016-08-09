@@ -1,24 +1,22 @@
 <div class="container-fluid backColor">
   <div class="row">
-  	<div class="col-sm-12 text-center">
-  		 <h2>Library Management</h2>
-  	</div>
-  </div>
-  <div class="row">
-  	<div class="col-sm-12">
-  		 <div class="col-sm-offset-10 col-sm-2">
+  	<div class="col-sm-12 text-left">
+  		<div class="col-sm-offset-4 col-sm-5">
+  		 	<h2>Library Management</h2>
+  		 </div>
+		 <div class="col-sm-3 text-right">
   		 	Hi <span class="lead text-capitalize"> {{globals.currentUser.username}} !</span>
   		 	<a ui-sref="logout">Logout</a>
   		 </div>
   	</div>
   </div>
   <div class="row content">
-    <div class="col-sm-3 sidenav">
+    <div class="col-sm-3 sidenav" ng-init="active=true">
       <ul class="nav nav-pills nav-stacked">
-        <li class="active"><a ui-sref="home">Home</a></li>
-        <li ><a ui-sref="bookManage">Manage Books</a></li>
-        <li ng-show="admin"><a ui-sref="userManage">Manage Users</a></li>
-        <li ng-show="admin"><a ui-sref="lendingManage">Manage Lendings</a></li>
+        <li ng-class="{'active': active}"><a ng-click="active = !active" ui-sref="home">Home</a></li>
+        <li ng-class="{'active': active}"><a ng-click="active = !active" ui-sref="bookManage">Manage Books</a></li>
+        <li ng-class="{'active': active}" ng-show="admin"><a ng-click="active = !active" ui-sref="userManage">Manage Users</a></li>
+        <li ng-class="{'active': active}" ng-show="admin"><a ng-click="active = !active" ui-sref="lendingManage">Manage Lendings</a></li>
       </ul><br>
     </div>
 
@@ -27,4 +25,5 @@
     </div>
   </div>
 </div>
+
 

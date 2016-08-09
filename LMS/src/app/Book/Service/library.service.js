@@ -12,8 +12,17 @@ angular.module('app.book').
         save: {
           method: 'POST'
         },
-        update: {
-          method: 'PUT'
+        returnBook: {
+          method: 'PUT',
+          params: {
+        	  action: "returnBook"
+          }
+        },
+        confirm: {
+          method: 'PUT',
+          params: {
+        	  action: "confirmIssue"
+          }
         },
         delete: {
           method: 'DELETE'
