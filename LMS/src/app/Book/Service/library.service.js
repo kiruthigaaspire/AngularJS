@@ -1,9 +1,12 @@
 angular.module('app.book').
-  factory('Book', ['$resource',
+  factory('Library', ['$resource',
     function($resource) {
-      return $resource('http://localhost/LMS_backend/src/Book/Services/book.php/book/:action', {}, {
+      return $resource('http://localhost/LMS_backend/src/Library/Services/library.php/:action:user_id', {}, {
         query: {
           method: 'GET',
+          params: {
+              action: "getActivities"
+          },
           isArray: true
         },
         save: {
