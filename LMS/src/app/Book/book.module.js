@@ -16,7 +16,7 @@ angular.module('app.book', [
 	  }
     })
     .state( 'bookManage', {
-        url: '/book/manage',
+        url: '/book/list',
         views: {
           "main@": {
             templateUrl: 'Index/View/home.tpl.html'
@@ -37,7 +37,7 @@ angular.module('app.book', [
             "main@": {
               templateUrl: 'Index/View/home.tpl.html'
             },
-            "mainContent@bookManage": {
+            "mainContent@lendingManage": {
               controller: 'bookLendingListController',
               templateUrl: 'Book/View/lendingList.tpl.html'
             }
@@ -98,40 +98,6 @@ angular.module('app.book', [
               authenticatedUser: true,
               userRole: 'admin'
           } 
-      })
-      .state( 'lendingBook', {
-        url: '/book/lending/:book_id',
-        views: {
-          "main@": {
-            templateUrl: 'Index/View/home.tpl.html'
-          },
-          "mainContent@lendingBook": {
-            controller: 'bookLendingController',
-            template: ' '
-          }
-        },
-        data: {
-            pageTitle: 'Lending Book',
-            authenticatedUser: true,
-            userRole: 'user'
-        }  
-      })
-      .state( 'returnBook', {
-        url: '/book/return/:book_id',
-        views: {
-          "main@": {
-            templateUrl: 'Index/View/home.tpl.html'
-          },
-          "mainContent@returnBook": {
-            controller: 'returnBookController',
-            template: ' '
-          }
-        },
-        data: {
-            pageTitle: 'Return Book',
-            authenticatedUser: true,
-            userRole: 'user'
-        }  
       });
   }
 );

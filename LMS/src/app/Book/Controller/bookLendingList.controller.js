@@ -1,6 +1,6 @@
 angular.module('app.book').
 controller( 'bookLendingListController', 
-  function BookLendingListController($scope, $rootScope, Library) {
+  function BookLendingListController($scope, Library) {
 	$scope.lendingBooks = Library.query();
   }
 );

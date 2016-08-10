@@ -79,6 +79,54 @@ angular.module('app.user', [
     	      template: ' '
     	    }
     	  }
-        });
+        })
+        .state( 'lendingBook', {
+            url: '/user/lendingbook/:book_id',
+            views: {
+              "main@": {
+                templateUrl: 'Index/View/home.tpl.html'
+              },
+              "mainContent@lendingBook": {
+                controller: 'bookLendingController',
+                template: ' '
+              }
+            },
+            data: {
+                authenticatedUser: true,
+                userRole: 'user'
+            }  
+          })
+          .state( 'returnBook', {
+            url: '/user/returnbook/:book_id',
+            views: {
+              "main@": {
+                templateUrl: 'Index/View/home.tpl.html'
+              },
+              "mainContent@returnBook": {
+                controller: 'returnBookController',
+                template: ' '
+              }
+            },
+            data: {
+                authenticatedUser: true,
+                userRole: 'user'
+            }  
+          })
+          .state( 'confirmIssueBook', {
+              url: '/confirm/lending/:book_id/:user_id',
+              views: {
+                "main@": {
+                  templateUrl: 'Index/View/home.tpl.html'
+                },
+                "mainContent@confirmIssueBook": {
+                  controller: 'confirmIssueBookController',
+                  template: ' '
+                }
+              },
+              data: {
+                  authenticatedUser: true,
+                  userRole: 'admin'
+              }  
+            });
   }
 );
