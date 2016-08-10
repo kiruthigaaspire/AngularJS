@@ -31,6 +31,23 @@ angular.module('app.book', [
             authenticatedUser: false
         }  
       })
+      .state( 'lendingManage', {
+          url: '/book/lending/list',
+          views: {
+            "main@": {
+              templateUrl: 'Index/View/home.tpl.html'
+            },
+            "mainContent@bookManage": {
+              controller: 'bookLendingListController',
+              templateUrl: 'Book/View/lendingList.tpl.html'
+            }
+          },
+          data: {
+              pageTitle: 'Book Manage',
+              authenticatedUser: false,
+              userRole: 'admin'
+          }  
+        })
       .state( 'bookUpdate', {
         url: '/book/edit/:id',
         views: {

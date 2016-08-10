@@ -23,9 +23,6 @@ angular.module('app.book').
           params: {
         	  action: "confirmIssue"
           }
-        },
-        delete: {
-          method: 'DELETE'
         }
       });
     }

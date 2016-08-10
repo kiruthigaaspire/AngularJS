@@ -39,7 +39,7 @@
 		            <td ng-show="admin">{{book.quantity}}</td>
 		            <td>{{(book.status == 1) ? 'available' : 'unavailable'}}</td>
 		            <td><a ng-show="admin" ui-sref="bookUpdate({id : book.book_id})">Edit</a> | 
-		            <a ng-show="admin" ng-show="admin"ui-sref="bookDelete({id : book.book_id})">Delete</a> | 
+		                <a ng-show="admin" ng-show="admin"ui-sref="bookDelete({id : book.book_id})">Delete</a> | 
 		                <a ng-show="! admin" ui-sref="lendingBook({book_id: book.book_id})">Lend</a>
 		            </td>
 		        </tr>
