@@ -27,6 +27,21 @@ angular.module('app.user', [
           pageTitle: 'Register'
       }
     })
+    .state('updateProfile', {
+      url: '/user/update/:user_id',
+      views: {
+        "main@": {
+            templateUrl: 'Index/View/home.tpl.html'
+        },
+        "mainContent@updateProfile": {
+          controller: 'updateProfileController',
+          templateUrl: 'User/View/register.tpl.html'
+        }
+      },
+      data: {
+          pageTitle: 'Register'
+      }
+    })
     .state( 'userManage', {
         url: '/user/manage',
         views: {

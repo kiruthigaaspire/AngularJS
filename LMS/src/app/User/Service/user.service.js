@@ -13,7 +13,7 @@ angular.module('app.user').
               }
           },
           update: {
-              method: 'PUT'
+              method: 'PUT',
           },
           login: {
               method: 'POST',
