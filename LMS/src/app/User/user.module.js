@@ -27,6 +27,21 @@ angular.module('app.user', [
           pageTitle: 'Register'
       }
     })
+    .state('updateProfile', {
+      url: '/user/update/:user_id',
+      views: {
+        "main@": {
+            templateUrl: 'Index/View/home.tpl.html'
+        },
+        "mainContent@updateProfile": {
+          controller: 'updateProfileController',
+          templateUrl: 'User/View/register.tpl.html'
+        }
+      },
+      data: {
+          pageTitle: 'Register'
+      }
+    })
     .state( 'userManage', {
         url: '/user/manage',
         views: {
@@ -79,6 +94,54 @@ angular.module('app.user', [
     	      template: ' '
     	    }
     	  }
-        });
+        })
+        .state( 'lendingBook', {
+            url: '/user/lendingbook/:book_id',
+            views: {
+              "main@": {
+                templateUrl: 'Index/View/home.tpl.html'
+              },
+              "mainContent@lendingBook": {
+                controller: 'bookLendingController',
+                template: ' '
+              }
+            },
+            data: {
+                authenticatedUser: true,
+                userRole: 'user'
+            }  
+          })
+          .state( 'returnBook', {
+            url: '/user/returnbook/:book_id',
+            views: {
+              "main@": {
+                templateUrl: 'Index/View/home.tpl.html'
+              },
+              "mainContent@returnBook": {
+                controller: 'returnBookController',
+                template: ' '
+              }
+            },
+            data: {
+                authenticatedUser: true,
+                userRole: 'user'
+            }  
+          })
+          .state( 'confirmIssueBook', {
+              url: '/confirm/lending/:book_id/:user_id',
+              views: {
+                "main@": {
+                  templateUrl: 'Index/View/home.tpl.html'
+                },
+                "mainContent@confirmIssueBook": {
+                  controller: 'confirmIssueBookController',
+                  template: ' '
+                }
+              },
+              data: {
+                  authenticatedUser: true,
+                  userRole: 'admin'
+              }  
+            });
   }
 );

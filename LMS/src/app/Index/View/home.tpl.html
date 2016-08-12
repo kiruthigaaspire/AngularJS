@@ -5,7 +5,8 @@
   		 	<h2>Library Management</h2>
   		 </div>
 		 <div class="col-sm-3 text-right">
-  		 	Hi <span class="lead text-capitalize"> {{globals.currentUser.username}} !</span>
+  		 	Hi <span ng-show="admin" class="lead text-capitalize"> {{globals.currentUser.username}} !</span>
+  		 	<a class="lead text-capitalize" ng-show="! admin" ui-sref="updateProfile({user_id: globals.currentUser.userid})">{{globals.currentUser.username}} !</a>
   		 	<a ui-sref="logout">Logout</a>
   		 </div>
   	</div>

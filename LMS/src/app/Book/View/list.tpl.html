@@ -40,7 +40,10 @@
 		            <td>{{(book.status == 1) ? 'available' : 'unavailable'}}</td>
 		            <td><a ng-show="admin" ui-sref="bookUpdate({id : book.book_id})">Edit</a> | 
 		                <a ng-show="admin" ng-show="admin"ui-sref="bookDelete({id : book.book_id})">Delete</a> | 
-		                <a ng-show="! admin" ui-sref="lendingBook({book_id: book.book_id})">Lend</a>
+		                <span ng-if="! admin && userBooks[book.book_id] !== undefined && userBooks[book.book_id] == 'Returned'" >Read | </span>
+		                <span ng-if="! admin && userBooks[book.book_id] !== undefined " >{{ userBooks[book.book_id] }} | </span>
+		                <a ng-if="! admin && (userBooks[book.book_id] !== undefined && userBooks[book.book_id] == 'Returned' || userBooks[book.book_id] === undefined)" ui-sref="lendingBook({book_id: book.book_id})">Lend</a>
+		                <a ng-if="! admin && userBooks[book.book_id] !== undefined && userBooks[book.book_id] == 'Issued'" ui-sref="returnBook({book_id: book.book_id})">Return</a>
 		            </td>
 		        </tr>
 		    </tbody>
