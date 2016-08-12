@@ -6,6 +6,7 @@
 		    <thead>
 		        <tr>
 		            <th>Book Number</th>
+		            <th>Book Name </th>
 		            <th>User Id</th>
 		            <th>Status</th>
 		            <th></th>
@@ -14,6 +15,7 @@
 		    <tbody>
 		        <tr ng-repeat="book in lendingBooks">
 		            <td>{{book.book_id}}</td>
+		            <td>{{bookNameList[book_id]</td>
 		            <td>{{book.user_id}}</td>
 		            <td>{{book.lending_status}}</td>
 		            <td><a ng-show="book.lending_status == 'Requested'" ui-sref="confirmIssueBook({book_id : book.book_id, user_id: book.user_id})">Confirm</a>

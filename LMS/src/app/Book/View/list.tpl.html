@@ -20,6 +20,11 @@
 	        <input type="checkbox" ng-model="exactMatch"> Exact Match
     </div>
     <div class="row">
+    	<div class="col-md-offset-9 col-md-3 lead">
+    		<a ng-show="admin" ui-sref="bookAdd">Add New Book</a>
+   		</div>
+    </div>
+    <div class="row">
     	<table id="bookTable" class="table table-striped">
 		    <thead>
 		        <tr>
@@ -42,17 +47,12 @@
 		                <a ng-show="admin" ng-show="admin"ui-sref="bookDelete({id : book.book_id})">Delete</a> | 
 		                <span ng-if="! admin && userBooks[book.book_id] !== undefined && userBooks[book.book_id] == 'Returned'" >Read | </span>
 		                <span ng-if="! admin && userBooks[book.book_id] !== undefined " >{{ userBooks[book.book_id] }} | </span>
-		                <a ng-if="! admin && (userBooks[book.book_id] !== undefined && userBooks[book.book_id] == 'Returned' || userBooks[book.book_id] === undefined)" ui-sref="lendingBook({book_id: book.book_id})">Lend</a>
+		                <a ng-if="! admin && userBooks[book.book_id] !== undefined && (userBooks[book.book_id] == 'Returned' || userBooks[book.book_id] === undefined)" ui-sref="lendingBook({book_id: book.book_id})">Lend</a>
 		                <a ng-if="! admin && userBooks[book.book_id] !== undefined && userBooks[book.book_id] == 'Issued'" ui-sref="returnBook({book_id: book.book_id})">Return</a>
 		            </td>
 		        </tr>
 		    </tbody>
 		</table>
-    </div>
-    <div class="row">
-    	<div class="col-md-offset-3 col-md-3">
-    		<a ng-show="admin" ui-sref="bookAdd">Add New Book</a>
-   		</div>
     </div>
 </div>
 <br/>
