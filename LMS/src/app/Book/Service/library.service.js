@@ -1,12 +1,9 @@
 angular.module('app.book').
   factory('Library', ['$resource',
     function($resource) {
-      return $resource('http://localhost/LMS_backend/src/Library/Services/library.php/:action:user_id', {}, {
+      return $resource('http://localhost/LMS_backend/src/Library/Services/library.php/lend/:action/:book_id', {}, {
         query: {
           method: 'GET',
-          params: {
-              action: "getActivities"
-          },
           isArray: true
         },
         save: {
@@ -15,13 +12,13 @@ angular.module('app.book').
         returnBook: {
           method: 'PUT',
           params: {
-        	  action: "returnBook"
+        	  action: "return"
           }
         },
         confirm: {
           method: 'PUT',
           params: {
-        	  action: "confirmIssue"
+        	  action: "approve"
           }
         }
       });

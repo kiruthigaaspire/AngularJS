@@ -1,15 +1,18 @@
 angular.module('app.user').
   factory('User', ['$resource',
     function($resource) {
-      return $resource('http://localhost/LMS_backend/src/User/Services/user.php/:action:name', {}, {
+      return $resource('http://localhost/LMS_backend/src/User/Services/user.php/user/:action:name', {}, {
           query: {
               method: 'GET',
+              params: {
+                  action: "list"
+              },
               isArray: true
           },
           register: {
               method: 'POST',
               params: {
-                  action: 'newuser'
+                  action: 'new'
               }
           },
           update: {
@@ -25,14 +28,14 @@ angular.module('app.user').
           unique: {
               method: 'GET',
               params: {
-                  action: "uniqueCheck"
+                  action: "unique"
               },
               isArray: true
           },
           changeStatus: {
               method: 'PUT',
               params: {
-                  action: 'changestatus'
+                  action: 'status'
               }
           }
       });
