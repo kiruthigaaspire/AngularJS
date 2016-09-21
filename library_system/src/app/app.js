@@ -4,7 +4,6 @@ angular.module('app', [
   'templates-common',
   'app.user',
   'app.books',
-  'app.search',
 ]).run(function($rootScope) {
 	$rootScope.globals = {};
 }).controller('appController', function appController($scope, $location, $rootScope, $location) {
