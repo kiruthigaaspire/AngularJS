@@ -1,3 +1,5 @@
+<div ng-include src="'../src/app/Common/View/message.html'"></div>
+<div ng-include src="'../src/app/Common/View/menu.html'"></div>
 <!-- REGISTRATION FORM -->
 <div class="page-header">
     <h3>Book Details</h3>
@@ -5,43 +7,56 @@
 
 <!-- Main Form -->
 <div class="login-form-1 col-md-6">
-    <form id="register-form" class="text-left">
+    <form id="bookForm" name="bookForm" ng-submit="addBook()" class="form-horizontal" role="form" class="text-left">
         <div class="login-form-main-message"></div>
         <div class="main-login-form">
             <div class="login-group">
                 <div class="form-group">
                     <label for="name" class="sr-only">Name</label>
-                    <input type="text" class="form-control" id="name" name="name" placeholder="Book name">
+                    <input type="text" class="form-control" id="name" name="name" ng-model="name" required placeholder="Book name">
+                    <span style="color:red" ng-show="bookForm.name.$dirty && bookForm.name.$invalid">
+                        <span ng-show="bookForm.name.$error.required">Name is required.</span>
+                    </span>
                 </div>
                 
                 <div class="form-group">
                     <label for="author" class="sr-only">Author</label>
-                    <input type="text" class="form-control" id="author" name="author" placeholder="Author Name">
-                </div>
-                
-                <div class="form-group">
-                    <label for="price" class="sr-only">Password</label>
-                    <input type="number" class="form-control" id="price" name="price" placeholder="Book Price">
+                    <input type="text" class="form-control" id="author" name="author" ng-model="author" required  placeholder="Author Name">
+                    <span style="color:red" ng-show="bookForm.author.$dirty && bookForm.author.$invalid">
+                        <span ng-show="bookForm.author.$error.required">Author is required.</span>
+                    </span>
                 </div>
                 
                 <div class="form-group">
                     <label for="code" class="sr-only">Book Code</label>
-                    <input type="text" class="form-control" id="code" name="code" placeholder="Book Code">
+                    <input type="text" class="form-control" id="code" name="code" ng-model="code" required placeholder="Book Code">
+                    <span style="color:red" ng-show="bookForm.code.$dirty && bookForm.code.$invalid">
+                        <span ng-show="bookForm.code.$error.required">Book Code is required.</span>
+                    </span>
                 </div>
                 
                 <div class="form-group">
                     <label for="no_of_books" class="sr-only">No.of Books</label>
-                    <input type="number" class="form-control" id="no_of_books" name="no_of_books" placeholder="No.of Books">
+                    <input type="number" class="form-control" id="no_of_books" ng-model="no_of_books" required  name="no_of_books" placeholder="No.of Books">
+                    <span style="color:red" ng-show="bookForm.no_of_books.$dirty && bookForm.no_of_books.$invalid">
+                        <span ng-show="bookForm.no_of_books.$error.required">No.of Books is required.</span>
+                    </span>
                 </div>
                 
                 <div class="form-group">
-                    <label for="status" class="sr-only">Status</label>
-                    <input type="text" class="form-control" id="status" name="status" placeholder="Status">
+                    <label for="status" class="sr-only">Price</label>
+                    <input type="number" class="form-control" id="price" ng-model="price" required  name="price" placeholder="Price">
+                    <span style="color:red" ng-show="bookForm.price.$dirty && bookForm.price.$invalid">
+                        <span ng-show="bookForm.price.$error.required">Price is required.</span>
+                    </span>
                 </div>
                 
                 <div class="form-group">
-                    <label for="rack" class="sr-only">Rack No.</label>
-                    <input type="number" class="form-control" id="rack" name="rack" placeholder="Rack No.">
+                    <label for="rack" class="sr-only">Description</label>
+                    <textarea class="form-control" id="description" ng-model="description" required name="description" placeholder="Description"></textarea>
+                    <span style="color:red" ng-show="bookForm.Description.$dirty && bookForm.Description.$invalid">
+                        <span ng-show="bookForm.Description.$error.required">Description is required.</span>
+                    </span>
                 </div>
                 
             </div>

@@ -1,6 +1,8 @@
 angular.module('app.user').
-controller( 'userRegistrationController', 
-  function userRegistrationController($scope) {
-	$scope.name = "Siva";
-  }
+controller( 'userRegistrationController', ['$scope', '$http', 'userService',
+  function userRegistrationController($scope, $http, userService) {
+	$scope.regForm = function () {
+        userService.regForm($scope);
+    }
+  }]
 );

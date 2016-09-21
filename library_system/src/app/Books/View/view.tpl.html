@@ -1,3 +1,106 @@
+<div ng-include src="'../src/app/Common/View/message.html'"></div>
+<div ng-include src="'../src/app/Common/View/menu.html'"></div>
 <div class="page-header">
     <h3>BOOK DETAILS</h3>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">{{bookData.name}}</div>
+  <div class="panel-body">
+    <p>{{bookData.description}}</p>
+    <div class="col-sm-6"><b>Author : </b> {{bookData.author}}</div>
+    <div class="col-sm-6"><b>Price : </b> {{bookData.price}}</div>
+    <div class="col-sm-6"><b>Code : </b> {{bookData.code}}</div>
+    <div class="col-sm-6"><b>No.Of Books : </b> {{bookData.no_of_books}}</div>
+    <div class="col-sm-6"><b>Lending Status : </b> {{ bookData.no_of_books - newNameVar.length >=1 ? "Yes" : "No" }}</div>
+    <div class="col-sm-6"><div class="btn-group btn-group-sm" role="group">
+        <button ng-if="user.is_admin == 0" type="button" class="btn btn-primary" ng-click="lend();" >Lend this book</button>
+        <button ng-if="user.is_admin == 1" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Lend this book</button>
+    </div></div>
+  </div>
+</div>
+
+<div ng-if="user.is_admin == 1">
+<div class="panel panel-default">
+    <div class="panel-heading">Current Lended History</div>
+    <div class="panel-body">
+        <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Lended By</th>
+                <th>Issued Date</th>
+                <th>Expired Date</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="book in newNameVar = (lendedBooks |  filter:{returned_date: '!'})">
+                <th scope="row">{{$index + 1}}</th>
+                <td>{{book.name}}</td>
+                <td>{{book.issue_date}}</td>
+                <td>{{book.expire_date}}</td>
+                <td>
+                    <span ng-if="book.status == '1'">Approved / <a href="javascript:void(0);" ng-click="returned(book);">Move to Returned</a></span>
+                    <span ng-if="book.status == '0'"><a href="javascript:void(0);" ng-click="approve(book);">Yet to Approve</a></span>
+                </td>
+            </tr>
+        </tbody> 
+        </table>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">Previous History</div>
+    <div class="panel-body">
+        <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Lended By</th>
+                <th>Issued Date</th>
+                <th>Expired Date</th>
+                <th>Returned Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="book in lendedBooks |  filter:{returned_date: ''}">
+                <th scope="row">{{$index + 1}}</th>
+                <td>{{book.name}}</td>
+                <td>{{book.issue_date}}</td>
+                <td>{{book.expire_date}}</td>
+                <td>{{book.returned_date}}</td>
+            </tr>
+        </tbody> 
+        </table>
+    </div>
+</div>
+
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Lending {{bookData.name}}</h4>
+      </div>
+      <div class="modal-body">
+        <p><b>User : </b> 
+            <select name="user_id" ng-model="user_id">
+            <option value="">--Select Users--</option>
+            <option value="{{user.id}}" ng-repeat="user in users">
+            {{user.name}}
+            </option>
+        </select></p>
+        <button type="button" class="btn btn-primary" ng-click="lend();">Submit</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
 </div>

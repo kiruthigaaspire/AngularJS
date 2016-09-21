@@ -3,7 +3,15 @@ angular.module('app.books', [
   'ui.bootstrap'
 ]).config(
   function config($stateProvider) {
-    $stateProvider.state( 'addBook', {
+    $stateProvider.state( 'bookList', {
+	  url: '/books',
+	  views: {
+	    "main": {
+	      controller: 'bookController',
+	      templateUrl: 'Books/View/list.tpl.html'
+	    }
+	  },  
+    }).state( 'addBook', {
 	  url: '/book/add',
 	  views: {
 	    "main": {
@@ -11,12 +19,12 @@ angular.module('app.books', [
 	      templateUrl: 'Books/View/books.tpl.html'
 	    }
 	  },  
-    }).state( 'editBook', {
-	  url: '/book/:id/edit',
+    }).state( 'bookDetails', {
+	  url: '/book/:id',
 	  views: {
 	    "main": {
 	      controller: 'bookController',
-	      templateUrl: 'Books/View/books.tpl.html'
+	      templateUrl: 'Books/View/view.tpl.html'
 	    }
 	  },  
     });

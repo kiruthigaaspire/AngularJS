@@ -5,11 +5,19 @@ angular.module('app', [
   'app.user',
   'app.books',
   'app.search',
-]).controller('appController', function appController($scope, $location) {
+]).run(function($rootScope) {
+	$rootScope.globals = {};
+}).controller('appController', function appController($scope, $location, $rootScope, $location) {
 	$scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
-		if (angular.isDefined(toState.data.pageTitle)) {
-			$scope.pageTitle = toState.data.pageTitle;
-	    }
+		$scope.messages = "";
+        $scope.message_type = "info";
+	});
+    
+    $scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
+        if($rootScope.globals.authUser == undefined){
+            //$location.path('login');
+            //return;
+        }
 	});
 });
 

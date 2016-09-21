@@ -27,6 +27,14 @@ angular.module('app.user', [
 	      templateUrl: 'User/View/forgot_password.tpl.html'
 	    }
 	  },  
+    }).state( 'logout', {
+	  url: '/logout',
+	  views: {
+	    "main": {
+	      controller: 'logoutController',
+	      templateUrl: 'User/View/login.tpl.html'
+	    }
+	  },  
     });
   }
 );

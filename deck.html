@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="utf-8">
+<script src="node_modules/angular/angular.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="node_modules/bootstrap/dist/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+</head>
+<body>
+<div ng-app="myApp" ng-controller="myCtrl"> 
+<header class="navbar navbar-static-top bs-docs-nav" id="top" role="banner"></header>
+  <div class="container">
+      <div class="row col-xs-12 col-sm-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Shuffled Cards</h3>
+          </div>
+          <div class="panel-body">
+            <div ng-repeat="arr in array">
+              {{$index + 1}}). {{arr}}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row col-xs-12 col-sm-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Shuffled Cards</h3>
+          </div>
+          <div class="panel-body">
+            <div ng-repeat="shuffleDatem in shuffleData">
+              {{$index + 1}}). {{shuffleDatem}}
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+</div>
+<script>
+var app = angular.module('myApp',[]);
+app.controller('myCtrl', ['$scope', function($scope){
+    var suit = ["Clubs", "Diamonds", "Hearts", "Spades" ];
+    var rank = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace" ];
+    var cards = [];
+    var array = [];
+    for(var i=0; i < suit.length; i++){
+      for(var j=0; j < rank.length; j++){
+        cards.push(suit[i]+" "+rank[j]);
+        array.push(suit[i]+" "+rank[j]);
+      }
+    }
+    var m = cards.length, t, a;
+    while (m) {
+      a = Math.floor(Math.random() * m--);
+      t = cards[m];
+      cards[m] = cards[a];
+      cards[a] = t;
+    }
+    $scope.shuffleData = cards;
+    $scope.array = array;
+}]);
+</script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<div ng-include src="'../src/app/Common/View/menu.html'"></div>
+<div class="page-header">
+    <h3>Book Details</h3>
+</div>
+
+<!-- Main Form -->
+<div class="panel panel-default">
+    <div class="panel-heading">Available books</div>
+    <table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Author</th>
+            <th>Price</th>
+            <th>Code</th>
+            <th>No.of Copies</th>
+            <th>Lended Copies</th>
+            <th>Available Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="book in bookList | orderBy:sortType:sortReverse">
+            <th scope="row">{{$index + 1}}</th>
+            <td><a href="#/book/{{book.id}}">{{book.name}}</a></td>
+            <td>{{book.author}}</td>
+            <td>{{book.price}}</td>
+            <td>{{book.code}}</td>
+            <td>{{book.no_of_books}}</td>
+            <td>{{book.lended_book ? book.lended_book : "0"}}</td>
+            <td>{{ book.no_of_books - book.lended_book >=1 ? "Yes" : "No"}}</td>
+        </tr>
+    </tbody> 
+    </table>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading">My History</div>
+    <div class="panel-body">
+        <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Book Name</th>
+                <th>Issued Date</th>
+                <th>Expired Date</th>
+                <th>Returned Date</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="book in lendedBooks">
+                <th scope="row">{{$index + 1}}</th>
+                <td>{{book.book_name}}</td>
+                <td>{{book.issue_date}}</td>
+                <td>{{book.expire_date}}</td>
+                <td>{{book.returned_date}}</td>
+                <td>
+                    <span ng-if="book.status == '1'">Approved</span>
+                    <span ng-if="book.status == '0'">Yet to Approve</span>
+                    <span ng-if="book.status == '2'">Returned</span>
+                </td>
+            </tr>
+        </tbody> 
+        </table>
+    </div>
+</div>
+<!-- end:Main Form -->

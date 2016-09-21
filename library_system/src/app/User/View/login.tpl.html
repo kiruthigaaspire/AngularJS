@@ -1,22 +1,31 @@
+<div ng-include src="'../src/app/Common/View/message.html'"></div>
 <div class="page-header">
     <h3>LOGIN</h3>
 </div>
+
 <!-- Main Form -->
 <div class="login-form-1 col-md-6">
-    <form id="login-form" class="text-left">
+    <form id="loginForm" ng-submit="login()" name="loginForm" autocomplete="off" novalidate class="text-left">
         <div class="login-form-main-message"></div>
         <div class="main-login-form">
             <div class="login-group">
                 <div class="form-group">
-                    <label for="email" class="sr-only">Email Id</label>
-                    <input type="text" class="form-control" ng-model="email" id="email" name="email" placeholder="enter your email id">
+                    <label for="email">Email Id</label>
+                    <input type="email" class="form-control" required ng-model="email" id="email" name="email" placeholder="enter your email id">
+                    <span class="alert-danger" ng-show="loginForm.email.$dirty && loginForm.email.$invalid">
+                        <span ng-show="loginForm.email.$error.required">Email is required.</span>
+                        <span ng-show="loginForm.email.$error.email">Invalid email address.</span>
+                    </span>
                 </div>
                 <div class="form-group">
-                    <label for="password" class="sr-only">Password</label>
-                    <input type="password" class="form-control" id="password" name="password" placeholder="password">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" required ng-model="password" id="password" name="password" placeholder="password">
+                    <span class="alert-danger" ng-show="loginForm.password.$dirty && loginForm.password.$invalid">
+                        <span ng-show="loginForm.password.$error.required">Password is required.</span>
+                    </span>
                 </div>
             </div>
-            <button type="submit" class="login-button"><i class="fa fa-chevron-right"></i></button>
+            <button type="submit" class="btn btn-success">Login <i class="fa fa-chevron-right"></i></button>
         </div>
         <div class="etc-login-form">
             <p>forgot your password? <a href="#/forgot_password">click here</a></p>

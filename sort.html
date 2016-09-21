@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<script src="node_modules/angular/angular.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="node_modules/bootstrap/dist/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+<body>
+<div ng-app="myApp" ng-controller="myCtrl">
+<header class="navbar navbar-static-top bs-docs-nav" id="top" role="banner"></header>
+  <div class="container">
+      <div class="row col-xs-12 col-sm-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Sorted Balls</h3>
+          </div>
+          <div class="panel-body">
+            <div ng-repeat="sortedBall in sortedBalls track by $index">
+              {{sortedBall}}
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+
+<script>
+var app = angular.module("myApp", []);
+app.factory('sortBall', [function () {
+    var items = [];
+    return {
+        list: function(scope) {
+          var item = scope.balls;
+          var n = item.length;    
+          for (var i = 1; i < n; i++) {    
+            var curEl = item[i];
+            var j = i - 1;
+            while ( j >= 0 && this.checkGreater(curEl, item[j]) ) {
+              item[j + 1] = item[j];
+              j = j - 1;
+            }
+            item[j + 1] = curEl;
+          }
+          return item;
+        },
+        checkGreater: function (el, item){
+          return el < item;
+        }
+      };
+}]);
+app.controller('myCtrl', ['$scope','sortBall', function ($scope, sortBall) {
+  $scope.balls = ["blue", "white", "red", "white", "red", "aqua", "yellow", "blue", "blue", "red", "white", "white", "red", "blue"];
+  $scope.sortedBalls = sortBall.list($scope);
+}]);
+</script>
+</body>
+</html>
