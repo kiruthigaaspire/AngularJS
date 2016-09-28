@@ -8,18 +8,22 @@ tests of such code.
 ```
 src/
   |- app/
-  |  |- Phone/
+  |  |  Book/
   |  |  |- Controller
   |  |  |- Service
   |  |  |- View
-  |  |  |- phone.module.js
+  |  |  |- Tests
+  |  |  |- book.module.js
+  |	 |  User/
+  |  |  |- Controller
+  |  |  |- Service
+  |  |  |- View
+  |  |  |- Tests
+  |  |  |- user.module.js
   |  |- app.js
   |- assets/
   |  |- css/
   |  |- images/
-  |- common/
-  |- | - layouts/
-  |- | - helpers/
   |- components/
   |  |- directives
   |  |- filters
