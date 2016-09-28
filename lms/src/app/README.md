@@ -5,12 +5,18 @@
 ```
 src/
   |- app/
-  |  |- Phone/
+  |  |- Book/
   |  |  |- Controller
   |  |  |- Service
   |  |  |- View
   |  |  |- Tests
-  |  |  |- phone.module.js
+  |  |  |- book.module.js
+  |	 |  User/
+  |  |  |- Controller
+  |  |  |- Service
+  |  |  |- View
+  |  |  |- Tests
+  |  |  |- user.module.js
   |  |- app.js
 ```
 
@@ -39,11 +45,15 @@ submodules that need them to ensure proper dependency handling. These are
 app-wide dependencies that are required to assemble your app.
 
 ```js
-angular.module( 'ngBoilerplate', [
+angular.module('lms', [
   'ngResource',
   'templates-app',
   'templates-common',
-  'app.phone',
+  'lms.book',
+  'lms.user',
+  'ui.router',
+  'ui.bootstrap',
+  'angular.filter'
 ])
 ```
 
@@ -62,14 +72,14 @@ have been instantiated.
 
 ## `config.js`
 This is our configuration file. It has all the constants and configuration for the
-application. In our 'phone' application we have a default route to follow,
-which route of course is defined in a submodule. In this case, our `phone` module
-is where we want to start, which has a defined route for `/phones` in
-`Phone/phone.module.js`.
+application. In our 'lms' application we have a default route to follow,
+which route of course is defined in a submodule. In this case, our `book` module
+is where we want to start, which has a defined route for `/book` in
+`Book/book.module.js`.
 
 ```js
 .config( function myAppConfig ( $stateProvider, $urlRouterProvider ) {
-  $urlRouterProvider.otherwise( '/phones' );
+  $urlRouterProvider.otherwise( '/login' );
 });
 ```
 
