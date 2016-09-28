@@ -1,0 +1,71 @@
+<h3>List of Lending Requests</h3>
+<div>
+  <table>
+    <tr>
+      <td> Search by Status</td>
+      <td>
+        <select ng-model="searchKeyword.status">
+          <option value="">-- Choose Status --</option>
+          <option value="0"> Rejected</option>
+          <option value="1"> Waiting for Approval</option>
+          <option value="2">Approved</option>
+          <option value="3">Returned</option>
+          <option value="4">Collected</option>
+        </select>
+      </td>
+    </tr>
+  </table>  
+</div>
+<div>
+  <table>
+    <thead>
+      <tr>
+        <th>S.No</th>
+        <th>Books title</th>
+        <th>Author</th>
+        <th>Code</th>
+        <th>Quantity</th>
+        <th>User Id</th>
+        <th>Lending Status</th>
+        <th>Action</th>
+      </tr></thead>
+    <tbody>
+      <tr ng-repeat="book in books | filter: searchKeyword" >
+        <td>{{$index + 1}}</td>
+        <td>{{bookDetails[book.book_id].name}}</td>
+        <td>{{bookDetails[book.book_id].author}}</td>
+        <td>{{bookDetails[book.book_id].code}}</td>
+        <td>{{bookDetails[book.book_id].quantity}}</td>
+        <td>{{book.user_id}}</td>
+        <td>{{book.status}}</td>
+        <td>
+           <span ng-if="userRole === 'Admin' && book.status == 0">
+            Rejected 
+          </span>
+           <span ng-if="userRole === 'Admin' && book.status == 2">
+            Approved 
+          </span>
+           <span ng-if="userRole === 'Admin' && book.status == 1">
+            <a  ui-sref="rejectLendRequest({id : book.id, userId: userInfo.id})">Reject</a> |
+          </span>
+           <span ng-if="userRole === 'Admin' && book.status == 1">
+            <a  ui-sref="distributeBook({id : book.id, userId: userInfo.id})">Distribute</a>
+          </span>
+           <span ng-if="userRole === 'Admin' && book.status == 3">
+            Returned |
+           </span>
+          <span ng-if="userRole === 'Admin' && book.status == 3">
+             <a  ui-sref="collectBook({id : book.id, userId: userInfo.id})">Collect</a>
+          </span>
+           <span ng-if="userRole === 'Admin' && book.status == 4">
+            Collected
+          </span>
+      </tr>     
+      <tr ng-show="(books | filter: searchKeyword).length == 0" >
+        <td colspan='5'>
+          No result found.                
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

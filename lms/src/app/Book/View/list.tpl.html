@@ -1,0 +1,97 @@
+<h3>List of Books</h3>
+<div class="text-right">
+    <a ng-if="userRole == 'Admin'" ui-sref="addBook" >
+      <button type="button" class="btn btn-primary" >Add Book</button>
+    </a>
+</div>
+<div ng-show="divShow == 'div1'">
+  Search: <input type="text" ng-model="searchKeyword">
+  <button ng-click="show('div2')">Advanced Search</button>
+</div>
+<div ng-show="divShow == 'div2'">
+  <table>  
+    <tr>
+      <td> Search by Title:</td>
+      <td><input type="text" ng-model="searchKeyword.title"></td>
+    </tr>
+    <tr>
+      <td> Search by Roll Number</td>
+      <td><input type="text" ng-model="searchKeyword.rollNumber"></td>
+    </tr>
+    <tr>
+      <td> Search by Author</td>
+      <td>
+        <select ng-model="searchKeyword.author" ng-options="book.author as book.author for book in books | unique:'author'">
+          <option value="">-- Choose Author --</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td> Search by Status</td>
+      <td>
+        <select ng-model="searchKeyword.status">
+          <option value="">-- Choose Status --</option>
+          <option value="1"> Available</option>
+          <option value="0"> Not Available</option>
+        </select>
+      </td>
+    </tr>
+  </table>
+  <p><button ng-click="show('div1')">Basic Search</button></p>
+</div>
+<div>
+  <table>
+    <thead>
+      <tr>
+        <th>S.No</th>
+        <th>Books title</th>
+        <th>Author</th>
+        <th>Price</th>
+        <th>Code</th>
+        <th>Rack No</th>
+        <th ng-if="userRole === 'Admin'">Quantity</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr></thead>
+    <tbody>
+      <tr ng-repeat="book in books| filter: searchKeyword" >
+        <td>{{$index + 1}}</td>
+        <td>{{book.name}}</td>
+        <td>{{book.author}}</td>
+        <td>{{book.price}}</td>
+        <td>{{book.code}}</td>
+        <td>{{book.rack}}</td>
+        <td ng-if="userRole === 'Admin'">{{book.quantity}}</td>
+        <td>{{book.status == 1 ?'Available':'Not Available'}}</td>
+        <td>
+          <span ng-if="userRole === 'Admin'">
+            <a  ui-sref="editBook({id : book.id})">Edit</a> | 
+          </span>
+          <span ng-if="userRole === 'Admin'">
+            <a ui-sref="deleteBook({id : book.id})">Delete</a> | 
+          </span>
+          <span ng-if="userRole === 'User' && lendingBooks[book.id].status == 1">
+            Lending Requested |
+          </span>  
+          <span ng-if="userRole === 'User' && (lendingBooks[book.id].status === undefined || lendingBooks[book.id].status === '4' || lendingBooks[book.id].status === '0') ">
+            <a ui-sref="lendBook({id : book.id, userId: userInfo.id})"> Lend </a> |
+          </span> 
+          <span ng-if="userRole === 'User' && lendingBooks[book.id].status == 2 ">
+            <a ui-sref="returnBook({id : lendingBooks[book.id].id, userId: userInfo.id})">Return</a> |
+          </span> 
+          <span ng-if="userRole === 'User' && lendingBooks[book.id].status == 3">
+            Book Returned |
+          </span>
+          <span>
+            <a ui-sref="bookDetails({id : book.id})">View</a>
+          </span>
+        </td>
+      </tr>     
+      <tr ng-show="(books | filter: searchKeyword).length == 0" >
+        <td colspan='5'>
+          No result found.                
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

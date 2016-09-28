@@ -1,0 +1,50 @@
+<div class="panel-body">
+  <legend> Sign Up </legend>
+  <form name ="loginForm"  ng-submit="submitForm(loginForm.$valid)">
+    <div class="form-group row" ng-init="user.role=2">
+      <label for="status" class="col-xs-2 col-form-label">Sign In As</label>
+      <div class="col-xs-10">
+          <input class="form-radio-input" type="radio" ng-model="user.role" value="2"> User
+          <input class="form-radio-input" type="radio" ng-model="user.role" value="1"> Librarian
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="name" class="col-xs-2 col-form-label">User Name </label>
+      <div class="col-xs-10">
+        <input type="name" ng-blur="unique(user.name, 'name')" class="form-control" id="name" placeholder="User Name" ng-model="user.name" required>
+      </div>
+    </div>    
+    <div class="form-group row">
+      <label for="email" class="col-xs-2 col-form-label"> Email </label>
+      <div class="col-xs-10">
+        <input type="email" ng-blur="unique(user.email, 'email')" class="form-control" id="email" placeholder="Enter a Valid Email" ng-model="user.email" required>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="mobile" class="col-xs-2 col-form-label"> Mobile</label>
+      <div class="col-xs-10">
+        <input type="mobile" ng-blur="unique(user.mobile, 'mobile')" class="form-control" id="mobile" placeholder="Enter a Valid Mobile" ng-model="user.mobile" required>
+      </div>
+    </div>
+    <div class="form-group row" ng-if="user.role == 2 " >
+      <label for="amount" class="col-xs-2 col-form-label">Join Amount </label>
+      <div class="col-xs-10">
+        <input type="number" class="form-control" min="500" id="amount" placeholder="Join Amount" ng-model="user.amount" required>
+      </div>
+    </div>
+    <div class="form-group row" >
+      <label for="password" class="col-xs-2 col-form-label">Password</label>
+      <div class="col-xs-10">
+        <input type="password" class="form-control" id="password" placeholder="Password" ng-model="user.password"  required>       
+      </div>
+    </div>
+    <div class="form-group row" >
+      <label for="confirm" class="col-xs-2 col-form-label">Confirm Password</label>
+      <div class="col-xs-10">
+        <input type="password" class="form-control" id="confirm" placeholder="Confirm Password" ng-model="user.confirm"  required>       
+      </div>
+    </div>
+    <div class="alert alert-danger" ng-if="uniqueMsg.length > 0 " style="text-transform:capitalize;">{{uniqueMsg.toLowerCase() }}</div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>

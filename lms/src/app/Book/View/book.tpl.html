@@ -1,0 +1,57 @@
+<div class="panel-body">
+  <legend> Add / Edit Books </legend>
+  <form name ="bookForm"  ng-submit="submitForm(bookForm.$valid)">
+    <div class="form-group row">
+      <label for="email" class="col-xs-2 col-form-label">Book Title</label>
+      <div class="col-xs-10">
+        <input type="text" class="form-control" id="bookName" placeholder="Enter Book Titile" ng-model="book.name" required>
+      </div>
+    </div>
+    <div class="form-group row" >
+      <label for="author" class="col-xs-2 col-form-label">Author</label>
+      <div class="col-xs-10">
+        <input type="text" class="form-control" id="author" placeholder="Author" ng-model="book.author"  required>       
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="price" class="col-xs-2 col-form-label">Price</label>
+      <div class="col-xs-10">
+        <input type="number" id="price"  placeholder="Price" min="20" ng-model="book.price" required>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="code" class="col-xs-2 col-form-label">Book Code</label>
+      <div class="col-xs-10">
+        <input type="number" id="cdde" min="1000" placeholder="Book Code" ng-model="book.code" required>
+        <p class="help-block">Starts from 1000</p>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="quantity" class="col-xs-2 col-form-label">No of Books</label>
+      <div class="col-xs-10">
+        <input type="number" id="cdde" min="1" placeholder="Book Quantity" ng-model="book.quantity" required>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="rack" class="col-xs-2 col-form-label">Rack No</label>
+      <div class="col-xs-10">
+        <input type="number" id="cdde" min="1" placeholder="Rack No"  ng-model="book.rack" required>
+      </div>
+    </div>
+    <div class="form-group row" ng-init="book.status=1">
+      <label for="status" class="col-xs-2 col-form-label">Status</label>
+      <div class="col-xs-10">
+          <input class="form-radio-input" type="radio" ng-model="book.status" value="1"> Available
+          <input class="form-radio-input" type="radio" ng-model="book.status" value="0"> Not Available
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="date" class="col-xs-2 col-form-label">Date of Arrival</label>
+      <div class="col-xs-10">
+        <input class="form-control" type="date" ng-model ="book.arrivalDate" id="arrivalDate" required>
+        <p class="help-block">Book arrival date</p>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>

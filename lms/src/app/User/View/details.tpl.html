@@ -1,0 +1,34 @@
+<h3>User Details</h3>
+<div>
+  <table>
+    <tbody>
+      <tr>
+        <td>Name</td>
+        <td>{{userDetail.name}}</td>
+      </tr>
+      <tr>
+         <td>Email</td>
+         <td>{{userDetail.email}}</td>
+      </tr>
+      <tr>
+        <td>Mobile</td>
+        <td>{{userDetail.mobile}}</td>
+      </tr>
+      <tr>
+        <td>Initial Amount</td>
+        <td>{{userDetail.amount}}</td></tr>
+      <tr>
+        <td>Date Of Issue</td>
+        <td>{{userDetail.dateOfIssue}}</td>
+      </tr>
+      <tr>
+        <td>Expiration Date</td>
+        <td>{{userDetail.expiryDate}}</td>
+      </tr>
+       <tr>
+        <td>Status</td>
+        <td>{{userDetail.status == 1 ?'Active':'In Active'}}</td>   
+      </tr>     
+    </tbody>
+  </table>
+</div>

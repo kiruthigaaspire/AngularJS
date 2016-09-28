@@ -1,0 +1,30 @@
+<h3>Book Details</h3>
+<div>
+  <table>
+    <tbody>
+      <tr>
+        <td>Books title</td>
+        <td>{{bookDetail.name}}</td>
+      </tr>
+      <tr>
+         <td>Author</td>
+         <td>{{bookDetail.author}}</td>
+      </tr>
+      <tr>
+        <td>Code</td>
+        <td>{{bookDetail.code}}</td>
+      </tr>
+      <tr>
+        <td>Rack No</td>
+        <td>{{bookDetail.rack}}</td></tr>
+      <tr>
+        <td>Quantity</td>
+        <td>{{bookDetail.quantity}}</td>
+      </tr>
+       <tr>
+        <td>Status</td>
+        <td>{{bookDetail.status == 0 ?'Available':'Not Available'}}</td>   
+      </tr>     
+    </tbody>
+  </table>
+</div>

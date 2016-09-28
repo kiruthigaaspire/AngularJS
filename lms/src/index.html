@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html ng-app="lms" ng-controller="lmsController">
+  <head>
+    <title ng-bind="pageTitle">LMS</title>
+
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+
+    <!-- compiled CSS -->
+    <% styles.forEach( function ( file ) { %>
+    <link rel="stylesheet" type="text/css" href="<%= file %>" />
+    <% }); %>
+
+    <!-- compiled JavaScript -->
+    <% scripts.forEach( function ( file ) { %>
+    <script type="text/javascript" src="<%= file %>"></script>
+    <% }); %>
+
+  </head>
+  <body>
+    <nav class="navbar navbar-inverse lms-header">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">LMS</a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li ng-if="userRole == 'Admin'" ><a href="#/user">Users</a>
+            <li ng-if="userRole == 'Admin'" ><a href="#/library">Manage Books</a>              
+            </li>
+            <li><a href="#/books">Books</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a><span style="text-transform:capitalize;">Welcome {{userInfo.name.toLowerCase() }}</span></a></li>
+            <li><a ng-if="!authorizedUser" href="#/register" ><span class="glyphicon glyphicon-log-in"></span> Sign Up</a></li>
+            <li><a ng-if="!authorizedUser" href="#/login"><span class="glyphicon glyphicon-log-in"></span> Sign In</a></li>
+            <li><a ng-if="authorizedUser" href="#/logout"><span class="glyphicon glyphicon-log-in"></span> Sign Out </a></li>
+          </ul>
+        </div>        
+      </div>
+    </nav>
+    <div class="container-fluid text-center">
+      <div class="row content">
+        <div class="col-sm-1 sidenav">        
+        </div>
+        <div class="col-sm-10 text-left">
+          <div ui-view="main"> </div>
+        </div>      
+        <div class="col-sm-1 sidenav">
+        </div>
+      </div>
+    </div>
+    <footer class="container-fluid text-center">
+      <p>LMS@copyright 2016</p>
+    </footer>
+  </body>
+</html>

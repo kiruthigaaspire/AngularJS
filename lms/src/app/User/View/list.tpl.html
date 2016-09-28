@@ -1,0 +1,78 @@
+<h3>List of Users</h3>
+<div ng-if="alertMember.length > 0">{{alertMember}}</div>
+<div ng-show="divShow == 'div1'">
+  Search: <input type="text" ng-model="searchKeyword">
+  <button ng-click="show('div2')">Advanced Search</button>
+</div>
+<div ng-show="divShow == 'div2'">
+  <table>  
+    <tr>
+      <td> Search by Name</td>
+      <td><input type="text" ng-model="searchKeyword.name"></td>
+    </tr>
+    <tr>
+      <td> Search by Email</td>
+      <td><input type="text" ng-model="searchKeyword.email"></td>
+    </tr>
+    <tr>
+      <td> Search by Mobile</td>
+      <td><input type="text" ng-model="searchKeyword.mobile"></td>
+    </tr>
+    <tr>
+      <td> Search by Status</td>
+      <td>
+        <select ng-model="searchKeyword.status">
+          <option value="">-- Choose Status --</option>
+          <option value="1">Active</option>
+          <option value="0">In Active</option>
+        </select>
+      </td>
+    </tr>
+  </table>
+  <p><button ng-click="show('div1')">Basic Search</button></p>
+</div>
+<div>
+  <table>
+    <thead>
+      <tr>
+        <th>S.No</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Mobile</th>
+        <th>Date Of Issue</th>
+        <th>Expiry Date</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr></thead>
+    <tbody>
+      <tr ng-repeat="user in users| filter: searchKeyword" >
+        <td>{{$index + 1}}</td>
+        <td>{{user.name}}</td>
+        <td>{{user.email}}</td>
+        <td>{{user.mobile}}</td>
+        <td>{{user.dateOfIssue}}</td>
+        <td>{{user.	expiryDate}}</td>
+        <td>{{user.status == 1 ? 'Active':'In Active'}}</td>
+        <td>
+          <span ng-if="userRole == 'Admin' && user.status == 0 ">
+            <a  ui-sref="approveUser({id : user.id})">Activate</a> |
+          </span> 
+          <span ng-if="userRole == 'Admin'">
+            <a  ui-sref="editUser({id : user.id})">Edit</a> |
+          </span> 
+          <span>
+            <a ng-if="userRole == 'Admin'" ui-sref="deleteUser({id : user.id})">Delete</a> |
+          </span>
+          <span>
+            <a ui-sref="userDetails({id : user.id})">View</a>
+          </span>
+        </td>
+      </tr>     
+      <tr ng-show="(users | filter: searchKeyword).length == 0" >
+        <td colspan='5'>
+          No result found.                
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
