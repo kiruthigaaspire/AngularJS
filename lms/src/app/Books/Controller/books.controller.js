@@ -19,14 +19,13 @@ controller( 'bookController', ['$scope', '$http', '$location', '$state', '$state
                 bookService.lendBook($scope, book, user);    
             }
         }
-
         $scope.approveBook = function(book) {
             if(confirm("Please confirm your are Approve this "+book.book_name+" book?")){
                 bookService.approveBook($scope, book);    
             }
         }
         $scope.rejectBook = function(book) {
-            if(confirm("Please confirm your are Approve this "+book.book_name+" book?")){
+            if(confirm("Please confirm your are Reject this "+book.book_name+" book?")){
                 bookService.rejectBook($scope, book);    
             }
         }

@@ -14,8 +14,6 @@ angular.module('app', [
     
     $scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
         if($rootScope.globals.authUser == undefined){
-            //$location.path('login');
-            //return;
         }
     });
 });

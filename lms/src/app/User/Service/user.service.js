@@ -34,9 +34,9 @@ angular.module('app.user').factory('userService', ['$http', '$rootScope', '$loca
                 'name' : $scope.reg_name
             };
             
-            apiServices.process("post", "registration.php", data).then(function(response){
-                $scope.message_type = response.message_type;
-                $scope.messages = response.message;
+            apiServices.process("post", "userRegistration", data).then(function(response){
+                $scope.message_type = response.errorStatus;
+                $scope.messages = response.errorMessage;
                 $scope.reg_email = "";
                 $scope.reg_password = "";
                 $scope.reg_name = "";

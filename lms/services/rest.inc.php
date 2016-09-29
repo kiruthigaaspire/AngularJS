@@ -127,12 +127,10 @@ class REST
     {
         switch ($this->getRequestMethod()) {
             case "POST":
-            case "PUT":
                 $inputJSON = file_get_contents('php://input');
                 $this->_request = $this->cleanInputs($inputJSON);
                 break;
             case "GET":
-            case "DELETE":
                 $this->_request = $this->cleanInputs($_GET);
                 break;
             default:
