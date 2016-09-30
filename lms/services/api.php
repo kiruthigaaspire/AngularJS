@@ -16,6 +16,8 @@ class API extends REST
     const dbPassword = "root";
 
     const dbName = "lms";
+    
+    private $bookReturnDays = 15;
 
     private $db = NULL;
 
@@ -27,8 +29,9 @@ class API extends REST
         'username',
         'password',
         'address',
-        'id_proof',
-        'phone_no'
+        'phone_no',
+        'user_status',
+        'user_activate_status'
     );
 
     private $bookFields = array(
@@ -57,9 +60,9 @@ class API extends REST
                                  FROM user 
                                  where id=%d";
 
-    const SELECT_USER_EMAIL_ONLY = "SELECT email_id
+    const SELECT_USER_EMAIL_ONLY = "SELECT *
                                  FROM user
-                                 where email_id='%s'";
+                                 where email_id LIKE '%s'";
 
     const DELETE_USER = "DELETE FROM user 
                          WHERE id = %d";
@@ -75,12 +78,12 @@ class API extends REST
                               order by id desc";
     
     const SELECT_BOOK_LIST = "SELECT b.id, b.book_name, b.author_name, b.price, b.book_code, b.number_of_books, b.book_arrival_date, 
-                              b.book_status, b.rack_no, b.available_status, ur.book_status,ur.user_id
+                              b.book_status, b.rack_no, b.available_status, ur.book_status,ur.user_id, ur.book_return_date
                               FROM book as b
                               LEFT JOIN user_book as ur on b.id = ur.book_id";
     
     const SELECT_MY_BOOK_LIST = "SELECT b.id, b.book_name, b.author_name, b.price, b.book_code, b.number_of_books, b.book_arrival_date,
-                              b.book_status, b.rack_no, b.available_status, ur.book_status
+                              b.book_status, b.rack_no, b.available_status, ur.user_id, ur.book_status, ur.book_return_date
                               FROM book as b
                               LEFT JOIN user_book as ur on b.id = ur.book_id
                               where ur.user_id=%d";
@@ -149,7 +152,7 @@ class API extends REST
                     $result['user'] = $userResult->fetch_assoc();
                     $this->response($this->json($result), 200);
                 }
-                $this->response('', 204); // If no records "No Content" status
+                $this->response($this->json($result), 200); // If no records "No Content" status
         }
         $this->response($this->json($result), 200);
     }
@@ -160,7 +163,10 @@ class API extends REST
      */
     private function userLogOff()
     {
-        $result = $this->result;      
+        $result =  array(
+            'errorStatus' => true,
+            'errorMessage' => "LogOff Successfully"
+        );
         $this->response($this->json($result), 200);
     }
     
@@ -212,15 +218,25 @@ class API extends REST
      */
     private function userAdd()
     {
+
+        $result = array(
+            'errorStatus' => true,
+            'errorMessage' => "Please fill the required fields"
+        );
         try {
-            
+
             if ($this->getRequestMethod() != "POST") {
                 $this->response('', 406);
             }
-            $userArray = $this->buildRequest();
+            $userFirstName = $this->_request['name'];
+            $userEmail = $this->_request['email'];
+            $userPassword = $this->_request['password'];
+            $userAddress = $this->_request['address'];
+            $userMobile = $this->_request['mobile'];
             $userKeys = array_keys($userArray);
             $userColumns = '';
             $userValues = '';
+            
             foreach ($this->userFields as $userKey) { // Check the customer received. If blank insert blank into the array.
                 if (! in_array($userKey, $userKeys)) {
                     $$userKey = '';
@@ -230,20 +246,29 @@ class API extends REST
                 $userColumns = $userColumns . $userKey . ',';
                 $userValues = $userValues . "'" . $$userKey . "',";
             }
-            $userQuery = "INSERT INTO user(" . trim($userColumns, ',') . ") VALUES(" . trim($userValues, ',') . ")";
-            if (! empty($userArray) && $this->isUserEmailExists($_REQUEST['email_id']) == 0) {
+            $userExists = $this->isUserEmailExists($userEmail);
+            
+            $userQuery = "INSERT INTO user(" . trim($userColumns, ',') . ") VALUES('$userFirstName','$userEmail','$userEmail','$userPassword','$userAddress','".$userMobile."','Y','A')";
+            
+            if ($this->isUserEmailExists($userEmail) == 0) {
                 $this->mysqli->query($userQuery) or die($this->mysqli->error . __LINE__);
                 $result = array(
                     'errorStatus' => false,
-                    'errorMessage' => "Ok",
+                    'errorMessage' => "User Added Successfully",
                     'data' => $userArray
                 );
                 $this->response($this->json($result), 200);
             } else {
-                $this->response('', 204); // "No Content" status
+                $result = array(
+                    'errorStatus' => true,
+                    'errorMessage' => "Email Address Already Exists"
+                );
+                $this->response($this->json($result), 200); // "No Content" status
             }
-        } catch (Exception $e) {}
-        $this->response('', 204); // "No Content" status
+        } catch (Exception $e) {
+        }
+
+        $this->response($this->json($result), 200); // "No Content" status
     }
 
     /**
@@ -323,7 +348,9 @@ class API extends REST
      */
     public function isUserEmailExists($userEmail)
     {
-        return $this->executeMysqlQuery(API::SELECT_USER_EMAIL_ONLY, $userEmail);
+        $query = sprintf(API::SELECT_USER_EMAIL_ONLY, $userEmail);
+        $data = $this->mysqli->query($query) or die($this->mysqli->error . __LINE__);
+        return $data->num_rows;
     }
 
     /**
@@ -374,6 +401,24 @@ class API extends REST
         $this->response('', 204); // If no records "No Content" status
     }
     
+    /***
+     * Method to list my assinged books
+     * @param int $userId
+     * @return Ambigous <multitype:, unknown>
+     */
+    private function getMyBookList($userId)
+    {
+        $result = array();
+        $bookQuery = sprintf(API::SELECT_MY_BOOK_LIST,$userId);
+        $bookResult = $this->mysqli->query($bookQuery) or die($this->mysqli->error . __LINE__);
+        if ($bookResult->num_rows > 0) {
+            while ($row = $bookResult->fetch_assoc()) {
+                $result[] = $row;
+            }
+        }
+        return $result; // If no records "No Content" status
+    }
+    
     /*
      * Encode array into JSON
      */
@@ -417,6 +462,10 @@ class API extends REST
             if ($this->getRequestMethod() != "POST") {
                 $this->response('', 406);
             }
+            $result = array(
+                    'errorStatus' => true,
+                    'errorMessage' => "Please fill the required fields"
+                ); 
             $bookName = $this->_request['book_name'];
             $authorName = $this->_request['author_name'];
             $bookPrice = $this->_request['price'];
@@ -436,7 +485,7 @@ class API extends REST
                 $bookColumns = $bookColumns . $bookKey . ',';
                 $bookValues = $bookValues . "'" . $$bookKey . "',";
             }
-            $bookQuery = "INSERT INTO book(" . trim($bookColumns, ',') . ") VALUES('$bookName','$authorName',$bookPrice,".$bookCode.",".$noOfBooks.",".$bookDate.",'Y',".$rackNo.",'Y')";
+            $bookQuery = "INSERT INTO book(" . trim($bookColumns, ',') . ") VALUES('$bookName','$authorName',$bookPrice,".$bookCode.",".$noOfBooks.",'".$bookDate."','Y',".$rackNo.",'Y')";
             if (! empty($bookName) && $this->isBookNameExists($bookName) > 0) {
                 $this->mysqli->query($bookQuery) or die($this->mysqli->error . __LINE__);
                 $result = array(
@@ -446,10 +495,53 @@ class API extends REST
                 );
                 $this->response($this->json($result), 200);
             } else {
-                $this->response('', 204); // "No Content" status
+                $this->response($this->json($result), 204); // "No Content" status
             }
         } catch (Exception $e) {}
         $this->response('', 204); // "No Content" status
+    }
+    
+    private function bookEdit()
+    {
+        $result = array(
+            'errorStatus' => true,
+            'errorMessage' => "Please fill the required fields"
+        );
+        if ($this->getRequestMethod() != "POST") {
+            $this->response('', 406);
+        }
+        $bookId = (int) $this->_request['id'];
+        if ($bookId > 0) {
+            $bookQuery = sprintf(API::SELECT_BOOK_ALL_WITH_ID, $bookId);
+            $bookResult = $this->mysqli->query($bookQuery) or die($this->mysqli->error . __LINE__);
+            if ($bookResult->num_rows > 0) {
+                $result = $bookResult->fetch_assoc();
+                $this->response($this->json($result), 200); // send user details
+            }
+        }
+        $this->response($this->json($result), 204); // "No Content" status
+    }
+    
+    private function bookUpdate()
+    {
+        $result = array(
+            'errorStatus' => true,
+            'errorMessage' => "Please fill the required fields"
+        );
+        if ($this->getRequestMethod() != "POST") {
+            $this->response('', 406);
+        }
+            $bookName = $this->_request['book_name'];
+            $authorName = $this->_request['author_name'];
+            $bookPrice = $this->_request['price'];
+            $bookCode = $this->_request['book_code'];
+            $noOfBooks = $this->_request['number_of_books'];
+            $rackNo = $this->_request['rack_no'];
+            $bookDate = date('Y-m-d');
+            $bookKeys = array_keys($bookArray);
+            $bookColumns = '';
+            $bookValues = '';
+        $this->response($this->json($result), 204); // "No Content" status
     }
     
     /**
@@ -465,13 +557,15 @@ class API extends REST
             }
             $bookId = $this->_request['book_id'];
             $userId = $this->_request['user_id'];
-            $bookApproveQuery = "INSERT INTO user_book(`user_id`,`book_id`,`book_status`) VALUES($userId,$bookId,1)";
+            $returnDate = date('Y-m-d');
+            $returnDate = date('Y-m-d',strtotime($returnDate.'+'.$this->bookReturnDays.' days'));
+            $bookApproveQuery = "INSERT INTO user_book(`user_id`,`book_id`,`book_status`,`book_return_date`) VALUES($userId,$bookId,1,'".$returnDate."')";
             if (! empty($bookId)) {
                 $this->mysqli->query($bookApproveQuery) or die($this->mysqli->error . __LINE__);
                 $result = array(
                     'errorStatus' => false,
                     'errorMessage' => "Ok",
-                    'data' => ''
+                    'data' => $this->getMyBookList($userId)
                 );
                 $this->response($this->json($result), 200);
             } else {
@@ -515,6 +609,35 @@ class API extends REST
      * Method to reject book
      */
     private function bookReject()
+    {
+        try {
+    
+            if ($this->getRequestMethod() != "POST") {
+                $this->response('', 406);
+            }
+            $bookId = $this->_request['book_id'];
+            $userId = $this->_request['user_id'];
+            $bookApproveQuery = "DELETE FROM user_book WHERE `user_id`=".$userId." AND `book_id`=".$bookId;
+            if (! empty($bookId)) {
+                $this->mysqli->query($bookApproveQuery) or die($this->mysqli->error . __LINE__);
+                $result = array(
+                    'errorStatus' => false,
+                    'errorMessage' => "Ok",
+                    'data' => ''
+                );
+                $this->response($this->json($result), 200);
+            } else {
+                $this->response('', 204); // "No Content" status
+            }
+        } catch (Exception $e) {}
+        $this->response('', 204); // "No Content" status
+    }
+    
+    /**
+     * *
+     * Method to return book
+     */
+    private function bookReturn()
     {
         try {
     

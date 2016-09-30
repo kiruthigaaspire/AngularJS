@@ -4,7 +4,6 @@ angular.module('app.books').factory('bookService', ['$http', '$rootScope', 'apiS
             data = {
                 'user_id' :  $rootScope.globals.authUser.user_id
             };
-            
             apiServices.process("post", "bookList", data).then(function(response){
                 $scope.bookList = response.book;
             });
@@ -13,19 +12,24 @@ angular.module('app.books').factory('bookService', ['$http', '$rootScope', 'apiS
             data = {
                 'user_id' :  $rootScope.globals.authUser.id
             };
-            
             apiServices.process("post", "mybookList", data).then(function(response){
                 $scope.bookList = response.book;
             });
         }, 
+        editBook: function($scope, param) {
+            data = {
+                'id' : param.id
+            };
+            apiServices.process("post", "bookEdit", data).then(function(response){
+                $scope.bookData = response;
+            });
+        },
         viewBook: function($scope, param) {
             data = {
                 'id' : param.id
             };
-            
             apiServices.process("post", "bookView", data).then(function(response){
-                $scope.bookData = response.bookData;
-                $scope.users = response.users;  
+                $scope.bookData = response;
             });
         },
         lendBook: function($scope, book, user) {
@@ -35,8 +39,9 @@ angular.module('app.books').factory('bookService', ['$http', '$rootScope', 'apiS
             };
             
             apiServices.process("post", "bookLend", data).then(function(response){
-                if(response.errorMsg === "Ok") {
-                    $location.path('/books');
+                if(response.errorMessage == "Ok") {
+                    $scope.bookList = response.Data;
+                    $location.path('/myBooks');
                 }
             });
         },
@@ -48,7 +53,7 @@ angular.module('app.books').factory('bookService', ['$http', '$rootScope', 'apiS
             
             apiServices.process("post", "bookApprove", data).then(function(response){
                 if(response.errorMsg === 'Ok') {
-                    $location.path('/books');
+                    $location.path('/myBooks');
                 }
             });
         },
@@ -59,6 +64,17 @@ angular.module('app.books').factory('bookService', ['$http', '$rootScope', 'apiS
                 };
             
             apiServices.process("post", "bookReject", data).then(function(response){
+                $location.path('/myBooks');
+                
+            });
+        },
+        returnBook: function($scope, book) {
+            data = {
+                    'book_id' : book.id,
+                    'user_id' : book.user_id
+                };
+            
+            apiServices.process("post", "bookReturn", data).then(function(response){
                 $location.path('/books');
                 
             });

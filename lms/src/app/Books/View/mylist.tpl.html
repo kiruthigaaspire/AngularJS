@@ -1,4 +1,4 @@
-<div ng-include src="'../src/app/Common/View/topNav.tpl.html'"></div>
+<div ng-include src="'../src/app/Api/View/topNav.tpl.html'"></div>
     <h2> My Lend Books </h2>
     Search By Book Name:{{bookName}}
     <br/>
@@ -15,7 +15,9 @@
             <th>Price</th>
             <th>Code</th>
             <th>Book Rack No</th>
+            <th>Book Return Date</th>
             <th>Status</th>
+            <th>Action</th>
         </tr>
     </thead>
     <tbody>
@@ -26,7 +28,9 @@
             <td>{{book.price}}</td>
             <td>{{book.book_code}}</td>
             <td>{{book.rack_no}}</td>
+            <td>{{book.book_return_date}}</td>
             <td>{{book.book_status ==1 ? "Waiting for Approval" : "Approved"}}</td>
+            <td><a class="btn btn-warning" href="javascript:void(0);" ng-click="returnBook(book);">Return</a></td>
             
         </tr>
     </tbody> 

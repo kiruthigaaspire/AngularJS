@@ -27,14 +27,23 @@ angular.module('app.books', [
 	      templateUrl: 'Books/View/add.tpl.html'
 	    }
 	  },  
-    }).state( 'bookDetails', {
+    }).state( 'editBook', {
+        url: '/book/edit/:id',
+        views: {
+          "main": {
+            controller: 'bookController',
+            templateUrl: 'Books/View/edit.tpl.html'
+          }
+        },  
+      }).state( 'bookDetails', {
 	  url: '/book/:id',
 	  views: {
 	    "main": {
 	      controller: 'bookController',
 	      templateUrl: 'Books/View/view.tpl.html'
 	    }
-	  },  
+	  },
+	  
     });
   }
 );

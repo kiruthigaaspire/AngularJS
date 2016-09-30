@@ -1,19 +1,19 @@
 <div ng-include src="'../src/app/Api/View/errorMessage.tpl.html'"></div>
 <div ng-include src="'../src/app/Api/View/topNav.tpl.html'"></div>
 <div>
-    <h2>Add New Book</h2>
+    <h2>Edit Book</h2>
 </div>
 
 <!-- Main Form -->
 <div class="col-md-4"></div>
 <div class="book-form-1 col-md-4">
-    <form id="bookForm" ng-submit="addBook()" name="bookForm" autocomplete="off" novalidate class="text-left">
+    <form id="bookForm" ng-submit="updateBook()" name="bookForm" autocomplete="off" novalidate class="text-left">
         <div class="book-form-main-message"></div>
         <div class="main-book-form">
             <div class="book-group">
                 <div class="form-group">
                     <label for="bname">Book Name</label>
-                    <input type="text" class="form-control" required ng-model="bName" id="bName" name="bName" placeholder="Book Name">
+                    <input type="text" class="form-control" required ng-model="bookData.book_name" id="bName" name="bName" value="{{bookData.book_name}}">
                     <span class="alert-danger" ng-show="bookForm.bName.$dirty && bookForm.bName.$invalid">
                         <span ng-show="bookForm.bName.$error.required">Book Name is required.</span>
                         <span ng-show="bookForm.bName.$error.email">Please provide a valid email address.</span>
@@ -21,21 +21,21 @@
                 </div>
                 <div class="form-group">
                     <label for="bAuthorName">Author Name</label>
-                    <input type="text" class="form-control" required ng-model="bAuthorName" id="bAuthorName" name="Author Name" placeholder="Author Name">
+                    <input type="text" class="form-control" required ng-model="bookData.author_name" id="bAuthorName" name="Author Name" value="{{bookData.author_name}}">
                     <span class="alert-danger" ng-show="bookForm.bAuthorName.$dirty && bookForm.bAuthorName.$invalid">
                         <span ng-show="bookForm.bAuthorName.$error.required">Author Name is required.</span>
                     </span>
                 </div>
                 <div class="form-group">
                     <label for="bPrice">Price</label>
-                    <input type="number" class="form-control" required ng-model="bPrice" id="bPrice" name="bPrice" placeholder="Price">
+                    <input type="number" class="form-control" required ng-model="bookData.price" id="bPrice" name="bPrice" value="{{bookData.price}}">
                     <span class="alert-danger" ng-show="bookForm.bPrice.$dirty && bookForm.bPrice.$invalid">
                         <span ng-show="bookForm.bPrice.$error.required">Price is required.</span>
                     </span>
                 </div>
                 <div class="form-group">
                     <label for="bCode">Book Code</label>
-                    <input type="text" class="form-control" required ng-model="bCode" id="bCode" name="bCode" placeholder="Book Code">
+                    <input type="text" class="form-control" required ng-model="bookData.book_code" id="bCode" name="bCode" value="{{bookData.book_code}}">
                     <span class="alert-danger" ng-show="bookForm.bCode.$dirty && bookForm.bCode.$invalid">
                         <span ng-show="bookForm.bCode.$error.required">Book Code is required.</span>
                         <p class="help-block">Book arrival date</p>
@@ -43,21 +43,22 @@
                 </div>
                 <div class="form-group">
                     <label for="bNoBooks">Total Number of Books</label>
-                    <input type="number" class="form-control" required ng-model="bNoBooks" id="bNoBooks" name="bNoBooks" placeholder="Total Number of Books">
+                    <input type="number" class="form-control" required ng-model="bookData.no_of_books" id="bNoBooks" name="bNoBooks" value="{{bookData.no_of_books}}">
                     <span class="alert-danger" ng-show="bookForm.bNoBooks.$dirty && bookForm.bNoBooks.$invalid">
                         <span ng-show="bookForm.bNoBooks.$error.required">Number of Books is required.</span>
                     </span>
                 </div>
                  <div class="form-group">
                     <label for="bRackNumber">Book Rack Number</label>
-                    <input type="text" class="form-control" required ng-model="bRackNumber" id="bRackNumber" name="bRackNumber" placeholder="Book Rack Number">
+                    <input type="text" class="form-control" required ng-model="bookData.rack_no" id="bRackNumber" name="bRackNumber" value="{{bookData.rack_no}}">
+                    <input type="hidden" class="form-control" required ng-model="bookData.id" id="bId" name="bId" value="{{bookData.id}}">
                     <span class="alert-danger" ng-show="bookForm.bRackNumber.$dirty && bookForm.bRackNumber.$invalid">
                         <span ng-show="bookForm.bRackNumber.$error.required">Book Rack Number is required.</span>
                     </span>
                 </div>
                 
             </div>
-            <button type="submit" class="btn btn-success">Add <i class="fa fa-chevron-right"></i></button>
+            <button type="submit" class="btn btn-success">Update <i class="fa fa-chevron-right"></i></button>
         </div>
     </form>
 </div>

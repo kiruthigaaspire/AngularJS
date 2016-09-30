@@ -1,4 +1,4 @@
-<div ng-include src="'../src/app/Common/View/topNav.tpl.html'"></div>
+<div ng-include src="'../src/app/Api/View/topNav.tpl.html'"></div>
     <h2> List Books </h2>
     Search By Book Name:{{bookName}}
     <br/>
@@ -27,6 +27,7 @@
             <td>{{book.book_code}}</td>
             <td>{{book.rack_no}}</td>
             <td>
+            <a class="btn btn-info" ng-if="user.isAdmin == 1" href="#/book/edit/{{book.id}}">Edit</a>&nbsp;
             <a class="btn btn-info" ng-if="user.isAdmin != 1 && book.book_status < 1" href="javascript:void(0);" ng-click="lendBook(book,user);">Lend</a>&nbsp;
             <a ng-if="user.isAdmin == 1 && book.book_status == 1" class="btn btn-success" href="javascript:void(0);" ng-click="approveBook(book);">Approve</a>
             &nbsp; &nbsp;<a class="btn btn-danger" ng-if="user.isAdmin == 1 && book.book_status >= 1" href="javascript:void(0);" ng-click="rejectBook(book);">Reject</a></td>

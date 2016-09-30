@@ -1,6 +1,7 @@
 angular.module('app.user').factory('userService', ['$http', '$rootScope', '$location', 'apiServices', function ($http, $rootScope, $location, apiServices) {
     return {
         loginForm: function($scope) {
+            console.log($scope);
             data = {
                 'email' : $scope.email,
                 'password' : $scope.password
@@ -9,7 +10,7 @@ angular.module('app.user').factory('userService', ['$http', '$rootScope', '$loca
             apiServices.process("post", "userLogin", data).then(function(response){
                 $scope.error_status = response.errorStatus;
                 $scope.error_messages = response.errorMessage;
-                if(response.errorMessage == "Ok"){
+                if(response.errorStatus == false){
                     console.log('logIn');
                     $rootScope.globals = {
                         authUser: response.user
@@ -23,23 +24,28 @@ angular.module('app.user').factory('userService', ['$http', '$rootScope', '$loca
             apiServices.process("post", "userLogOff", data).then(function(response){
                 console.log('logoff');
                 $rootScope.globals = {};
-                $scope.message_type = response.errorStatus;
-                $scope.messages = response.errorMessage;
+                $scope.error_status = response.errorStatus;
+                $scope.error_messages = response.errorMessage;
             });
         },
-        regForm: function($scope) {
+        registrationForm: function($scope) {
             data = {
-                'email' : $scope.reg_email,
-                'password' : $scope.reg_password,
-                'name' : $scope.reg_name
-            };
+                    'name' : $scope.name,
+                    'email' : $scope.email,
+                    'password' : $scope.password,
+                    'address' : $scope.address,
+                    'mobile' : $scope.mobile
+                };
             
-            apiServices.process("post", "userRegistration", data).then(function(response){
-                $scope.message_type = response.errorStatus;
-                $scope.messages = response.errorMessage;
+            apiServices.process("post", "userAdd", data).then(function(response){
+                $scope.error_status = response.errorStatus;
+                $scope.error_messages = response.errorMessage;
                 $scope.reg_email = "";
                 $scope.reg_password = "";
                 $scope.reg_name = "";
+                if(response.errorStatus == false){
+                    $location.path('/registration');
+                } 
             });
         }
     };
