@@ -8,7 +8,17 @@ tests of such code.
 ```
 src/
   |- app/
-  |  |- Phone/
+  |  |- Api/
+  |  |  |- Controller
+  |  |  |- Service
+  |  |  |- View
+  |  |  |- phone.module.js
+  |  |- Books/
+  |  |  |- Controller
+  |  |  |- Service
+  |  |  |- View
+  |  |  |- phone.module.js
+  |  |- User/
   |  |  |- Controller
   |  |  |- Service
   |  |  |- View
@@ -28,6 +38,9 @@ src/
 
 - `src/app/` - application-specific code, i.e. code not likely to be reused in
   another application. [Read more &raquo;](app/README.md)
+- `src/app/Api` - Generic & common code used for all the module to manipulate GET, POST action. [Read more &raquo;](app/README.md)
+- `src/app/Books` - Books module based add,edit, lend, reject,return action code are added inside this. [Read more &raquo;](app/README.md)
+- `src/app/User` - User module based login,registration action code are added inside this. [Read more &raquo;](app/README.md)
 - `src/assets/` - static files like fonts and images. 
   [Read more &raquo;](assets/README.md)
 - `src/common/` - third-party libraries or reusable JS functions likely to be reused in
