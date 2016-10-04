@@ -19,6 +19,14 @@ angular.module('app.books', [
             templateUrl: 'Books/View/mylist.tpl.html'
           }
         },  
+      }).state( 'lendBooks', {
+          url: '/lendBooks',
+          views: {
+            "main": {
+              controller: 'bookController',
+              templateUrl: 'Books/View/lendlist.tpl.html'
+            }
+          },  
       }).state( 'addBook', {
 	  url: '/book/add',
 	  views: {
@@ -35,7 +43,7 @@ angular.module('app.books', [
             templateUrl: 'Books/View/edit.tpl.html'
           }
         },  
-      }).state( 'bookDetails', {
+      }).state( 'viewBook', {
 	  url: '/book/:id',
 	  views: {
 	    "main": {

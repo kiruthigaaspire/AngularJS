@@ -1,8 +1,8 @@
 <div class="btn-group pull-right" role="group" aria-label="...">
-    <a href="#books" class="btn btn-default">Books</a>
+    <a href="#books" class="btn btn-default">Available Books</a>
     <a ng-if="user.isAdmin == 1" href="#book/add" class="btn btn-default">Add Book</a>
-    <a ng-if="user.isAdmin != 1" href="#myBooks" class="btn btn-default">My Lend Books</a>
-    <a class="ng-binding btn {{user.isAdmin == 1 ? 'btn-primary' : 'btn-success' }}"> {{user.name}}  {{user.isAdmin == 1 ? '( Admin )' : '( User )'}}</a>
+    <a ng-if="user.isAdmin != 1" href="#myBooks" class="btn btn-default">My Books</a>
+    <a href="#user/view/{{user.id}}" class="ng-binding btn btn-success"> {{user.name}}  {{user.isAdmin == 1 ? '( Admin )' : '( User )'}}</a>
         <a href="#userlogOff" class="btn btn-info">
         LogOff
         <i class="fa fa-sign-out"></i>

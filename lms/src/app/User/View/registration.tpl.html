@@ -10,42 +10,28 @@
                 <div class="form-group">
                     <label for="name">Name</label>
                     <input type="text" class="form-control" required ng-model="name" id="name" name="name" placeholder="Name">
-                    <span class="alert-danger" ng-show="registrationForm.name.$dirty && registrationForm.name.$invalid">
-                        <span ng-show="registrationForm.name.$error.required">Name is required.</span>
-                    </span>
                 </div>
                 <div class="form-group">
                     <label for="email">Email address</label>
                     <input type="email" class="form-control" required ng-model="email" id="email" name="email" placeholder="enter your email address">
-                    <span class="alert-danger" ng-show="registrationForm.email.$dirty && registrationForm.email.$invalid">
-                        <span ng-show="registrationForm.email.$error.required">Email address is required.</span>
-                        <span ng-show="registrationForm.email.$error.email">Please provide a valid email address.</span>
-                    </span>
                 </div>
 
                 <div class="form-group">
                     <label for="password">Password</label>
                     <input type="password" class="form-control" required ng-model="password" id="password" name="password" placeholder="password">
-                    <span class="alert-danger" ng-show="registrationForm.password.$dirty && registrationForm.password.$invalid">
-                        <span ng-show="registrationForm.password.$error.required">Password is required.</span>
-                    </span>
                 </div>
                                 <div class="form-group">
                     <label for="address">Address</label>
                     <input type="address" class="form-control" ng-model="address" id="address" name="address" placeholder="Fill your address">
-                    <span class="alert-danger" ng-show="registrationForm.address.$dirty && registrationForm.address.$invalid">
-                    </span>
                                                     <div class="form-group">
                     <label for="mobile">Mobile No</label>
                     <input type="number" class="form-control" ng-model="mobile" id="mobile" name="address" placeholder="Fill your mobile no">
-                    <span class="alert-danger" ng-show="registrationForm.mobile.$dirty && registrationForm.mobile.$invalid">
-                    </span>
                 </div>
             </div>
-            <button type="submit" class="btn btn-success">registration <i class="fa fa-chevron-right"></i></button>
+            <button type="submit" class="btn btn-success">User Register <i class="fa fa-chevron-right"></i></button>
         </div>
         <div class="etc-registration-form">
-            <p>New user? <a href="#/userlogin">Login</a></p>
+            <p>Esisting user ? <a href="#/userlogin">Sign In</a></p>
         </div>
     </form>
 </div>

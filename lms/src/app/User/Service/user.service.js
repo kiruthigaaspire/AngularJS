@@ -1,7 +1,6 @@
 angular.module('app.user').factory('userService', ['$http', '$rootScope', '$location', 'apiServices', function ($http, $rootScope, $location, apiServices) {
     return {
         loginForm: function($scope) {
-            console.log($scope);
             data = {
                 'email' : $scope.email,
                 'password' : $scope.password
@@ -40,10 +39,12 @@ angular.module('app.user').factory('userService', ['$http', '$rootScope', '$loca
             apiServices.process("post", "userAdd", data).then(function(response){
                 $scope.error_status = response.errorStatus;
                 $scope.error_messages = response.errorMessage;
-                $scope.reg_email = "";
-                $scope.reg_password = "";
-                $scope.reg_name = "";
                 if(response.errorStatus == false){
+                    $scope.email = "";
+                    $scope.password = "";
+                    $scope.name = "";
+                    $scope.address = "";
+                    $scope.mobile = "";
                     $location.path('/registration');
                 } 
             });

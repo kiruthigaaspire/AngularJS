@@ -1,28 +1,51 @@
 angular.module('app.books').factory('bookService', ['$http', '$rootScope', 'apiServices', '$location', function ($http, $rootScope, apiServices, $location) {
     return {
         bookList: function($scope) {
-            data = {
-                'user_id' :  $rootScope.globals.authUser.user_id
-            };
-            apiServices.process("post", "bookList", data).then(function(response){
-                $scope.bookList = response.book;
+            if($rootScope.globals.authUser != undefined) {
+                data = {
+                        'user_id' :  $rootScope.globals.authUser.user_id
+                };                
+                apiServices.process("post", "bookList", data).then(function(response){
+                    $scope.bookList = response.book;
             });
+            } else {
+                $location.path('/login');
+            }
         }, 
         mybookList: function($scope) {
-            data = {
-                'user_id' :  $rootScope.globals.authUser.id
-            };
-            apiServices.process("post", "mybookList", data).then(function(response){
-                $scope.bookList = response.book;
-            });
+            if($rootScope.globals.authUser != undefined) {
+                data = {
+                        'user_id' :  $rootScope.globals.authUser.id
+                };
+                apiServices.process("post", "mybookList", data).then(function(response){
+                    $scope.bookList = response.book;
+              
+                });
+            } else {
+                $location.path('/login');
+            }
+        }, 
+        lendbookList: function($scope) {
+            data = { };
+            if($rootScope.globals.authUser != undefined) {
+                apiServices.process("post", "lendbookList", data).then(function(response){
+                    $scope.bookList = response.book;
+                });
+            } else {
+                $location.path('/login');
+            }
         }, 
         editBook: function($scope, param) {
             data = {
                 'id' : param.id
             };
-            apiServices.process("post", "bookEdit", data).then(function(response){
+            if($rootScope.globals.authUser != undefined) {
+                apiServices.process("post", "bookEdit", data).then(function(response){
                 $scope.bookData = response;
-            });
+                });
+            } else {
+                $location.path('/login');
+            }
         },
         viewBook: function($scope, param) {
             data = {
@@ -40,7 +63,7 @@ angular.module('app.books').factory('bookService', ['$http', '$rootScope', 'apiS
             
             apiServices.process("post", "bookLend", data).then(function(response){
                 if(response.errorMessage == "Ok") {
-                    $scope.bookList = response.Data;
+                    $scope.bookList = response.book;
                     $location.path('/myBooks');
                 }
             });
@@ -52,9 +75,9 @@ angular.module('app.books').factory('bookService', ['$http', '$rootScope', 'apiS
             };
             
             apiServices.process("post", "bookApprove", data).then(function(response){
-                if(response.errorMsg === 'Ok') {
-                    $location.path('/myBooks');
-                }
+                    $scope.error_status = response.errorStatus;
+                    $scope.error_messages = 'Book Approved Successfully';
+                    $scope.bookList = response.book;
             });
         },
         rejectBook: function($scope, book) {
@@ -64,7 +87,9 @@ angular.module('app.books').factory('bookService', ['$http', '$rootScope', 'apiS
                 };
             
             apiServices.process("post", "bookReject", data).then(function(response){
-                $location.path('/myBooks');
+                $scope.error_status = response.errorStatus;
+                $scope.error_messages = 'Book Rejected Successfully';
+                $scope.bookList = response.book;
                 
             });
         },
@@ -73,9 +98,22 @@ angular.module('app.books').factory('bookService', ['$http', '$rootScope', 'apiS
                     'book_id' : book.id,
                     'user_id' : book.user_id
                 };
-            
             apiServices.process("post", "bookReturn", data).then(function(response){
-                $location.path('/books');
+                $scope.error_status = response.errorStatus;
+                $scope.error_messages = 'Book Returned Successfully';
+                $scope.bookList = response.data;
+                
+            });
+        },
+        deleteBook: function($scope, book) {
+            data = {
+                    'book_id' : book.id
+                };
+            
+            apiServices.process("post", "bookDelete", data).then(function(response){
+                $scope.error_status = response.errorStatus;
+                $scope.error_messages = 'Book Delete Successfully';
+                $scope.bookList = response.book;
                 
             });
         },
@@ -84,13 +122,39 @@ angular.module('app.books').factory('bookService', ['$http', '$rootScope', 'apiS
                 'book_name' : $scope.bName,
                 'author_name' : $scope.bAuthorName,
                 'book_code' : $scope.bCode,
-                'number_of_books' : $scope.bNoBooks,
                 'price' : $scope.bPrice,
                 'rack_no' : $scope.bRackNumber,
             };
             if ($rootScope.globals.authUser.isAdmin) {
                 apiServices.process("post", "bookAdd", data).then(function(response){
-                    $location.path('/books');
+                    if(response.errorStatus == false) {
+                        $scope.bName = '';
+                        $scope.bAuthorName = '';
+                        $scope.bCode = '';
+                        $scope.bPrice = '';
+                        $scope.bRackNumber = '';
+                        $scope.error_status = response.errorStatus;
+                        $scope.error_messages = response.errorMessage;
+                    }
+                });
+            } else {
+                $location.path('/login');
+            }
+        },
+        updateBook: function($scope) {
+            data = {
+                'book_name' : $scope.bookData.book_name,
+                'author_name' : $scope.bookData.author_name,
+                'book_code' : $scope.bookData.book_code,
+                'number_of_books' : $scope.bookData.no_of_books,
+                'price' : $scope.bookData.price,
+                'rack_no' : $scope.bookData.rack_no,
+                'book_id' : $scope.bookData.id
+            };
+            if ($rootScope.globals.authUser.isAdmin) {
+                apiServices.process("post", "bookUpdate", data).then(function(response){
+                    $scope.error_status = response.errorStatus;
+                    $scope.error_messages = response.errorMessage;
                 });
             } else {
                 $location.path('/login');

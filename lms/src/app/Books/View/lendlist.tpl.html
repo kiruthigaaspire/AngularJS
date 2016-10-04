@@ -1,7 +1,6 @@
-<div ng-include src="'../src/app/Api/View/errorMessage.tpl.html'"></div>
 <div ng-include src="'../src/app/Api/View/topNav.tpl.html'"></div>
-    <h2> My Books </h2>
-    Search By Book Name : <b>{{bookName}}</b>
+    <h2> My Lend Books </h2>
+    Search By Book Name:{{bookName}}
     <br/>
         <input type="text" ng-model="bookName" />
     <br/>
@@ -30,7 +29,7 @@
             <td>{{book.book_code}}</td>
             <td>{{book.rack_no}}</td>
             <td>{{book.book_return_date}}</td>
-            <td><b>{{book.book_status ==1 ? "Waiting for Approval" : "Approved"}}</b></td>
+            <td>{{book.book_status ==1 ? "Waiting for Approval" : "Approved"}}</td>
             <td><a class="btn btn-warning" href="javascript:void(0);" ng-click="returnBook(book);">Return</a></td>
             
         </tr>
