@@ -2,19 +2,19 @@ angular.module('app.books').factory('apiServices', ['$http', '$q', function ($ht
     return {
         process: function(method, action, data) {
             var deferred = $q.defer();
-            var request = "";
+            var httpRequest = "";
             if(method == "post"){
-                request = $http.post('../services/'+action, data);
+                httpRequest = $http.post('../services/'+action, data);
             } else {
-                request = $http.get('../services/'+action);
+                httpRequest = $http.get('../services/'+action);
             }
-            request.success(function(data, status, headers, config)
+            httpRequest.success(function(data, status, headers, config)
             {
                 deferred.resolve(data);
             })
             .error(function(data, status, headers, config)
             {
-                console.log('error');
+                console.log('unexpected error');
             });
             return deferred.promise;
         },

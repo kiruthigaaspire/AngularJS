@@ -27,6 +27,14 @@ angular.module('app.user', [
                                     templateUrl: 'User/View/login.tpl.html'
                                   }
                                 },  
+                              }).state( 'userEdit', {
+                                  url: '/user/edit/:id',
+                                  views: {
+                                    "main": {
+                                      controller: 'userRegistrationController',
+                                      templateUrl: 'User/View/userEdit.tpl.html'
+                                    }
+                                  },  
                               });
                             }
                           );

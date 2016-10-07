@@ -25,6 +25,17 @@ angular.module('app.books').factory('bookService', ['$http', '$rootScope', 'apiS
                 $location.path('/login');
             }
         }, 
+        waitingBookList: function($scope) {
+            if($rootScope.globals.authUser != undefined) {
+                data = { };
+                apiServices.process("post", "waitingBookList", data).then(function(response){
+                    $scope.bookList = response.book;
+              
+                });
+            } else {
+                $location.path('/login');
+            }
+        }, 
         lendbookList: function($scope) {
             data = { };
             if($rootScope.globals.authUser != undefined) {

@@ -10,6 +10,8 @@ controller( 'bookController', ['$scope', '$http', '$location', '$state', '$state
             bookService.bookList($scope);
         } else if (ActiveState == "myBooks") {
             bookService.mybookList($scope);
+        } else if (ActiveState == "waitingBooks") {
+            bookService.waitingBookList($scope);
         } else if (ActiveState == "viewBook") {
             bookService.viewBook($scope, $stateParams);
         } else if (ActiveState == "editBook") {

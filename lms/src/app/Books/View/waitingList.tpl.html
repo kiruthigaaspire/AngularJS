@@ -1,12 +1,12 @@
 <div ng-include src="'../src/app/Api/View/topNav.tpl.html'"></div>
 <div ng-include src="'../src/app/Api/View/errorMessage.tpl.html'"></div>
-    <h2> My Lend Books </h2>
-    Search By Book Name:{{bookName}}
+    <h2>Waiting Books List</h2>
+    Search By Book Name : <b>{{bookName}}</b>
     <br/>
         <input type="text" ng-model="bookName" />
     <br/>
 <div class="panel panel-default">
-    <div class="panel-heading">My Lend books</div>
+    <div class="panel-heading">List of Available books</div>
     <table class="table table-bordered table-striped" style="border:1px;">
     <thead>
         <tr>
@@ -16,8 +16,6 @@
             <th>Price</th>
             <th>Code</th>
             <th>Book Rack No</th>
-            <th>Book Return Date</th>
-            <th>Status</th>
             <th>Action</th>
         </tr>
     </thead>
@@ -29,10 +27,12 @@
             <td>{{book.price}}</td>
             <td>{{book.book_code}}</td>
             <td>{{book.rack_no}}</td>
-            <td>{{book.book_return_date}}</td>
-            <td>{{book.book_status ==1 ? "Waiting for Approval" : "Approved"}}</td>
-            <td><a class="btn btn-warning" href="javascript:void(0);" ng-click="returnBook(book);">Return</a></td>
-            
+            <td>
+            <a class="btn btn-info" ng-if="user.isAdmin == 1" href="#/book/edit/{{book.id}}">Edit</a>&nbsp;
+            <a class="btn btn-danger" ng-if="user.isAdmin == 1" href="javascript:void(0);" ng-click="deleteBook(book);">Delete</a>&nbsp;
+            <a class="btn btn-info" ng-if="user.isAdmin != 1 && book.book_status < 1" href="javascript:void(0);" ng-click="lendBook(book,user);">Lend</a>&nbsp;
+            <a ng-if="user.isAdmin == 1 && book.book_status == 1" class="btn btn-success" href="javascript:void(0);" ng-click="approveBook(book);">Approve</a>
+            &nbsp; &nbsp;<a class="btn btn-danger" ng-if="user.isAdmin == 1 && book.book_status >= 1" href="javascript:void(0);" ng-click="rejectBook(book);">Reject</a></td>
         </tr>
     </tbody> 
     </table>

@@ -1,0 +1,34 @@
+<div ng-include src="'../src/app/Api/View/topNav.tpl.html'"></div>
+<div ng-include src="'../src/app/Api/View/errorMessage.tpl.html'"></div>
+<!-- Main Form -->
+    <div><h2> Edit User </h2></div>
+<div class="col-md-4"></div>
+<div class="user-form-1 col-md-4">
+    <form id="userForm" ng-submit="updateUser()" name="userForm" autocomplete="off" class="text-left">
+        <div class="user-form-main-message"></div>
+        <div class="main-user-form">
+            <div class="user-group">
+                <div class="form-group"><b>Email address </b>: {{userData.email_id}}
+                </div>
+                <div class="form-group"><b>Name </b>: {{userData.name}}
+                </div>
+                <div class="form-group"><b>Auth Key</b> : {{userData.user_auth_key}}
+                </div>
+                <div class="form-group"><b>Address</b> : {{userData.address}}
+                </div>
+                <div class="form-group">
+                    <label for="password">New Password</label>
+                    <input type="password" class="form-control" required ng-model="password" id="password" name="password" placeholder="Enter your new Password">
+                </div>
+                <div class="form-group">
+                    <label for="mobile">Mobile No</label>
+                    <input type="text" class="form-control" required ng-model="userData.phone_no" id="mobile" maxlength="10" name="mobile" value="" placeholder="mobile no">
+                    <input type="hidden" class="form-control" required ng-model="userData.id" id="id"  name="id" value="{{userData.id}}">
+                </div>
+                
+            </div>
+            <button type="submit" class="btn btn-success">Save <i class="fa fa-chevron-right"></i></button>
+        </div>
+    </form>
+</div>
+<!-- end:Main Form -->

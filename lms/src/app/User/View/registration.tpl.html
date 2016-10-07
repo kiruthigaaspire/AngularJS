@@ -3,22 +3,31 @@
     <div><h2> User Registration </h2></div>
 <div class="col-md-8"></div>
 <div class="registration-form-1 col-md-4">
-    <form id="registrationForm" ng-submit="registration()" name="registrationForm" autocomplete="off" novalidate class="text-left">
+    <form id="registrationForm" ng-submit="registration()" name="registrationForm" autocomplete="off" class="text-left">
         <div class="registration-form-main-message"></div>
         <div class="main-registration-form">
             <div class="registration-group">
                 <div class="form-group">
-                    <label for="name">Name</label>
+                    <label for="name">Name *</label>
                     <input type="text" class="form-control" required ng-model="name" id="name" name="name" placeholder="Name">
+                    <span class="alert-danger" ng-show="registrationForm.name.$dirty && registrationForm.name.$invalid">
+                        <span ng-show="registrationForm.name.$error.required">Name is required.</span>
+                    </span>
                 </div>
                 <div class="form-group">
-                    <label for="email">Email address</label>
-                    <input type="email" class="form-control" required ng-model="email" id="email" name="email" placeholder="enter your email address">
+                    <label for="email">Email Address *</label>
+                    <input type="email" class="form-control" required ng-model="email" id="email" name="email" placeholder="email address">
+                    <span class="alert-danger" ng-show="registrationForm.email.$dirty && registrationForm.email.$invalid">
+                        <span ng-show="registrationForm.email.$error.required">Email address is required.</span>
+                    </span>
                 </div>
 
                 <div class="form-group">
-                    <label for="password">Password</label>
+                    <label for="password">Password *</label>
                     <input type="password" class="form-control" required ng-model="password" id="password" name="password" placeholder="password">
+                    <span class="alert-danger" ng-show="registrationForm.password.$dirty && registrationForm.password.$invalid">
+                        <span ng-show="registrationForm.password.$error.required">Password is required.</span>
+                    </span>
                 </div>
                                 <div class="form-group">
                     <label for="address">Address</label>
@@ -28,10 +37,10 @@
                     <input type="number" class="form-control" ng-model="mobile" id="mobile" name="address" placeholder="Fill your mobile no">
                 </div>
             </div>
-            <button type="submit" class="btn btn-success">User Register <i class="fa fa-chevron-right"></i></button>
+            <button type="submit" class="btn btn-success" ng-disabled="registrationForm.$invalid">Sign Up <i class="fa fa-chevron-right"></i></button>
         </div>
         <div class="etc-registration-form">
-            <p>Esisting user ? <a href="#/userlogin">Sign In</a></p>
+            <p>Existing user ? <a href="#/userlogin">Sign In</a></p>
         </div>
     </form>
 </div>

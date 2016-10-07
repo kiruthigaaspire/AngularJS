@@ -19,7 +19,15 @@ angular.module('app.books', [
             templateUrl: 'Books/View/mylist.tpl.html'
           }
         },  
-      }).state( 'lendBooks', {
+      }).state( 'waitingBooks', {
+          url: '/waitingBooks',
+          views: {
+            "main": {
+              controller: 'bookController',
+              templateUrl: 'Books/View/waitingList.tpl.html'
+            }
+          },  
+        }).state( 'lendBooks', {
           url: '/lendBooks',
           views: {
             "main": {

@@ -48,6 +48,31 @@ angular.module('app.user').factory('userService', ['$http', '$rootScope', '$loca
                     $location.path('/registration');
                 } 
             });
+        },
+        userEdit: function($scope, param) {
+            console.log('edut service');
+            data = {
+                    'id' : param.id
+                };
+            console.log('edut service');
+            apiServices.process("post", "userDetail", data).then(function(response){
+                $scope.userData = response;
+            });
+        },
+        updateUser: function($scope) {
+            data = {
+                'password' : $scope.password,
+                'mobile' : $scope.userData.phone_no,
+                'id' : $scope.userData.id
+            };
+            if ($rootScope.globals.authUser.isAdmin) {
+                apiServices.process("post", "userUpdate", data).then(function(response){
+                    $scope.error_status = response.errorStatus;
+                    $scope.error_messages = response.errorMessage;
+                });
+            } else {
+                $location.path('/login');
+            }
         }
     };
 }]);
